@@ -483,8 +483,6 @@ NSMutableArray *undoImageArray;
         lx = lastPoint.x;
         ly = lastPoint.y;
         
-        [self getMyCords:x cord2:y cord3:lx cord4:ly];
-        
         //NSLog(@"x = %i || y = %i || lastx = %i || lasty = %i", x, y, lx, ly);
         
         UIGraphicsBeginImageContext(self.view.frame.size);
@@ -492,12 +490,14 @@ NSMutableArray *undoImageArray;
         /**/ CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
         /**/ CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush );
+        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush);
         CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, 1.0);
         CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
     
         /**/ CGContextStrokePath(UIGraphicsGetCurrentContext());
         /**/ self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
+        
+        [self getMyCords:x cord2:y cord3:lx cord4:ly brush:brush red:red green:green blue:blue];
         
         [self.mainImage setAlpha:opacity];
         
@@ -593,8 +593,6 @@ NSMutableArray *undoImageArray;
     NSLog(@"Array size : %ld",total);
     NSLog(@"%lu", captureDrawing.count);
     
-    //NSLog(@"array: %@", captureDrawing);
-    
     for (int i = 0; i < captureDrawing.count; i++)
     {
         
@@ -602,8 +600,13 @@ NSMutableArray *undoImageArray;
         NSString *Cy = [[captureDrawing objectAtIndex:i] objectForKey:@"y"];
         NSString *lastx = [[captureDrawing objectAtIndex:i] objectForKey:@"lastx"];
         NSString *lasty = [[captureDrawing objectAtIndex:i] objectForKey:@"lasty"];
+        NSString *bSize = [[captureDrawing objectAtIndex:i] objectForKey:@"brush"];
         
-        NSLog(@"Read: x = %@ y = %@ lx = %@ ly = %@", Cx, Cy, lastx, lasty);
+        NSString *redC = [[captureDrawing objectAtIndex:i] objectForKey:@"red"];
+        NSString *greenC = [[captureDrawing objectAtIndex:i] objectForKey:@"green"];
+        NSString *blueC = [[captureDrawing objectAtIndex:i] objectForKey:@"blue"];
+        
+        //NSLog(@"Read: x = %@ y = %@ lx = %@ ly = %@ b = %@ r = %@ g = %@ b = %@", Cx, Cy, lastx, lasty, bSize, redC, greenC, blueC);
         
     }
     
@@ -923,7 +926,7 @@ NSMutableArray *undoImageArray;
     
     mainImage.image = nil;
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:0.06 target:self selector:@selector(drbShowVid) userInfo:nil repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.04 target:self selector:@selector(drbShowVid) userInfo:nil repeats:YES];
     
 
 }
@@ -935,21 +938,31 @@ NSMutableArray *undoImageArray;
     NSString *Cy = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"y"];
     NSString *lastx = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"lastx"];
     NSString *lasty = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"lasty"];
+    NSString *bSize = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"brush"];
+    
+    NSString *redC = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"red"];
+    NSString *greenC = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"green"];
+    NSString *blueC = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"blue"];
     
     int x_int = [Cx intValue];
     int y_int = [Cy intValue];
     int last_x_int = [lastx intValue];
     int last_y_int = [lasty intValue];
+    float brush_size = [bSize floatValue];
     
-    NSLog(@"Read: x = %@ y = %@ lx = %@ ly = %@", Cx, Cy, lastx, lasty);
+    float redColor = [redC floatValue];
+    float greenColor = [greenC floatValue];
+    float blueColor = [blueC floatValue];
+    
+    //NSLog(@"Read: x = %@ y = %@ lx = %@ ly = %@", Cx, Cy, lastx, lasty);
     
     UIGraphicsBeginImageContext(self.view.frame.size);
     [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     CGContextMoveToPoint(UIGraphicsGetCurrentContext(), last_x_int, last_y_int); // lastX, lastY
     CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x_int, y_int); //x, y
     CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush );
-    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, 0, 0, 1.0);
+    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush_size);
+    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), redColor, greenColor, blueColor, 1.0);
     CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
     
     CGContextStrokePath(UIGraphicsGetCurrentContext());
@@ -1045,15 +1058,19 @@ NSMutableArray *undoImageArray;
     
 }
 
--(void) getMyCords: (int)currentX cord2:(int)currentY cord3:(int)lastx cord4:(int)lasty
+-(void) getMyCords: (int)currentX cord2:(int)currentY cord3:(int)lastx cord4:(int)lasty brush:(CGFloat)bSize red:(CGFloat)redC green:(CGFloat)greenC blue:(CGFloat)blueC
 {
     
-    NSLog(@"capture: x = %i y = %i lx = %i ly = %i", currentX, currentY, lastx, lasty);
+    //NSLog(@"capture: x = %i y = %i lx = %i ly = %i", currentX, currentY, lastx, lasty);
     
     id xId = [NSNumber numberWithInt:currentX];
     id yId = [NSNumber numberWithInt:currentY];
     id lxId = [NSNumber numberWithInt:lastx];
     id lyId = [NSNumber numberWithInt:lasty];
+    id bId = [NSNumber numberWithFloat:bSize];
+    id redId = [NSNumber numberWithFloat:redC];
+    id greenId = [NSNumber numberWithFloat:greenC];
+    id blueId = [NSNumber numberWithFloat:blueC];
     
     drawingDictionary = [[NSMutableDictionary alloc] init];
     
@@ -1061,7 +1078,11 @@ NSMutableArray *undoImageArray;
     [drawingDictionary setObject:yId forKey:@"y"];
     [drawingDictionary setObject:lxId forKey:@"lastx"];
     [drawingDictionary setObject:lyId forKey:@"lasty"];
-
+    [drawingDictionary setObject:bId forKey:@"brush"];
+    [drawingDictionary setObject:redId forKey:@"red"];
+    [drawingDictionary setObject:greenId forKey:@"green"];
+    [drawingDictionary setObject:blueId forKey:@"blue"];
+    
     [captureDrawing addObject:drawingDictionary];
     
 }
