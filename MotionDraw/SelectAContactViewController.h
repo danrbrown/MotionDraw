@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CanvasViewController.h"
+#import "CanvasViewController.h"
 
 @interface SelectAContactViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate> {
     
@@ -27,6 +28,7 @@
 @property IBOutlet UISearchBar *SearchBar;
 @property (weak, nonatomic) IBOutlet UITableView *validContactsTable;
 @property(nonatomic, assign) CanvasViewController *canvasViewController;
+@property (strong, nonatomic) NSMutableArray *captureArray;
 
 //Actions
 -(IBAction) cancel;

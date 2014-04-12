@@ -23,7 +23,7 @@ extern long iconBadge;
 extern BOOL sentImage;
 extern NSMutableArray *undoImageArray;
 
-@interface CanvasViewController : UIViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate> {
+@interface CanvasViewController : UIViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIAlertViewDelegate> {
     
     //Variables for drawing
     CGPoint lastPoint;
@@ -65,6 +65,8 @@ extern NSMutableArray *undoImageArray;
     UIImagePickerController *imagePicker;
     UIImagePickerController *picturePicker;
     
+    IBOutlet UIProgressView *progress;
+    
     //Outlets for view
     IBOutlet UIButton *undoB;
     IBOutlet UIButton *trashB;
@@ -75,6 +77,7 @@ extern NSMutableArray *undoImageArray;
     IBOutlet UIButton *drawB;
     IBOutlet UIButton *stopB;
     IBOutlet UIButton *restartB;
+    IBOutlet UIButton *replayB;
     
     IBOutlet UIActivityIndicatorView *loading;
     IBOutlet UIImageView *sliderImage;

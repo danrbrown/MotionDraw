@@ -274,7 +274,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aIX-xn-cqq">
-                                <rect key="frame" x="3" y="456" width="66" height="63"/>
+                                <rect key="frame" x="3" y="460" width="61" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Reset.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -283,15 +283,8 @@
                                     <action selector="reset:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="sMi-hL-nKQ"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="Pei-j4-dxG">
-                                <rect key="frame" x="87" y="20" width="146" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="sliderChanged:" destination="2Kp-CN-lfG" eventType="valueChanged" id="Ddu-nO-LVh"/>
-                                </connections>
-                            </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="XrS-dY-ARZ">
-                                <rect key="frame" x="72" y="468" width="47" height="45"/>
+                                <rect key="frame" x="273" y="317" width="47" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="undoButton.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -301,7 +294,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2Rt-fV-QTj">
-                                <rect key="frame" x="120" y="469" width="38" height="43"/>
+                                <rect key="frame" x="280" y="365" width="38" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="TrashButton.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -310,6 +303,20 @@
                                     <action selector="clear:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="UrQ-Eu-Wls"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KoQ-aO-BsI">
+                                <rect key="frame" x="72" y="470" width="92" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Replay.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="replay:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="8Lv-ev-kG5"/>
+                                </connections>
+                            </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" id="ZbI-J7-RS2">
+                                <rect key="frame" x="12" y="25" width="257" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -320,10 +327,11 @@
                         <outlet property="currentColorImage" destination="Dhp-PA-pba" id="rAC-lR-0qm"/>
                         <outlet property="drawB" destination="e9h-Rw-NuY" id="3yB-yb-bBS"/>
                         <outlet property="mainImage" destination="Ktt-qL-5WB" id="aRv-QJ-fg6"/>
+                        <outlet property="progress" destination="ZbI-J7-RS2" id="EHP-M9-jcZ"/>
+                        <outlet property="replayB" destination="KoQ-aO-BsI" id="n9L-aS-Owu"/>
                         <outlet property="restartB" destination="aIX-xn-cqq" id="Nn9-63-0p5"/>
                         <outlet property="sendB" destination="fiK-rM-BBR" id="90V-C6-4Pl"/>
                         <outlet property="sliderImage" destination="JqE-Z3-IEX" id="ed8-8t-WfK"/>
-                        <outlet property="speed" destination="Pei-j4-dxG" id="Qq3-XL-FPX"/>
                         <outlet property="stopB" destination="Tgc-Ha-kmI" id="pFy-QW-50k"/>
                         <outlet property="trashB" destination="2Rt-fV-QTj" id="1IE-Rj-HDp"/>
                         <outlet property="undoB" destination="XrS-dY-ARZ" id="1dr-jq-Emc"/>
@@ -1211,6 +1219,20 @@
                                     <action selector="close:" destination="n3a-QS-gwa" eventType="touchUpInside" id="eFc-T2-ZGH"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kHB-nY-U8s">
+                                <rect key="frame" x="4" y="524" width="92" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Replay.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="replay:" destination="n3a-QS-gwa" eventType="touchUpInside" id="r4K-89-mhw"/>
+                                </connections>
+                            </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" id="DpL-yp-sr7">
+                                <rect key="frame" x="49" y="30" width="257" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -1221,6 +1243,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="mainThreadImage" destination="wG9-Yq-XdK" id="6k8-VR-7Mv"/>
+                        <outlet property="progress" destination="DpL-yp-sr7" id="k1r-2r-k4T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aka-aW-9yf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1307,6 +1330,7 @@
         <image name="FriendsIcon.png" width="47" height="47"/>
         <image name="LoginButton.png" width="258" height="145"/>
         <image name="NewTraceIcon.png" width="50" height="50"/>
+        <image name="Replay.png" width="199" height="73"/>
         <image name="RequestsIcon.png" width="50" height="50"/>
         <image name="Reset.png" width="100" height="112"/>
         <image name="SentTrace.png" width="157" height="109"/>

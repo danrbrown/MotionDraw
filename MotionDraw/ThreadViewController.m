@@ -159,16 +159,15 @@
             for (PFObject *myImages in objects)
             {
             
-                PFFile *imageFile = [myImages objectForKey:@"image"];
-                imageFile = [myImages objectForKey:@"image"];
+                capArray = [[NSMutableArray alloc] init];
                 
-                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                    
+                capArray = [myImages objectForKey:@"imgVid"];
+                
+                
                     if (!error)
                     {
-
-                        UIImage *image = [UIImage imageWithData:data];
-                        mainThreadImage.image = image;
+                        
+                        [self drbCallVid];
                         
                         [loadingTrace stopAnimating];
                         [_hudView removeFromSuperview];
@@ -187,15 +186,12 @@
                                                                 
                             }
                             
-                            
                             [myImages setObject:@"O"forKey:@"status"];
                             [traceObject setObject:@"O"forKey:@"status"];
                             [myImages saveInBackground];
                             
                         }
                     }
-                    
-                }];
                 
             }
             
@@ -209,6 +205,105 @@
     }];
     
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose: this method doesent give us a warning when the user draws.
+//
+//----------------------------------------------------------------------------------
+
+-(IBAction)replay:(id)sender
+{
+    
+    [threadTimer invalidate];
+    
+    threadTimerInt = 0;
+    
+    mainThreadImage.image = nil;
+    
+    threadTimer = [NSTimer scheduledTimerWithTimeInterval:0.04f target:self selector:@selector(drbShowVid) userInfo:nil repeats:YES];
+    
+}
+
+-(void) drbCallVid
+{
+    
+    threadTimerInt = 0;
+    
+    mainThreadImage.image = nil;
+    
+    speed = 0.04f;
+    
+    threadTimer = [NSTimer scheduledTimerWithTimeInterval:speed target:self selector:@selector(drbShowVid) userInfo:nil repeats:YES];
+    
+}
+
+-(void) drbShowVid
+{
+    
+    progress.progress = progress.progress + 0.0009;
+    
+    progress.tintColor = [UIColor blackColor];
+    
+    if (progress.progress > 0.6 && progress.progress < 0.8)
+    {
+        
+        progress.tintColor = [UIColor yellowColor];
+        
+        
+    }
+    else if (progress.progress > 0.8)
+    {
+        
+        progress.tintColor = [UIColor redColor];
+        
+    }
+    
+    NSString *Cx = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"x"];
+    NSString *Cy = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"y"];
+    NSString *lastx = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"lastx"];
+    NSString *lasty = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"lasty"];
+    NSString *bSize = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"brush"];
+    
+    NSString *redC = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"red"];
+    NSString *greenC = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"green"];
+    NSString *blueC = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"blue"];
+    
+    int x_int = [Cx intValue];
+    int y_int = [Cy intValue];
+    int last_x_int = [lastx intValue];
+    int last_y_int = [lasty intValue];
+    float brush_size = [bSize floatValue];
+    
+    float redColor = [redC floatValue];
+    float greenColor = [greenC floatValue];
+    float blueColor = [blueC floatValue];
+    
+    //NSLog(@"Read: x = %@ y = %@ lx = %@ ly = %@", Cx, Cy, lastx, lasty);
+    
+    UIGraphicsBeginImageContext(self.view.frame.size);
+    [self.mainThreadImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), last_x_int, last_y_int); // lastX, lastY
+    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x_int, y_int); //x, y
+    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush_size);
+    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), redColor, greenColor, blueColor, 1.0);
+    CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
+    
+    CGContextStrokePath(UIGraphicsGetCurrentContext());
+    self.mainThreadImage.image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    threadTimerInt += 1;
+    
+    if (threadTimerInt == capArray.count)
+    {
+        [threadTimer invalidate];
+    }
+    
+}
+
 
 //----------------------------------------------------------------------------------
 //

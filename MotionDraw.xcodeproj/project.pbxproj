@@ -100,6 +100,7 @@
 		9C59DC7318F4ECDE0031829F /* StartUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C59DC6E18F4ECDE0031829F /* StartUpViewController.m */; };
 		9C59DC7518F4EDFB0031829F /* Stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C59DC7418F4EDFB0031829F /* Stop.png */; };
 		9C79600818F5F4E700D3A84D /* Reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C79600718F5F4E700D3A84D /* Reset.png */; };
+		9C79600A18F9833E00D3A84D /* Replay.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C79600918F9833E00D3A84D /* Replay.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -234,6 +235,7 @@
 		9C59DC6E18F4ECDE0031829F /* StartUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StartUpViewController.m; path = MotionDraw/StartUpViewController.m; sourceTree = "<group>"; };
 		9C59DC7418F4EDFB0031829F /* Stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stop.png; sourceTree = "<group>"; };
 		9C79600718F5F4E700D3A84D /* Reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Reset.png; sourceTree = "<group>"; };
+		9C79600918F9833E00D3A84D /* Replay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Replay.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -431,6 +433,7 @@
 		9C59DBC018F4E2A10031829F /* other */ = {
 			isa = PBXGroup;
 			children = (
+				9C79600918F9833E00D3A84D /* Replay.png */,
 				9C79600718F5F4E700D3A84D /* Reset.png */,
 				9C59DC7418F4EDFB0031829F /* Stop.png */,
 				9C59DC3F18F4EBA50031829F /* DrawButton.png */,
@@ -664,6 +667,7 @@
 				9C59DBF618F4E2A10031829F /* SentNotOpened.png in Resources */,
 				9C59DBE518F4E2A10031829F /* WelcomeImage.png in Resources */,
 				9C59DBFB18F4E2A10031829F /* undoButton.png in Resources */,
+				9C79600A18F9833E00D3A84D /* Replay.png in Resources */,
 				9C59DBF818F4E2A10031829F /* SettingsIcon@2x.png in Resources */,
 				9C59DBE318F4E2A10031829F /* Tutorial(2).png in Resources */,
 			);

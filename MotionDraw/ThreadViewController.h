@@ -25,6 +25,14 @@
     //Undo
     UIImage *undoThreadImage;
     NSMutableArray *undoThreadImageArray;
+    IBOutlet UIProgressView *progress;
+    
+    double speed;
+    
+    NSMutableArray *capArray;
+    
+    NSTimer *threadTimer;
+    int threadTimerInt;
     
     //Variables
     IBOutlet UIButton *undoB;

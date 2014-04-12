@@ -39,6 +39,8 @@
 -(void) viewDidLoad
 {
     
+    NSLog(@"capture array in viewdidload %@", self.captureArray);
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveContactsLoadedNotification:)
                                                  name:@"ContactsLoadedNotification"
@@ -328,7 +330,6 @@
     
     PFObject *imageObject = [PFObject objectWithClassName:@"TracesObject"];
     
-    [imageObject setObject:file forKey:@"image"];
     [imageObject setObject:[PFUser currentUser].username forKey:@"fromUser"];
     [imageObject setObject:@"YES" forKey:@"fromUserDisplay"];
     [imageObject setObject:[PFUser currentUser].username forKey:@"lastSentBy"];
@@ -336,6 +337,7 @@
     [imageObject setObject:tempContact forKey:@"toUser"];
     [imageObject setObject:@"YES" forKey:@"toUserDisplay"];
     [imageObject setObject:@"P"forKey:@"status"];
+    [imageObject setObject:self.captureArray forKey:@"imgVid"];
     
     [(APP).tracesArray insertObject:imageObject atIndex:0];
     

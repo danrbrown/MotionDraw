@@ -11,7 +11,7 @@
 //----------------------------------------------------------------------------------
 
 #import "CanvasViewController.h"
-//#import "SelectAContactViewController.h"
+#import "SelectAContactViewController.h"
 //#import "FirstPageViewController.h"
 //#import "tracesViewController.h"
 #import "AppDelegate.h"
@@ -78,6 +78,8 @@ NSMutableArray *undoImageArray;
     currentColorImage.layer.borderColor = [UIColor blackColor].CGColor;
     currentColorImage.layer.borderWidth = 3.0;
     
+    progress.tintColor = [UIColor blackColor];
+    
     imagesArray = [[NSMutableArray alloc] init];
     
     CGAffineTransform trans = CGAffineTransformMakeRotation(M_PI * 1.5);
@@ -135,6 +137,10 @@ NSMutableArray *undoImageArray;
     [restartB setHidden:YES];
     [stopB setHidden:YES];
     [speed setHidden:YES];
+    [undoB setHidden:YES];
+    [trashB setHidden:YES];
+    [replayB setHidden:YES];
+    [progress setHidden:YES];
     
     canDraw = NO;
     
@@ -393,6 +399,19 @@ NSMutableArray *undoImageArray;
     
 }
 
+-(IBAction)replay:(id)sender
+{
+    
+    [timer invalidate];
+    
+    timerInt = 0;
+    
+    mainImage.image = nil;
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.04f target:self selector:@selector(drbShowVid) userInfo:nil repeats:YES];
+    
+}
+
 //----------------------------------------------------------------------------------
 //
 // Name: undo
@@ -404,14 +423,14 @@ NSMutableArray *undoImageArray;
 -(IBAction) undo:(id)sender
 {
     
-    if (onlyUndoImageArray.count > 0)
+    if (undoImageArray.count > 0)
     {
         
-        onlyUndoImage = [onlyUndoImageArray lastObject];
+        undoImage = [undoImageArray lastObject];
         
-        [onlyUndoImageArray removeLastObject];
+        [undoImageArray removeLastObject];
         
-        mainImage.image = onlyUndoImage;
+        mainImage.image = undoImage;
         
     }
     
@@ -446,17 +465,12 @@ NSMutableArray *undoImageArray;
         CGPoint currentPoint = [touch locationInView:self.view];
         lastPoint = [touch locationInView:self.view];
         
+        UIGraphicsBeginImageContextWithOptions(mainImage.bounds.size, NO, 0.0);
+        [mainImage.image drawInRect:CGRectMake(0, 0, mainImage.frame.size.width, mainImage.frame.size.height)];
+        undoImage = UIGraphicsGetImageFromCurrentImageContext();
+        [undoImageArray addObject:undoImage];
+     
         [self getMyCords:currentPoint.x cord2:currentPoint.y cord3:lastPoint.x cord4:lastPoint.y brush:brush red:red green:green blue:blue];
-        
-//        UIGraphicsBeginImageContextWithOptions(mainImage.bounds.size, NO, 0.0);
-//        [mainImage.image drawInRect:CGRectMake(0, 0, mainImage.frame.size.width, mainImage.frame.size.height)];
-//        onlyUndoImage = UIGraphicsGetImageFromCurrentImageContext();
-//        [onlyUndoImageArray addObject:onlyUndoImage];
-//        
-//        UIGraphicsBeginImageContextWithOptions(mainImage.bounds.size, NO, 0.0);
-//        [mainImage.image drawInRect:CGRectMake(0, 0, mainImage.frame.size.width, mainImage.frame.size.height)];
-//        undoImage = UIGraphicsGetImageFromCurrentImageContext();
-//        [undoImageArray addObject:undoImage];
         
     }
     
@@ -510,42 +524,40 @@ NSMutableArray *undoImageArray;
         
         [self hide];
         
-        UIGraphicsBeginImageContextWithOptions(mainImage.bounds.size, NO, 0.0);
-        [mainImage.image drawInRect:CGRectMake(0, 0, mainImage.frame.size.width, mainImage.frame.size.height)];
-        undoImage = UIGraphicsGetImageFromCurrentImageContext();
-        [undoImageArray addObject:undoImage];
-    
+        progress.progress = progress.progress + 0.0009;
         
+       // NSLog(@"%f", progress.progress);
         
-    }
-    else
-    {
+        if (progress.progress == 1)
+        {
+            
+            progress.progress = 0;
+            
+            canDraw = NO;
+            
+            UIAlertView *stopDrawing = [[UIAlertView alloc] initWithTitle:@"Your done!" message:@"You must stop drawing" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+         
+            [stopDrawing show];
+            
+            [progress setHidden:NO];
+            
+            [self stop:nil];
+            
+        }
+        else if (progress.progress > 0.6 && progress.progress < 0.8)
+        {
+            
+            progress.tintColor = [UIColor yellowColor];
+            
+            
+        }
+        else if (progress.progress > 0.8)
+        {
+            
+            progress.tintColor = [UIColor redColor];
+            
+        }
         
-        mouseSwiped = YES;
-        
-        UITouch *touch = [touches anyObject];
-        CGPoint currentPoint = [touch locationInView:self.view];
-        
-        UIGraphicsBeginImageContext(self.view.frame.size);
-        [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
-        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
-        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush );
-        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), 255, 255, 255, 1.0);
-        CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
-        
-        CGContextStrokePath(UIGraphicsGetCurrentContext());
-        self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
-        
-        [self.mainImage setAlpha:opacity];
-        
-        UIGraphicsEndImageContext();
-        
-        lastPoint = currentPoint;
-        
-        [self hide];
-
     }
 
 }
@@ -596,6 +608,7 @@ NSMutableArray *undoImageArray;
     NSLog(@"Array size : %ld",total);
     NSLog(@"%lu", captureDrawing.count);
     
+    
 }
 
 //----------------------------------------------------------------------------------
@@ -619,6 +632,13 @@ NSMutableArray *undoImageArray;
         UIGraphicsEndImageContext();
         
         file = [PFFile fileWithName:@"img" data:pictureData];
+        
+        UINavigationController *navigationController = segue.destinationViewController;
+        SelectAContactViewController *controller = (SelectAContactViewController *)navigationController.topViewController;
+        controller.captureArray = captureDrawing;
+        
+        NSLog(@"capture array in prepareForSegue %@", captureDrawing);
+
         
     }
     
@@ -764,6 +784,7 @@ NSMutableArray *undoImageArray;
 -(IBAction) send:(id)sender
 {
     
+    //[self reset:nil];
     [self performSegueWithIdentifier:@"selectAContact" sender:self];
     
 }
@@ -792,6 +813,14 @@ NSMutableArray *undoImageArray;
     
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 -(void) hide
 {
     
@@ -808,13 +837,20 @@ NSMutableArray *undoImageArray;
     [colorValue setAlpha:0];
     [brushSize setAlpha:0];
     [undoB setAlpha:0];
-    [sendB setAlpha:0];
     [undoB setAlpha:0];
     [currentColorImage setAlpha:0];
     [sliderImage setAlpha:0];
     [UIView commitAnimations];
     
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 -(void) loadingSave
 {
@@ -862,6 +898,14 @@ NSMutableArray *undoImageArray;
     
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 -(void) fade
 {
     
@@ -873,12 +917,29 @@ NSMutableArray *undoImageArray;
     
 
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 - (IBAction)HideTut:(UITapGestureRecognizer *)sender
 {
 
     [tutorialImage setHidden:YES];
     
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 -(IBAction)draw:(id)sender
 {
@@ -889,36 +950,116 @@ NSMutableArray *undoImageArray;
     [brushSize setHidden:NO];
     [stopB setHidden:NO];
     [drawB setHidden:YES];
+    [undoB setHidden:NO];
+    [trashB setHidden:NO];
+    [progress setHidden:NO];
     
     canDraw = YES;
     
 }
 
--(IBAction)stop:(id)sender
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(IBAction)reset:(id)sender
 {
     
-    canDraw = NO;
+    progress.progress = 0;
     
+    [timer invalidate];
+   
     [currentColorImage setHidden:YES];
     [sliderImage setHidden:YES];
     [colorValue setHidden:YES];
     [brushSize setHidden:YES];
-    [sendB setHidden:NO];
+    [sendB setHidden:YES];
     [stopB setHidden:YES];
-    [drawB setHidden:YES];
-    [restartB setHidden:NO];
+    [drawB setHidden:NO];
+    [restartB setHidden:YES];
+    [replayB setHidden:YES];
+    [progress setHidden:NO];
     
-    timerInt = 0;
-    
+    [undoRecordImageArray removeAllObjects];
+    [undoImageArray removeAllObjects];
+    [captureDrawing removeAllObjects];
     mainImage.image = nil;
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:0.04 target:self selector:@selector(drbShowVid) userInfo:nil repeats:YES];
-    
-
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(IBAction)stop:(id)sender
+{
+    NSLog(@"capture array in stop %@", captureDrawing);
+
+    progress.progress = 0;
+    
+    if (captureDrawing.count > 0)
+    {
+        canDraw = NO;
+        
+        [currentColorImage setHidden:YES];
+        [sliderImage setHidden:YES];
+        [colorValue setHidden:YES];
+        [brushSize setHidden:YES];
+        [sendB setHidden:NO];
+        [stopB setHidden:YES];
+        [drawB setHidden:YES];
+        [restartB setHidden:NO];
+        [undoB setHidden:YES];
+        [trashB setHidden:YES];
+        [replayB setHidden:NO];
+        
+        timerInt = 0;
+        
+        mainImage.image = nil;
+        
+        drawSpeed = 0.04f;
+        
+        timer = [NSTimer scheduledTimerWithTimeInterval:drawSpeed target:self selector:@selector(drbShowVid) userInfo:nil repeats:YES];
+    }
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 -(void) drbShowVid
 {
+    
+    progress.progress = progress.progress + 0.0009;
+    
+    progress.tintColor = [UIColor blackColor];
+    
+    if (progress.progress > 0.6 && progress.progress < 0.8)
+    {
+        
+        progress.tintColor = [UIColor yellowColor];
+        
+        
+    }
+    else if (progress.progress > 0.8)
+    {
+        
+        progress.tintColor = [UIColor redColor];
+        
+    }
     
     NSString *Cx = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"x"];
     NSString *Cy = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"y"];
@@ -963,86 +1104,13 @@ NSMutableArray *undoImageArray;
     
 }
 
--(void) showVid
-{
-    
-    timerInt += 1;
-    
-    if (undoImageArray.count > 0)
-    {
-    
-        undoImage = [undoImageArray lastObject];
-        
-        [undoImageArray removeLastObject];
-        
-        mainImage.image = undoImage;
-        
-        [mainImage setHidden:YES];
-        
-        UIGraphicsBeginImageContextWithOptions(mainImage.bounds.size, NO, 0.0);
-        [mainImage.image drawInRect:CGRectMake(0, 0, mainImage.frame.size.width, mainImage.frame.size.height)];
-        undoRecordImage = UIGraphicsGetImageFromCurrentImageContext();
-        [undoRecordImageArray addObject:undoRecordImage];
-        
-    }
-    else
-    {
-    
-        [mainImage setHidden:NO];
-        
-        [timer invalidate];
-        
-        timerInt = 0;
-        
-        
-        
-        timerReal = [NSTimer scheduledTimerWithTimeInterval:0.03 target:self selector:@selector(showRealVid) userInfo:nil repeats:YES];
-        
-       
-        
-    }
-
-}
-
--(void) showRealVid
-{
-    
-    if (undoRecordImageArray.count > 0)
-    {
-    
-        undoRecordImage = [undoRecordImageArray lastObject];
-        
-        [undoRecordImageArray removeLastObject];
-        
-        mainImage.image = undoRecordImage;
-    
-    }
-    else
-    {
-        
-        [timerReal invalidate];
-        
-    }
-        
-}
-
--(IBAction)reset:(id)sender
-{
-    
-    [currentColorImage setHidden:YES];
-    [sliderImage setHidden:YES];
-    [colorValue setHidden:YES];
-    [brushSize setHidden:YES];
-    [sendB setHidden:YES];
-    [stopB setHidden:YES];
-    [drawB setHidden:NO];
-    [restartB setHidden:YES];
-    
-    [undoRecordImageArray removeAllObjects];
-    [undoImageArray removeAllObjects];
-    mainImage.image = nil;
-    
-}
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 -(void) getMyCords: (int)currentX cord2:(int)currentY cord3:(int)lastx cord4:(int)lasty brush:(CGFloat)bSize red:(CGFloat)redC green:(CGFloat)greenC blue:(CGFloat)blueC
 {
