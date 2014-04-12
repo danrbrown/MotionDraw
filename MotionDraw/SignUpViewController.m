@@ -172,7 +172,7 @@
                  [traceDefaults synchronize];
                  
                  [self establishLeaveATraceFriendship:user.username];
-                 [self establishFirstTrace:user.username];
+                 //[self establishFirstTrace:user.username];
                  
                  [loadTraces loadRequestsArray];
             

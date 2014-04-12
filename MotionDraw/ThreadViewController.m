@@ -288,6 +288,7 @@
     if (threadTimerInt == capArray.count)
     {
         [threadTimer invalidate];
+         progress.progress = 0;
     }
     
 }

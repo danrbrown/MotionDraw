@@ -603,7 +603,7 @@ NSMutableArray *undoImageArray;
     }
     
     NSLog(@"Array size : %ld",total);
-    NSLog(@"%lu", captureDrawing.count);
+    NSLog(@"%lu", (unsigned long)captureDrawing.count);
     
     
 }

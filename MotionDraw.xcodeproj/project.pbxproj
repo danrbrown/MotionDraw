@@ -598,6 +598,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = 15and50;
 				TargetAttributes = {
+					9C59DB3A18F4DBB00031829F = {
+						DevelopmentTeam = 69QHNGD4FM;
+					};
 					9C59DB5B18F4DBB00031829F = {
 						TestTargetID = 9C59DB3A18F4DBB00031829F;
 					};
@@ -838,6 +841,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"/Users/Ricky/Documents/MyStuff/AppProject II/MotionDraw\"",
 					"$(PROJECT_DIR)",
@@ -846,6 +851,7 @@
 				GCC_PREFIX_HEADER = "MotionDraw/MotionDraw-Prefix.pch";
 				INFOPLIST_FILE = "MotionDraw/MotionDraw-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -855,6 +861,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"/Users/Ricky/Documents/MyStuff/AppProject II/MotionDraw\"",
 					"$(PROJECT_DIR)",
@@ -863,6 +871,7 @@
 				GCC_PREFIX_HEADER = "MotionDraw/MotionDraw-Prefix.pch";
 				INFOPLIST_FILE = "MotionDraw/MotionDraw-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
