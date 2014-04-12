@@ -219,6 +219,8 @@
     
     [threadTimer invalidate];
     
+    progress.progress = 1.0;
+
     threadTimerInt = 0;
     
     mainThreadImage.image = nil;
@@ -243,23 +245,9 @@
 -(void) drbShowVid
 {
     
-    progress.progress = progress.progress + 0.0009;
+    progress.progress = progress.progress - (1.0 / capArray.count);
     
     progress.tintColor = [UIColor blackColor];
-    
-    if (progress.progress > 0.6 && progress.progress < 0.8)
-    {
-        
-        progress.tintColor = [UIColor yellowColor];
-        
-        
-    }
-    else if (progress.progress > 0.8)
-    {
-        
-        progress.tintColor = [UIColor redColor];
-        
-    }
     
     NSString *Cx = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"x"];
     NSString *Cy = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"y"];

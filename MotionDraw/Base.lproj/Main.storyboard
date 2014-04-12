@@ -1229,7 +1229,7 @@
                                     <action selector="replay:" destination="n3a-QS-gwa" eventType="touchUpInside" id="r4K-89-mhw"/>
                                 </connections>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" id="DpL-yp-sr7">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="1" id="DpL-yp-sr7">
                                 <rect key="frame" x="49" y="30" width="257" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </progressView>

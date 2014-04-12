@@ -399,10 +399,20 @@ NSMutableArray *undoImageArray;
     
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name: clear
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 -(IBAction)replay:(id)sender
 {
     
     [timer invalidate];
+    
+    progress.progress = 0;
     
     timerInt = 0;
     
@@ -542,19 +552,6 @@ NSMutableArray *undoImageArray;
             [progress setHidden:NO];
             
             [self stop:nil];
-            
-        }
-        else if (progress.progress > 0.6 && progress.progress < 0.8)
-        {
-            
-            progress.tintColor = [UIColor yellowColor];
-            
-            
-        }
-        else if (progress.progress > 0.8)
-        {
-            
-            progress.tintColor = [UIColor redColor];
             
         }
         
@@ -784,7 +781,21 @@ NSMutableArray *undoImageArray;
 -(IBAction) send:(id)sender
 {
     
-    //[self reset:nil];
+    progress.progress = 0;
+    
+    [timer invalidate];
+    
+    [currentColorImage setHidden:YES];
+    [sliderImage setHidden:YES];
+    [colorValue setHidden:YES];
+    [brushSize setHidden:YES];
+    [sendB setHidden:YES];
+    [stopB setHidden:YES];
+    [drawB setHidden:NO];
+    [restartB setHidden:YES];
+    [replayB setHidden:YES];
+    [progress setHidden:YES];
+    
     [self performSegueWithIdentifier:@"selectAContact" sender:self];
     
 }
@@ -982,7 +993,7 @@ NSMutableArray *undoImageArray;
     [drawB setHidden:NO];
     [restartB setHidden:YES];
     [replayB setHidden:YES];
-    [progress setHidden:NO];
+    [progress setHidden:YES];
     
     [undoRecordImageArray removeAllObjects];
     [undoImageArray removeAllObjects];
