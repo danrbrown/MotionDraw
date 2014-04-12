@@ -16,9 +16,6 @@ extern NSString *badgeString;
 extern NSInteger badgeInt;
 extern NSString *tracesBadgeString;
 extern NSInteger tracesBadgeInt;
-extern NSData *pictureData;
-extern UIImage *SaveImage;
-extern PFFile *file;
 extern long iconBadge;
 extern BOOL sentImage;
 extern NSMutableArray *undoImageArray;
@@ -50,13 +47,7 @@ extern NSMutableArray *undoImageArray;
     NSMutableArray *captureDrawing;
     NSMutableDictionary *drawingDictionary;
     
-    int x;
-    int y;
-    int lx;
-    int ly;
-    
     BOOL canDraw;
-    double drawSpeed;
     
     //Variables
     BOOL dontTrash;

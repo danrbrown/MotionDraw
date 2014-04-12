@@ -12,20 +12,14 @@
 
 #import "CanvasViewController.h"
 #import "SelectAContactViewController.h"
-//#import "FirstPageViewController.h"
-//#import "tracesViewController.h"
 #import "AppDelegate.h"
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import <Twitter/Twitter.h>
 #import <Parse/Parse.h>
-
 #import <objc/runtime.h>
 
 //Global variables
-UIImage *SaveImage;
-NSData *pictureData;
-PFFile *file;
 NSString *badgeString;
 NSString *tracesBadgeString;
 long iconBadge;
@@ -51,6 +45,9 @@ NSMutableArray *undoImageArray;
 -(void) viewDidLoad
 {
     
+#define SPEED 0.0009
+#define DRAW_SPEED 0.04
+    
     undoImageArray = [[NSMutableArray alloc] init];
     undoRecordImageArray = [[NSMutableArray alloc] init];
     onlyUndoImageArray = [[NSMutableArray alloc] init];
@@ -66,7 +63,6 @@ NSMutableArray *undoImageArray;
     
     colorValue.value = 0.640678;
     brushSize.value = brush;
-    drawSpeed = 0.04;
     NSLog(@"%f", speed.value);
     
     hue = 0.640678;
@@ -146,6 +142,14 @@ NSMutableArray *undoImageArray;
     
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name: viewWillAppear
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 -(BOOL) prefersStatusBarHidden
 {
 
@@ -169,6 +173,14 @@ NSMutableArray *undoImageArray;
     [self becomeFirstResponder];
     
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name: viewWillAppear
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 -(void) viewWillAppear:(BOOL)animated
 {
@@ -204,6 +216,12 @@ NSMutableArray *undoImageArray;
 }
 
 //----------------------------------------------------------------------------------
+//
+// Name: viewDidDisappear
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 - (void) updateBadges:(NSNotification *) notification
 {
@@ -223,7 +241,6 @@ NSMutableArray *undoImageArray;
     }
 
 }
-
 
 //----------------------------------------------------------------------------------
 //
@@ -505,24 +522,22 @@ NSMutableArray *undoImageArray;
         UITouch *touch = [touches anyObject];
         CGPoint currentPoint = [touch locationInView:self.view];
         
-        x = currentPoint.x;
-        y = currentPoint.y;
-        lx = lastPoint.x;
-        ly = lastPoint.y;
-        
-        //NSLog(@"x = %i || y = %i || lastx = %i || lasty = %i", x, y, lx, ly);
+        int x = currentPoint.x;
+        int y = currentPoint.y;
+        int lx = lastPoint.x;
+        int ly = lastPoint.y;
         
         UIGraphicsBeginImageContext(self.view.frame.size);
         [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-        /**/ CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
-        /**/ CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
+        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
+        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
         CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush);
         CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, 1.0);
         CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
     
-        /**/ CGContextStrokePath(UIGraphicsGetCurrentContext());
-        /**/ self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
+        CGContextStrokePath(UIGraphicsGetCurrentContext());
+        self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
         
         [self getMyCords:x cord2:y cord3:lx cord4:ly brush:brush red:red green:green blue:blue];
         
@@ -534,9 +549,7 @@ NSMutableArray *undoImageArray;
         
         [self hide];
         
-        progress.progress = progress.progress + 0.0009;
-        
-       // NSLog(@"%f", progress.progress);
+        progress.progress = progress.progress + SPEED;
         
         if (progress.progress == 1)
         {
@@ -622,20 +635,9 @@ NSMutableArray *undoImageArray;
     if ([[segue identifier] isEqualToString:@"selectAContact"])
     {
         
-        UIGraphicsBeginImageContextWithOptions(mainImage.bounds.size, NO, 0.0);
-        [mainImage.image drawInRect:CGRectMake(0, 0, mainImage.frame.size.width, mainImage.frame.size.height)];
-        SaveImage = UIGraphicsGetImageFromCurrentImageContext();
-        pictureData = UIImageJPEGRepresentation(SaveImage, 1.0);
-        UIGraphicsEndImageContext();
-        
-        file = [PFFile fileWithName:@"img" data:pictureData];
-        
         UINavigationController *navigationController = segue.destinationViewController;
         SelectAContactViewController *controller = (SelectAContactViewController *)navigationController.topViewController;
         controller.captureArray = captureDrawing;
-        
-        NSLog(@"capture array in prepareForSegue %@", captureDrawing);
-
         
     }
     
@@ -653,13 +655,6 @@ NSMutableArray *undoImageArray;
 {
     
     UISlider *changedSlider = (UISlider*)sender;
-    
-    if(changedSlider == self.speed)
-    {
-     
-        drawSpeed = speed.value;
-        
-    }
     
     if(changedSlider == self.brushSize)
     {
@@ -680,8 +675,8 @@ NSMutableArray *undoImageArray;
         const CGFloat *_components = CGColorGetComponents(colorRef);
         
         red     = _components[0];
-        green = _components[1];
-        blue   = _components[2];
+        green   = _components[1];
+        blue    = _components[2];
         
         currentColorImage.backgroundColor = theColor;
         
@@ -1012,7 +1007,6 @@ NSMutableArray *undoImageArray;
 
 -(IBAction)stop:(id)sender
 {
-    NSLog(@"capture array in stop %@", captureDrawing);
 
     progress.progress = 0;
     
@@ -1036,9 +1030,7 @@ NSMutableArray *undoImageArray;
         
         mainImage.image = nil;
         
-        drawSpeed = 0.04f;
-        
-        timer = [NSTimer scheduledTimerWithTimeInterval:drawSpeed target:self selector:@selector(drbShowVid) userInfo:nil repeats:YES];
+        timer = [NSTimer scheduledTimerWithTimeInterval:DRAW_SPEED target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
     }
     
 }
@@ -1051,10 +1043,10 @@ NSMutableArray *undoImageArray;
 //
 //----------------------------------------------------------------------------------
 
--(void) drbShowVid
+-(void) showVideo
 {
     
-    progress.progress = progress.progress + 0.0009;
+    progress.progress = progress.progress + SPEED;
     
     progress.tintColor = [UIColor blackColor];
     
@@ -1072,27 +1064,26 @@ NSMutableArray *undoImageArray;
         
     }
     
-    NSString *Cx = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"x"];
-    NSString *Cy = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"y"];
-    NSString *lastx = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"lastx"];
-    NSString *lasty = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"lasty"];
+    NSString *STRx = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"x"];
+    NSString *STRy = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"y"];
+    NSString *STRlastx = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"lastx"];
+    NSString *STRlasty = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"lasty"];
     NSString *bSize = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"brush"];
     
-    NSString *redC = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"red"];
-    NSString *greenC = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"green"];
-    NSString *blueC = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"blue"];
+    NSString *STRred = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"red"];
+    NSString *STRgreen = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"green"];
+    NSString *STRblue = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"blue"];
     
-    int x_int = [Cx intValue];
-    int y_int = [Cy intValue];
-    int last_x_int = [lastx intValue];
-    int last_y_int = [lasty intValue];
+    int x_int = [STRx intValue];
+    int y_int = [STRy intValue];
+    int last_x_int = [STRlastx intValue];
+    int last_y_int = [STRlasty intValue];
     float brush_size = [bSize floatValue];
     
-    float redColor = [redC floatValue];
-    float greenColor = [greenC floatValue];
-    float blueColor = [blueC floatValue];
+    float redColor = [STRred floatValue];
+    float greenColor = [STRgreen floatValue];
+    float blueColor = [STRblue floatValue];
     
-    //NSLog(@"Read: x = %@ y = %@ lx = %@ ly = %@", Cx, Cy, lastx, lasty);
     
     UIGraphicsBeginImageContext(self.view.frame.size);
     [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -1125,9 +1116,7 @@ NSMutableArray *undoImageArray;
 
 -(void) getMyCords: (int)currentX cord2:(int)currentY cord3:(int)lastx cord4:(int)lasty brush:(CGFloat)bSize red:(CGFloat)redC green:(CGFloat)greenC blue:(CGFloat)blueC
 {
-    
-    //NSLog(@"capture: x = %i y = %i lx = %i ly = %i", currentX, currentY, lastx, lasty);
-    
+        
     id xId = [NSNumber numberWithInt:currentX];
     id yId = [NSNumber numberWithInt:currentY];
     id lxId = [NSNumber numberWithInt:lastx];
