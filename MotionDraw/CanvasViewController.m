@@ -443,17 +443,20 @@ NSMutableArray *undoImageArray;
         
         UITouch *touch = [touches anyObject];
         
+        CGPoint currentPoint = [touch locationInView:self.view];
         lastPoint = [touch locationInView:self.view];
         
-        UIGraphicsBeginImageContextWithOptions(mainImage.bounds.size, NO, 0.0);
-        [mainImage.image drawInRect:CGRectMake(0, 0, mainImage.frame.size.width, mainImage.frame.size.height)];
-        onlyUndoImage = UIGraphicsGetImageFromCurrentImageContext();
-        [onlyUndoImageArray addObject:onlyUndoImage];
+        [self getMyCords:currentPoint.x cord2:currentPoint.y cord3:lastPoint.x cord4:lastPoint.y brush:brush red:red green:green blue:blue];
         
-        UIGraphicsBeginImageContextWithOptions(mainImage.bounds.size, NO, 0.0);
-        [mainImage.image drawInRect:CGRectMake(0, 0, mainImage.frame.size.width, mainImage.frame.size.height)];
-        undoImage = UIGraphicsGetImageFromCurrentImageContext();
-        [undoImageArray addObject:undoImage];
+//        UIGraphicsBeginImageContextWithOptions(mainImage.bounds.size, NO, 0.0);
+//        [mainImage.image drawInRect:CGRectMake(0, 0, mainImage.frame.size.width, mainImage.frame.size.height)];
+//        onlyUndoImage = UIGraphicsGetImageFromCurrentImageContext();
+//        [onlyUndoImageArray addObject:onlyUndoImage];
+//        
+//        UIGraphicsBeginImageContextWithOptions(mainImage.bounds.size, NO, 0.0);
+//        [mainImage.image drawInRect:CGRectMake(0, 0, mainImage.frame.size.width, mainImage.frame.size.height)];
+//        undoImage = UIGraphicsGetImageFromCurrentImageContext();
+//        [undoImageArray addObject:undoImage];
         
     }
     
@@ -592,23 +595,6 @@ NSMutableArray *undoImageArray;
     
     NSLog(@"Array size : %ld",total);
     NSLog(@"%lu", captureDrawing.count);
-    
-    for (int i = 0; i < captureDrawing.count; i++)
-    {
-        
-        NSString *Cx = [[captureDrawing objectAtIndex:i] objectForKey:@"x"];
-        NSString *Cy = [[captureDrawing objectAtIndex:i] objectForKey:@"y"];
-        NSString *lastx = [[captureDrawing objectAtIndex:i] objectForKey:@"lastx"];
-        NSString *lasty = [[captureDrawing objectAtIndex:i] objectForKey:@"lasty"];
-        NSString *bSize = [[captureDrawing objectAtIndex:i] objectForKey:@"brush"];
-        
-        NSString *redC = [[captureDrawing objectAtIndex:i] objectForKey:@"red"];
-        NSString *greenC = [[captureDrawing objectAtIndex:i] objectForKey:@"green"];
-        NSString *blueC = [[captureDrawing objectAtIndex:i] objectForKey:@"blue"];
-        
-        //NSLog(@"Read: x = %@ y = %@ lx = %@ ly = %@ b = %@ r = %@ g = %@ b = %@", Cx, Cy, lastx, lasty, bSize, redC, greenC, blueC);
-        
-    }
     
 }
 
