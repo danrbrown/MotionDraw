@@ -435,7 +435,7 @@ NSMutableArray *undoImageArray;
     
     mainImage.image = nil;
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:0.04f target:self selector:@selector(drbShowVid) userInfo:nil repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.04f target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
     
 }
 
@@ -1116,7 +1116,7 @@ NSMutableArray *undoImageArray;
 
 -(void) getMyCords: (int)currentX cord2:(int)currentY cord3:(int)lastx cord4:(int)lasty brush:(CGFloat)bSize red:(CGFloat)redC green:(CGFloat)greenC blue:(CGFloat)blueC
 {
-        
+    
     id xId = [NSNumber numberWithInt:currentX];
     id yId = [NSNumber numberWithInt:currentY];
     id lxId = [NSNumber numberWithInt:lastx];

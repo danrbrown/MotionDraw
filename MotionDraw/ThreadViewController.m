@@ -100,6 +100,14 @@
     
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name: 
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 -(BOOL) prefersStatusBarHidden
 {
 
@@ -107,6 +115,12 @@
     
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
 //----------------------------------------------------------------------------------
 
 -(void) viewDidAppear:(BOOL)animated
@@ -125,10 +139,9 @@
 
 }
 
-
 //----------------------------------------------------------------------------------
 //
-// Name: getThreadTrace
+// Name:
 //
 // Purpose:
 //
@@ -162,37 +175,36 @@
                 capArray = [[NSMutableArray alloc] init];
                 
                 capArray = [myImages objectForKey:@"imgVid"];
-                
-                
-                    if (!error)
+                                
+                if (!error)
+                {
+                    
+                    
+                    [loadingTrace stopAnimating];
+                    [_hudView removeFromSuperview];
+                    
+                    NSString *tmpCurrentUser = [[PFUser currentUser]username];
+                    NSString *tmpLastSentBy = [myImages objectForKey:@"lastSentBy"];
+                    
+                    if (![tmpCurrentUser isEqualToString:tmpLastSentBy])
                     {
                         
-                        [self drbCallVid];
-                        
-                        [loadingTrace stopAnimating];
-                        [_hudView removeFromSuperview];
-                        
-                        NSString *tmpCurrentUser = [[PFUser currentUser]username];
-                        NSString *tmpLastSentBy = [myImages objectForKey:@"lastSentBy"];
-                        
-                        if (![tmpCurrentUser isEqualToString:tmpLastSentBy])
+                        if (((APP).unopenedTraceCount > 0) && ([traceStatus isEqualToString:@"D"]))
                         {
                             
-                            if (((APP).unopenedTraceCount > 0) && ([traceStatus isEqualToString:@"D"]))
-                            {
-                                
-                                (APP).unopenedTraceCount--;
-                                
-                                                                
-                            }
-                            
-                            [myImages setObject:@"O"forKey:@"status"];
-                            [traceObject setObject:@"O"forKey:@"status"];
-                            [myImages saveInBackground];
-                            
+                            (APP).unopenedTraceCount--;
+                                                            
                         }
+                        
+                        [myImages setObject:@"O"forKey:@"status"];
+                        [traceObject setObject:@"O"forKey:@"status"];
+                        [myImages saveInBackground];
+                        
                     }
+                }
                 
+                [self callShowVideo];
+              
             }
             
         }
@@ -225,11 +237,19 @@
     
     mainThreadImage.image = nil;
     
-    threadTimer = [NSTimer scheduledTimerWithTimeInterval:0.04f target:self selector:@selector(drbShowVid) userInfo:nil repeats:YES];
+    threadTimer = [NSTimer scheduledTimerWithTimeInterval:0.04f target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
     
 }
 
--(void) drbCallVid
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(void) callShowVideo
 {
     
     threadTimerInt = 0;
@@ -238,38 +258,44 @@
     
     speed = 0.04f;
     
-    threadTimer = [NSTimer scheduledTimerWithTimeInterval:speed target:self selector:@selector(drbShowVid) userInfo:nil repeats:YES];
+    threadTimer = [NSTimer scheduledTimerWithTimeInterval:speed target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
     
 }
 
--(void) drbShowVid
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(void) showVideo
 {
     
     progress.progress = progress.progress - (1.0 / capArray.count);
     
     progress.tintColor = [UIColor blackColor];
     
-    NSString *Cx = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"x"];
-    NSString *Cy = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"y"];
-    NSString *lastx = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"lastx"];
-    NSString *lasty = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"lasty"];
+    NSString *STRx = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"x"];
+    NSString *STRy = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"y"];
+    NSString *STRlastx = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"lastx"];
+    NSString *STRlasty = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"lasty"];
     NSString *bSize = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"brush"];
     
-    NSString *redC = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"red"];
-    NSString *greenC = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"green"];
-    NSString *blueC = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"blue"];
+    NSString *STRred = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"red"];
+    NSString *STRgreen = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"green"];
+    NSString *STRblue = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"blue"];
     
-    int x_int = [Cx intValue];
-    int y_int = [Cy intValue];
-    int last_x_int = [lastx intValue];
-    int last_y_int = [lasty intValue];
+    int x_int = [STRx intValue];
+    int y_int = [STRy intValue];
+    int last_x_int = [STRlastx intValue];
+    int last_y_int = [STRlasty intValue];
     float brush_size = [bSize floatValue];
     
-    float redColor = [redC floatValue];
-    float greenColor = [greenC floatValue];
-    float blueColor = [blueC floatValue];
-    
-    //NSLog(@"Read: x = %@ y = %@ lx = %@ ly = %@", Cx, Cy, lastx, lasty);
+    float redColor = [STRred floatValue];
+    float greenColor = [STRgreen floatValue];
+    float blueColor = [STRblue floatValue];
     
     UIGraphicsBeginImageContext(self.view.frame.size);
     [self.mainThreadImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -292,7 +318,6 @@
     }
     
 }
-
 
 //----------------------------------------------------------------------------------
 //
@@ -349,6 +374,13 @@
     
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name: getThreadTrace
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 -(void) loadingTrace
 {
@@ -424,6 +456,14 @@
     [self.view addSubview:_hudView];
     
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name: getThreadTrace
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 -(void) fade
 {
