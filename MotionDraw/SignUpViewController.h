@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SignUpViewController : UIViewController <UITextFieldDelegate>
+@interface SignUpViewController : UIViewController <UITextFieldDelegate> {
+    NSMutableArray *introVidArray;
+}
 
 //Buttons for view
 @property (strong, nonatomic) IBOutlet UIButton *signUpButton;

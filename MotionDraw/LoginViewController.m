@@ -15,6 +15,7 @@
 //#import "CanvasViewController.h"
 //#import "FirstPageViewController.h"
 #import "LoadTraces.h"
+#import "AppDelegate.h"
 #import <Parse/Parse.h>
 
 @interface LoginViewController ()
@@ -155,6 +156,19 @@
 
 -(void) logingIn
 {
+    
+    if ([userNameTextField.text length] != 0)
+    {
+        
+        if ([userNameTextField.text isEqual:@"admin"])
+        {
+            
+            NSLog(@"Hey, over here!");
+            (APP).IS_ADMIN = NO;
+            
+        }
+        
+    }
     
     LoadTraces *loadTraces = [[LoadTraces alloc] init];
     

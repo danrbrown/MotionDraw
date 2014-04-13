@@ -29,6 +29,7 @@
     _firstTime = NO;
     _firstTimeTrace = YES;
     _firstTimeThread = YES;
+    _IS_ADMIN = NO;
     
     [Parse setApplicationId:@"Kdf476m7VNchMaa6Ylqyd9UF9sBvZ9c2ry5GYapw"
                   clientKey:@"wUt0JnO791TAa3UTir4zUdAihK0HMw3yayNud6XJ"];

@@ -172,7 +172,9 @@
                  [traceDefaults synchronize];
                  
                  [self establishLeaveATraceFriendship:user.username];
-                 //[self establishFirstTrace:user.username];
+                 
+                 NSDictionary *dataParms = [NSDictionary dictionaryWithObjectsAndKeys:user.username, @"newUser",nil];
+                 [self performSelectorInBackground:@selector(establishFirstTrace:) withObject:dataParms];
                  
                  [loadTraces loadRequestsArray];
             
@@ -261,23 +263,28 @@
 //
 //---------------------------------------------------------
 
--(void) establishFirstTrace:(NSString *)newUser
+-(void) establishFirstTrace:(NSDictionary *)dataParms
 {
+    
+    NSString *newUser = [dataParms objectForKey:@"newUser"];
+    
+    // Get the Intro Trace
+    
+    PFQuery *introQuery = [PFQuery queryWithClassName:@"IntroObject"];
+    
+    PFObject *introObject = (PFObject *)[introQuery getFirstObject];
+
+    introVidArray = [[NSMutableArray alloc] init];
+            
+    introVidArray = [introObject objectForKey:@"imgVid"];
     
     LoadTraces *loadTraces = [[LoadTraces alloc] init];
     
     NSDate *currentDateTime = [NSDate date];
     
     PFObject *firstTraceObject = [PFObject objectWithClassName:@"TracesObject"];
-    
-    UIImage *welcomeImage = [UIImage imageNamed:@"FirstTrace.png"];
 
-    
-    NSData *pictureData = UIImageJPEGRepresentation(welcomeImage, 1.0);
-    
-    PFFile *firstTraceFile = [PFFile fileWithName:@"Wimg" data:pictureData];
-    
-    [firstTraceObject setObject:firstTraceFile forKey:@"image"];
+    [firstTraceObject setObject:introVidArray forKey:@"imgVid"];
     [firstTraceObject setObject:@"Leave A Trace" forKey:@"fromUser"];
     [firstTraceObject setObject:@"YES" forKey:@"fromUserDisplay"];
     [firstTraceObject setObject:@"Leave A Trace" forKey:@"lastSentBy"];
@@ -288,43 +295,24 @@
     
     [(APP).tracesArray insertObject:firstTraceObject atIndex:0];
     
-    [firstTraceFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [firstTraceObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         
         if (succeeded)
         {
             
-            [firstTraceObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                
-                if (succeeded)
-                {
-                    
-                    [loadTraces loadTracesArray];
-                    
-                }
-                else
-                {
-                    
-                    UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Opps" message:@"There was an error!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-                    
-                    [errorAlertView show];
-                    
-                }
-                
-            }];
+            [loadTraces loadTracesArray];
             
         }
         else
         {
             
-            NSString *errorString = [[error userInfo] objectForKey:@"error"];
+            UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Opps" message:@"There was an error!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             
-            UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             [errorAlertView show];
             
         }
         
-    }
- ];
+    }];
     
 }
 

@@ -49,6 +49,19 @@ UIImageView *mainImage;
 #define SPEED 0.0009
 #define DRAW_SPEED 0.04
     
+    if (!(APP).IS_ADMIN)
+    {
+        
+        [secretAdminB setHidden:NO];
+        
+    }
+    else
+    {
+        
+        [secretAdminB setHidden:YES];
+        
+    }
+    
     undoImageArray = [[NSMutableArray alloc] init];
     undoRecordImageArray = [[NSMutableArray alloc] init];
     onlyUndoImageArray = [[NSMutableArray alloc] init];
@@ -142,6 +155,23 @@ UIImageView *mainImage;
     [progress setHidden:YES];
     
     canDraw = NO;
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name: adminSecretButton
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(IBAction)adminSecretButton:(id)sender
+{
+    
+    NSLog(@"DONT POKE THE DRAGIN");
+    
+    [self createIntroTrace];
     
 }
 
@@ -554,13 +584,20 @@ UIImageView *mainImage;
         
         [self hide];
         
-        progress.progress = progress.progress + SPEED;
+        timerInt += 1;
         
-        speedLabel.text = [NSString stringWithFormat:@"%f", progress.progress];
+        int percentage = (progress.progress * 100) + 1;
         
-        NSString *percent = @"%";
+        if ((percentage * 100) % 10 == 0)
+        {
+            
+            speedLabel.text = [NSString stringWithFormat:@"%i", percentage];
+            NSString *percent = @"%";
+            speedLabel.text = [speedLabel.text stringByAppendingString:percent];
+            
+        }
         
-        speedLabel.text = [speedLabel.text stringByAppendingString:percent];
+        progress.progress = progress.progress + 0.0000001;
         
         if (progress.progress == 1)
         {
@@ -992,10 +1029,6 @@ UIImageView *mainImage;
     
     progress.progress = 0;
     
-    speedLabel.text = [NSString stringWithFormat:@"%f", progress.progress];
-    NSString *percent = @"%";
-    speedLabel.text = [speedLabel.text stringByAppendingString:percent];
-    
     [timer invalidate];
    
     [currentColorImage setHidden:YES];
@@ -1028,6 +1061,7 @@ UIImageView *mainImage;
 {
 
     progress.progress = 0;
+    
     
     if (captureDrawing.count > 0)
     {
@@ -1066,12 +1100,6 @@ UIImageView *mainImage;
 {
     
     progress.progress = progress.progress + SPEED;
-    
-    speedLabel.text = [NSString stringWithFormat:@"%f", progress.progress];
-    
-    NSString *percent = @"%";
-    
-    speedLabel.text = [speedLabel.text stringByAppendingString:percent];
     
     progress.tintColor = [UIColor blackColor];
     
@@ -1124,6 +1152,16 @@ UIImageView *mainImage;
 
     timerInt += 1;
     
+    int percentage = (progress.progress * 100) + 1;
+    
+    if ((percentage * 100) % 10 == 0)
+    {
+        speedLabel.text = [NSString stringWithFormat:@"%i", percentage];
+        NSString *percent = @"%";
+        speedLabel.text = [speedLabel.text stringByAppendingString:percent];
+        
+    }
+    
     if (timerInt == captureDrawing.count)
     {
         [timer invalidate];
@@ -1165,6 +1203,32 @@ UIImageView *mainImage;
     [captureDrawing addObject:drawingDictionary];
     
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(void) createIntroTrace
+{
+    
+    sentImage = YES;
+    
+    mainImage.image = nil;
+    
+    [undoImageArray removeAllObjects];
+    
+    PFObject *introObject = [PFObject objectWithClassName:@"IntroObject"];
+    
+    [introObject setObject:captureDrawing forKey:@"imgVid"];
+    
+    [introObject saveInBackground];
+    
+}
+
 
 @end
 

@@ -73,6 +73,8 @@ extern UIImageView *mainImage;
     IBOutlet UIButton *restartB;
     IBOutlet UIButton *replayB;
     
+    IBOutlet UIButton *secretAdminB;
+    
     IBOutlet UIActivityIndicatorView *loading;
     IBOutlet UIImageView *sliderImage;
     IBOutlet UIImageView *tutorialImage;

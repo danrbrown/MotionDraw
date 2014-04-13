@@ -22,6 +22,7 @@
 @property (nonatomic, assign) BOOL firstTime;
 @property (nonatomic, assign) BOOL firstTimeTrace;
 @property (nonatomic, assign) BOOL firstTimeThread;
+@property (nonatomic, assign) BOOL IS_ADMIN;
 @property (nonatomic, assign) BOOL TRACES_DATA_LOADED;
 @property (nonatomic, assign) BOOL CONTACTS_DATA_LOADED;
 @property (nonatomic, assign) BOOL REQUESTS_DATA_LOADED;

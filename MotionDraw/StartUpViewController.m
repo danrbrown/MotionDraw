@@ -60,6 +60,16 @@
         
         [self performSegueWithIdentifier:@"userAlreadyLoggedIn" sender:self];
         
+        NSLog(@"username: %@", tmpUsername);
+        
+        if ([tmpUsername isEqual:@"admin"])
+        {
+            
+            NSLog(@"Hey, over here!");
+            (APP).IS_ADMIN = YES;
+            
+        }
+        
     }
     else
     {
