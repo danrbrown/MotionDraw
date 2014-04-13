@@ -36,6 +36,8 @@ extern UIImageView *mainImage;
     UIColor *theColor;
     double hue;
     
+    IBOutlet UILabel *speedLabel;
+    
     //Undo
     UIImage *undoImage;
     UIImage *undoRecordImage;

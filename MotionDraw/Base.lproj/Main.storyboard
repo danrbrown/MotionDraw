@@ -313,8 +313,15 @@
                                     <action selector="replay:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="8Lv-ev-kG5"/>
                                 </connections>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" id="ZbI-J7-RS2">
-                                <rect key="frame" x="12" y="25" width="257" height="2"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.000000%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="adt-po-gr5">
+                                <rect key="frame" x="8" y="8" width="117" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" id="hx9-kt-CHJ">
+                                <rect key="frame" x="133" y="23" width="144" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </progressView>
                         </subviews>
@@ -327,11 +334,12 @@
                         <outlet property="currentColorImage" destination="Dhp-PA-pba" id="rAC-lR-0qm"/>
                         <outlet property="drawB" destination="e9h-Rw-NuY" id="3yB-yb-bBS"/>
                         <outlet property="mainImage" destination="Ktt-qL-5WB" id="aRv-QJ-fg6"/>
-                        <outlet property="progress" destination="ZbI-J7-RS2" id="EHP-M9-jcZ"/>
+                        <outlet property="progress" destination="hx9-kt-CHJ" id="s90-yP-dpf"/>
                         <outlet property="replayB" destination="KoQ-aO-BsI" id="n9L-aS-Owu"/>
                         <outlet property="restartB" destination="aIX-xn-cqq" id="Nn9-63-0p5"/>
                         <outlet property="sendB" destination="fiK-rM-BBR" id="90V-C6-4Pl"/>
                         <outlet property="sliderImage" destination="JqE-Z3-IEX" id="ed8-8t-WfK"/>
+                        <outlet property="speedLabel" destination="adt-po-gr5" id="qjT-A6-htR"/>
                         <outlet property="stopB" destination="Tgc-Ha-kmI" id="pFy-QW-50k"/>
                         <outlet property="trashB" destination="2Rt-fV-QTj" id="1IE-Rj-HDp"/>
                         <outlet property="undoB" destination="XrS-dY-ARZ" id="1dr-jq-Emc"/>

@@ -70,6 +70,8 @@ UIImageView *mainImage;
     
     theColor = [UIColor colorWithHue:hue saturation:1.0 brightness:1.0 alpha:1.0];
     
+    speedLabel.font = [UIFont fontWithName:@"PWSimpleHandwriting" size:21];
+    
     currentColorImage.backgroundColor = theColor;
     currentColorImage.layer.cornerRadius = 0.0;
     currentColorImage.layer.borderColor = [UIColor blackColor].CGColor;
@@ -554,6 +556,12 @@ UIImageView *mainImage;
         
         progress.progress = progress.progress + SPEED;
         
+        speedLabel.text = [NSString stringWithFormat:@"%f", progress.progress];
+        
+        NSString *percent = @"%";
+        
+        speedLabel.text = [speedLabel.text stringByAppendingString:percent];
+        
         if (progress.progress == 1)
         {
             
@@ -796,18 +804,6 @@ UIImageView *mainImage;
     
     [self performSegueWithIdentifier:@"selectAContact" sender:self];
     
-    //temporery RB
-    
-    [self performSelector:@selector(clearEm) withObject:nil afterDelay:10];
-}
-
--(void) clearEm
-{
-    
-    [undoRecordImageArray removeAllObjects];
-    [undoImageArray removeAllObjects];
-    [captureDrawing removeAllObjects];
-    
 }
 
 -(void) show
@@ -965,6 +961,10 @@ UIImageView *mainImage;
 -(IBAction)draw:(id)sender
 {
     
+    [undoRecordImageArray removeAllObjects];
+    [undoImageArray removeAllObjects];
+    [captureDrawing removeAllObjects];
+    
     [currentColorImage setHidden:NO];
     [sliderImage setHidden:NO];
     [colorValue setHidden:NO];
@@ -991,6 +991,10 @@ UIImageView *mainImage;
 {
     
     progress.progress = 0;
+    
+    speedLabel.text = [NSString stringWithFormat:@"%f", progress.progress];
+    NSString *percent = @"%";
+    speedLabel.text = [speedLabel.text stringByAppendingString:percent];
     
     [timer invalidate];
    
@@ -1063,21 +1067,13 @@ UIImageView *mainImage;
     
     progress.progress = progress.progress + SPEED;
     
-    progress.tintColor = [UIColor blackColor];
+    speedLabel.text = [NSString stringWithFormat:@"%f", progress.progress];
     
-    if (progress.progress > 0.6 && progress.progress < 0.8)
-    {
-        
-        progress.tintColor = [UIColor yellowColor];
-        
-        
-    }
-    else if (progress.progress > 0.8)
-    {
-        
-        progress.tintColor = [UIColor redColor];
-        
-    }
+    NSString *percent = @"%";
+    
+    speedLabel.text = [speedLabel.text stringByAppendingString:percent];
+    
+    progress.tintColor = [UIColor blackColor];
     
     NSString *STRx = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"x"];
     NSString *STRy = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"y"];
