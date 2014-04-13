@@ -39,7 +39,6 @@
 -(void) viewDidLoad
 {
     
-    
     userNameTextField.layer.cornerRadius = 7;
     passWordTextField.layer.cornerRadius = 7;
     

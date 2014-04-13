@@ -25,6 +25,7 @@ NSString *tracesBadgeString;
 long iconBadge;
 BOOL sentImage;
 NSMutableArray *undoImageArray;
+UIImageView *mainImage;
 
 @interface CanvasViewController ()
 
@@ -414,6 +415,8 @@ NSMutableArray *undoImageArray;
     
     self.mainImage.image = nil;
     
+    [self getMyCords:0 cord2:0 cord3:0 cord4:0 brush:0 red:0 green:0 blue:0];
+    
 }
 
 //----------------------------------------------------------------------------------
@@ -793,6 +796,18 @@ NSMutableArray *undoImageArray;
     
     [self performSegueWithIdentifier:@"selectAContact" sender:self];
     
+    //temporery RB
+    
+    [self performSelector:@selector(clearEm) withObject:nil afterDelay:10];
+}
+
+-(void) clearEm
+{
+    
+    [undoRecordImageArray removeAllObjects];
+    [undoImageArray removeAllObjects];
+    [captureDrawing removeAllObjects];
+    
 }
 
 -(void) show
@@ -1084,18 +1099,32 @@ NSMutableArray *undoImageArray;
     float greenColor = [STRgreen floatValue];
     float blueColor = [STRblue floatValue];
     
-    
-    UIGraphicsBeginImageContext(self.view.frame.size);
-    [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), last_x_int, last_y_int); // lastX, lastY
-    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x_int, y_int); //x, y
-    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush_size);
-    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), redColor, greenColor, blueColor, 1.0);
-    CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
-    
-    CGContextStrokePath(UIGraphicsGetCurrentContext());
-    self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
+    if ((x_int == 0) && (y_int == 0))
+    {
+        [UIView beginAnimations:@"suck" context:NULL];
+        [UIView setAnimationTransition:108 forView:mainImage cache:NO];
+        [UIView setAnimationDuration:0.3f];
+        [UIView commitAnimations];
+        
+        self.mainImage.image = nil;
+
+    }
+    else
+    {
+        
+        UIGraphicsBeginImageContext(self.view.frame.size);
+        [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), last_x_int, last_y_int); // lastX, lastY
+        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x_int, y_int); //x, y
+        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush_size);
+        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), redColor, greenColor, blueColor, 1.0);
+        CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
+        
+        CGContextStrokePath(UIGraphicsGetCurrentContext());
+        self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
+        
+    }
 
     timerInt += 1;
     

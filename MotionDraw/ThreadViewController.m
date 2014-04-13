@@ -297,17 +297,33 @@
     float greenColor = [STRgreen floatValue];
     float blueColor = [STRblue floatValue];
     
-    UIGraphicsBeginImageContext(self.view.frame.size);
-    [self.mainThreadImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), last_x_int, last_y_int); // lastX, lastY
-    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x_int, y_int); //x, y
-    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush_size);
-    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), redColor, greenColor, blueColor, 1.0);
-    CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
-    
-    CGContextStrokePath(UIGraphicsGetCurrentContext());
-    self.mainThreadImage.image = UIGraphicsGetImageFromCurrentImageContext();
+    if ((x_int == 0) && (y_int == 0))
+    {
+        
+        [UIView beginAnimations:@"suck" context:NULL];
+        [UIView setAnimationTransition:108 forView:mainThreadImage cache:NO];
+        [UIView setAnimationDuration:0.3f];
+        [UIView commitAnimations];
+        
+        self.mainThreadImage.image = nil;
+
+    }
+    else
+    {
+
+        UIGraphicsBeginImageContext(self.view.frame.size);
+        [self.mainThreadImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), last_x_int, last_y_int); // lastX, lastY
+        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x_int, y_int); //x, y
+        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush_size);
+        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), redColor, greenColor, blueColor, 1.0);
+        CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
+        
+        CGContextStrokePath(UIGraphicsGetCurrentContext());
+        self.mainThreadImage.image = UIGraphicsGetImageFromCurrentImageContext();
+        
+    }
     
     threadTimerInt += 1;
     

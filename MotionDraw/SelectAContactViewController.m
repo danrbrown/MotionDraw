@@ -322,6 +322,8 @@
     
     sentImage = YES;
     
+    mainImage.image = nil;
+    
     [undoImageArray removeAllObjects];
     
     PFObject *tempObject = [validContacts objectAtIndex:indexPath.row];

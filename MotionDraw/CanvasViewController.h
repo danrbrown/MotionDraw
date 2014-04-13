@@ -19,6 +19,7 @@ extern NSInteger tracesBadgeInt;
 extern long iconBadge;
 extern BOOL sentImage;
 extern NSMutableArray *undoImageArray;
+extern UIImageView *mainImage;
 
 @interface CanvasViewController : UIViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIAlertViewDelegate> {
     
