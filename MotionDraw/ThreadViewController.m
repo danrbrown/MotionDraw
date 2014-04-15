@@ -15,6 +15,8 @@
 #import "tracesViewController.h"
 #import "LoadTraces.h"
 #import "AppDelegate.h"
+#import <objc/runtime.h>
+
 
 @interface ThreadViewController ()
 
@@ -36,6 +38,9 @@
 
 -(void) viewDidLoad
 {
+    
+#define SPEED 0.0009
+#define DRAW_SPEED 0.008
     
     undoThreadImageArray = [[NSMutableArray alloc] init];
     
@@ -175,7 +180,19 @@
                 capArray = [[NSMutableArray alloc] init];
                 
                 capArray = [myImages objectForKey:@"imgVid"];
-                                
+                
+                size_t total;
+                id obj;
+                for (obj in capArray)
+                {
+                    total += class_getInstanceSize([obj class]);
+                }
+                
+                NSLog(@"Array size : %ld",total);
+                NSLog(@"array count %lu", (unsigned long)capArray.count);
+
+
+                
                 if (!error)
                 {
                     
@@ -237,7 +254,7 @@
     
     mainThreadImage.image = nil;
     
-    threadTimer = [NSTimer scheduledTimerWithTimeInterval:0.04f target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
+    threadTimer = [NSTimer scheduledTimerWithTimeInterval:0.008 target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
     
 }
 
@@ -256,9 +273,7 @@
     
     mainThreadImage.image = nil;
     
-    speed = 0.04f;
-    
-    threadTimer = [NSTimer scheduledTimerWithTimeInterval:speed target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
+    threadTimer = [NSTimer scheduledTimerWithTimeInterval:0.008 target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
     
 }
 
@@ -325,6 +340,8 @@
         
     }
     
+    // NSLog(@"threadTimerInt %d array count %lu",threadTimerInt, (unsigned long)capArray.count);
+    
     threadTimerInt += 1;
     
     if (threadTimerInt == capArray.count)
@@ -333,6 +350,7 @@
          progress.progress = 0;
     }
     
+
 }
 
 //----------------------------------------------------------------------------------

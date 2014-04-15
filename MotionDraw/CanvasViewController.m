@@ -13,6 +13,8 @@
 #import "CanvasViewController.h"
 #import "SelectAContactViewController.h"
 #import "AppDelegate.h"
+#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import <Twitter/Twitter.h>
@@ -47,12 +49,13 @@ UIImageView *mainImage;
 {
     
 #define SPEED 0.0009
-#define DRAW_SPEED 0.04
+#define DRAW_SPEED 0.0100
     
     if (!(APP).IS_ADMIN)
     {
         
         [secretAdminB setHidden:NO];
+        (APP).IS_ADMIN = YES;
         
     }
     else
@@ -65,7 +68,7 @@ UIImageView *mainImage;
     undoImageArray = [[NSMutableArray alloc] init];
     undoRecordImageArray = [[NSMutableArray alloc] init];
     onlyUndoImageArray = [[NSMutableArray alloc] init];
-    captureDrawing = [[NSMutableArray alloc] init];
+    drawingDictionary = [[NSMutableDictionary alloc] init];
 
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
@@ -83,12 +86,10 @@ UIImageView *mainImage;
     
     theColor = [UIColor colorWithHue:hue saturation:1.0 brightness:1.0 alpha:1.0];
     
-    speedLabel.font = [UIFont fontWithName:@"PWSimpleHandwriting" size:21];
-    
     currentColorImage.backgroundColor = theColor;
     currentColorImage.layer.cornerRadius = 0.0;
     currentColorImage.layer.borderColor = [UIColor blackColor].CGColor;
-    currentColorImage.layer.borderWidth = 3.0;
+    currentColorImage.layer.borderWidth = 2.5;
     
     progress.tintColor = [UIColor blackColor];
     
@@ -156,6 +157,22 @@ UIImageView *mainImage;
     
     canDraw = NO;
     
+    captureDrawing = [[NSMutableArray alloc] init];
+
+    [self getMyCords:1 cord2:1 cord3:1 cord4:1 brush:1 red:1 green:1 blue:1];
+    [self getMyCords:1 cord2:1 cord3:1 cord4:1 brush:1 red:1 green:1 blue:1];
+    [self getMyCords:1 cord2:1 cord3:1 cord4:1 brush:1 red:1 green:1 blue:1];
+
+    size_t total;
+    id obj;
+    for (obj in captureDrawing)
+    {
+        total += class_getInstanceSize([obj class]);
+    }
+    
+    NSLog(@"View did load 1 array size : %ld count of rows %lu",total,(unsigned long)captureDrawing.count);
+
+
 }
 
 //----------------------------------------------------------------------------------
@@ -470,7 +487,7 @@ UIImageView *mainImage;
     
     mainImage.image = nil;
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:0.04f target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:DRAW_SPEED target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
     
 }
 
@@ -551,7 +568,7 @@ UIImageView *mainImage;
     
     if (canDraw)
     {
-     
+        
         mouseSwiped = YES;
         
         UITouch *touch = [touches anyObject];
@@ -584,20 +601,7 @@ UIImageView *mainImage;
         
         [self hide];
         
-        timerInt += 1;
-        
-        int percentage = (progress.progress * 100) + 1;
-        
-        if ((percentage * 100) % 10 == 0)
-        {
-            
-            speedLabel.text = [NSString stringWithFormat:@"%i", percentage];
-            NSString *percent = @"%";
-            speedLabel.text = [speedLabel.text stringByAppendingString:percent];
-            
-        }
-        
-        progress.progress = progress.progress + 0.0000001;
+        progress.progress = progress.progress + SPEED;
         
         if (progress.progress == 1)
         {
@@ -606,7 +610,7 @@ UIImageView *mainImage;
             
             canDraw = NO;
             
-            UIAlertView *stopDrawing = [[UIAlertView alloc] initWithTitle:@"Your done!" message:@"You must stop drawing" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            UIAlertView *stopDrawing = [[UIAlertView alloc] initWithTitle:@"Nice drawing, but..." message:@"You must stop!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
          
             [stopDrawing show];
             
@@ -663,8 +667,8 @@ UIImageView *mainImage;
         total += class_getInstanceSize([obj class]);
     }
     
-    NSLog(@"Array size : %ld",total);
-    NSLog(@"%lu", (unsigned long)captureDrawing.count);
+    NSLog(@"Touches Ended Array size : %ld",total);
+    NSLog(@"captureDrawing.count %lu", (unsigned long)captureDrawing.count);
     
     
 }
@@ -997,6 +1001,16 @@ UIImageView *mainImage;
 
 -(IBAction)draw:(id)sender
 {
+    size_t total;
+    id obj;
+    for (obj in captureDrawing)
+    {
+        total += class_getInstanceSize([obj class]);
+    }
+    
+    NSLog(@"Draw before array size : %ld",total);
+
+    mainImage.image = nil;
     
     [undoRecordImageArray removeAllObjects];
     [undoImageArray removeAllObjects];
@@ -1013,6 +1027,14 @@ UIImageView *mainImage;
     [progress setHidden:NO];
     
     canDraw = YES;
+    
+    total = 0;
+    for (obj in captureDrawing)
+    {
+        total += class_getInstanceSize([obj class]);
+    }
+    
+    NSLog(@"After before array size : %ld",total);
     
 }
 
@@ -1125,9 +1147,10 @@ UIImageView *mainImage;
     
     if ((x_int == 0) && (y_int == 0))
     {
+
         [UIView beginAnimations:@"suck" context:NULL];
         [UIView setAnimationTransition:108 forView:mainImage cache:NO];
-        [UIView setAnimationDuration:0.3f];
+        [UIView setAnimationDuration:0.1f];
         [UIView commitAnimations];
         
         self.mainImage.image = nil;
@@ -1149,18 +1172,8 @@ UIImageView *mainImage;
         self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
         
     }
-
+    
     timerInt += 1;
-    
-    int percentage = (progress.progress * 100) + 1;
-    
-    if ((percentage * 100) % 10 == 0)
-    {
-        speedLabel.text = [NSString stringWithFormat:@"%i", percentage];
-        NSString *percent = @"%";
-        speedLabel.text = [speedLabel.text stringByAppendingString:percent];
-        
-    }
     
     if (timerInt == captureDrawing.count)
     {
@@ -1179,6 +1192,8 @@ UIImageView *mainImage;
 
 -(void) getMyCords: (int)currentX cord2:(int)currentY cord3:(int)lastx cord4:(int)lasty brush:(CGFloat)bSize red:(CGFloat)redC green:(CGFloat)greenC blue:(CGFloat)blueC
 {
+    
+
     
     id xId = [NSNumber numberWithInt:currentX];
     id yId = [NSNumber numberWithInt:currentY];
@@ -1200,7 +1215,27 @@ UIImageView *mainImage;
     [drawingDictionary setObject:greenId forKey:@"green"];
     [drawingDictionary setObject:blueId forKey:@"blue"];
     
+//    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+//                          xId,@"x",
+//                          yId,@"y",
+//                          lxId,@"lastx",
+//                          lyId,@"lasty",
+//                          bId,@"y",
+//                          redId,@"red",
+//                          greenId,@"green",
+//                          blueId, @"blue",nil];
+//   
     [captureDrawing addObject:drawingDictionary];
+    
+    size_t total;
+    id obj;
+    for (obj in captureDrawing)
+    {
+        total += class_getInstanceSize([obj class]);
+    }
+    
+ //   NSLog(@"getMyCords 1 array size : %ld count of rows %lu",total,(unsigned long)captureDrawing.count);
+
     
 }
 

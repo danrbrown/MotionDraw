@@ -23,5 +23,6 @@ extern int screens;
 @property (copy) NSMutableArray *acountInfoDetail;
 @property (copy) NSMutableArray *actions;
 @property (copy) NSMutableArray *info;
+@property (copy) NSMutableArray *speeds;
 
 @end

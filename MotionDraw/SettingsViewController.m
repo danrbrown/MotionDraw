@@ -40,14 +40,15 @@ int screens;
     [displayDayAndTimeFormat setDateFormat:@"MMM dd, YYYY h:mm a"];
     NSString *createdAtString = [NSString stringWithFormat:@"%@", [displayDayAndTimeFormat stringFromDate:createdAt]];
     
-    self.acountInfo = [@[@"Username", @"Email", @"Leave A Trace user since", @"Traces sent", @"Traces received"] mutableCopy];
+    self.acountInfo = [@[@"Username", @"Email", @"Leave A Trace user since"] mutableCopy];
     
-    self.acountInfoDetail = [@[usernameString, emailString, createdAtString, @"not working", @"not working"] mutableCopy];
+    self.acountInfoDetail = [@[usernameString, emailString, createdAtString] mutableCopy];
     
     self.actions = [@[@"Log out", @"Clear my traces"] mutableCopy];
     
     self.info = [@[@"Support", @"Privacy policy", @"Terms of use"] mutableCopy];
     
+    self.speeds = [@[@"Fast", @"Medium", @"Slow"] mutableCopy];
 
     
 }
@@ -75,10 +76,16 @@ int screens;
         return self.actions.count;
     
     }
-    else
+    else if (section == 2)
     {
         
         return self.info.count;
+        
+    }
+    else
+    {
+        
+        return  self.speeds.count;
         
     }
     
@@ -95,7 +102,7 @@ int screens;
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     
-    return 3;
+    return 4;
 
 }
 
@@ -122,12 +129,19 @@ int screens;
         return @"Actions";
     
     }
-    else
+    else if (section == 2)
     {
         
         return @"Information";
         
     }
+    else
+    {
+        
+        return @"Speed";
+        
+    }
+    
 }
 
 //----------------------------------------------------------------------------------
@@ -267,6 +281,27 @@ int screens;
         
     }
     
+    if (indexPath.section == 3 && indexPath.row == 0)
+    {
+        
+        NSLog(@"Need for speed - fast");
+        
+    }
+    
+    if (indexPath.section == 3 && indexPath.row == 1)
+    {
+        
+        NSLog(@"Need for speed - medium");
+        
+    }
+    
+    if (indexPath.section == 3 && indexPath.row == 2)
+    {
+        
+        NSLog(@"Need for speed - slow");
+        
+    }
+    
     return nil;
     
 }
@@ -341,6 +376,7 @@ int screens;
         
         text = self.acountInfo[indexPath.row];
         detail = self.acountInfoDetail[indexPath.row];
+        [cell setAccessoryType:UITableViewCellAccessoryNone];
     
     }
     else if (indexPath.section == 1)
@@ -350,11 +386,18 @@ int screens;
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         
     }
-    else
+    else if (indexPath.section == 2)
     {
         
         text = self.info[indexPath.row];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        
+    }
+    else
+    {
+        
+        text = self.speeds[indexPath.row];
+        [cell setAccessoryType:UITableViewCellAccessoryNone];
         
     }
     

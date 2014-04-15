@@ -54,21 +54,26 @@
     if ([tmpUsername length] != 0)
     {
         
-        [loadTraces loadTracesArray];
-        [loadTraces loadContactsArray];
-        [loadTraces loadRequestsArray];
-        
-        [self performSegueWithIdentifier:@"userAlreadyLoggedIn" sender:self];
-        
         NSLog(@"username: %@", tmpUsername);
         
         if ([tmpUsername isEqual:@"admin"])
         {
             
-            NSLog(@"Hey, over here!");
+            (APP).IS_ADMIN = NO;
+            
+        }
+        else
+        {
+            
             (APP).IS_ADMIN = YES;
             
         }
+        
+        [loadTraces loadTracesArray];
+        [loadTraces loadContactsArray];
+        [loadTraces loadRequestsArray];
+        
+        [self performSegueWithIdentifier:@"userAlreadyLoggedIn" sender:self];
         
     }
     else

@@ -294,7 +294,17 @@
     (APP).REQUESTS_DATA_LOADED = NO;
     
     NSUserDefaults *traceDefaults = [NSUserDefaults standardUserDefaults];
+
+
+// UNCOMMENT THIS IF YOU NEED TO FORCE A LOGIN
+//    [traceDefaults setObject:@"" forKey:@"username"];
+//    [traceDefaults synchronize];
+
+    
     NSString *tmpUsername = [traceDefaults objectForKey:@"username"];
+    
+    
+    NSLog(@"usernaame %@",tmpUsername);
     
     if ([tmpUsername length] != 0)
     {

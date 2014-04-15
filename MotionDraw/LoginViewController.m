@@ -163,8 +163,13 @@
         if ([userNameTextField.text isEqual:@"admin"])
         {
             
-            NSLog(@"Hey, over here!");
             (APP).IS_ADMIN = NO;
+            
+        }
+        else
+        {
+            
+            (APP).IS_ADMIN = YES;
             
         }
         

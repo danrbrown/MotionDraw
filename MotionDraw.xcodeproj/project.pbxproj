@@ -101,6 +101,9 @@
 		9C59DC7518F4EDFB0031829F /* Stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C59DC7418F4EDFB0031829F /* Stop.png */; };
 		9C79600818F5F4E700D3A84D /* Reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C79600718F5F4E700D3A84D /* Reset.png */; };
 		9C79600A18F9833E00D3A84D /* Replay.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C79600918F9833E00D3A84D /* Replay.png */; };
+		9C8EA4E218FB26D10052A64D /* progressMin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C8EA4E018FB26D10052A64D /* progressMin.png */; };
+		9C8EA4E318FB26D10052A64D /* progressMax.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C8EA4E118FB26D10052A64D /* progressMax.png */; };
+		9C8EA4E518FB48380052A64D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C8EA4E418FB48380052A64D /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -236,6 +239,9 @@
 		9C59DC7418F4EDFB0031829F /* Stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stop.png; sourceTree = "<group>"; };
 		9C79600718F5F4E700D3A84D /* Reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Reset.png; sourceTree = "<group>"; };
 		9C79600918F9833E00D3A84D /* Replay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Replay.png; sourceTree = "<group>"; };
+		9C8EA4E018FB26D10052A64D /* progressMin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = progressMin.png; sourceTree = "<group>"; };
+		9C8EA4E118FB26D10052A64D /* progressMax.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = progressMax.png; sourceTree = "<group>"; };
+		9C8EA4E418FB48380052A64D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +249,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C8EA4E518FB48380052A64D /* AVFoundation.framework in Frameworks */,
+				9C59DB8D18F4DF040031829F /* AudioToolbox.framework in Frameworks */,
 				9C59DBA718F4E03E0031829F /* Parse.framework in Frameworks */,
 				9C59DBA518F4E0220031829F /* SystemConfiguration.framework in Frameworks */,
 				9C59DBA318F4E0150031829F /* StoreKit.framework in Frameworks */,
@@ -256,7 +264,6 @@
 				9C59DB9318F4DF3E0031829F /* CFNetwork.framework in Frameworks */,
 				9C59DB9118F4DF310031829F /* AdSupport.framework in Frameworks */,
 				9C59DB8F18F4DF240031829F /* Accounts.framework in Frameworks */,
-				9C59DB8D18F4DF040031829F /* AudioToolbox.framework in Frameworks */,
 				9C59DB8A18F4DEEF0031829F /* AddressBook.framework in Frameworks */,
 				9C59DB8B18F4DEEF0031829F /* AddressBookUI.framework in Frameworks */,
 				9C59DB8718F4DEE00031829F /* MessageUI.framework in Frameworks */,
@@ -310,6 +317,7 @@
 		9C59DB3D18F4DBB00031829F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9C8EA4E418FB48380052A64D /* AVFoundation.framework */,
 				9C59DBA618F4E03E0031829F /* Parse.framework */,
 				9C59DBA418F4E0220031829F /* SystemConfiguration.framework */,
 				9C59DBA218F4E0150031829F /* StoreKit.framework */,
@@ -433,6 +441,8 @@
 		9C59DBC018F4E2A10031829F /* other */ = {
 			isa = PBXGroup;
 			children = (
+				9C8EA4E018FB26D10052A64D /* progressMin.png */,
+				9C8EA4E118FB26D10052A64D /* progressMax.png */,
 				9C79600918F9833E00D3A84D /* Replay.png */,
 				9C79600718F5F4E700D3A84D /* Reset.png */,
 				9C59DC7418F4EDFB0031829F /* Stop.png */,
@@ -669,8 +679,10 @@
 				9C59DB5218F4DBB00031829F /* Main.storyboard in Resources */,
 				9C59DBF618F4E2A10031829F /* SentNotOpened.png in Resources */,
 				9C59DBE518F4E2A10031829F /* WelcomeImage.png in Resources */,
+				9C8EA4E218FB26D10052A64D /* progressMin.png in Resources */,
 				9C59DBFB18F4E2A10031829F /* undoButton.png in Resources */,
 				9C79600A18F9833E00D3A84D /* Replay.png in Resources */,
+				9C8EA4E318FB26D10052A64D /* progressMax.png in Resources */,
 				9C59DBF818F4E2A10031829F /* SettingsIcon@2x.png in Resources */,
 				9C59DBE318F4E2A10031829F /* Tutorial(2).png in Resources */,
 			);
