@@ -182,6 +182,7 @@
                 capArray = [myImages objectForKey:@"imgVid"];
                 
                 size_t total;
+                total = 0;
                 id obj;
                 for (obj in capArray)
                 {
@@ -337,6 +338,8 @@
         
         CGContextStrokePath(UIGraphicsGetCurrentContext());
         self.mainThreadImage.image = UIGraphicsGetImageFromCurrentImageContext();
+        
+        UIGraphicsEndImageContext();
         
     }
     

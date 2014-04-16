@@ -48,7 +48,7 @@ UIImageView *mainImage;
 -(void) viewDidLoad
 {
     
-#define SPEED 0.0009
+#define SPEED 0.0007
 #define DRAW_SPEED 0.0100
     
     if (!(APP).IS_ADMIN)
@@ -166,6 +166,7 @@ UIImageView *mainImage;
     [self getMyCords:1 cord2:1 cord3:1 cord4:1 brush:1 red:1 green:1 blue:1];
 
     size_t total;
+    total = 0;
     id obj;
     for (obj in captureDrawing)
     {
@@ -593,6 +594,8 @@ UIImageView *mainImage;
         CGContextStrokePath(UIGraphicsGetCurrentContext());
         self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
         
+        UIGraphicsEndImageContext();
+        
         [self getMyCords:x cord2:y cord3:lx cord4:ly brush:brush red:red green:green blue:blue];
         
         [self.mainImage setAlpha:opacity];
@@ -663,6 +666,7 @@ UIImageView *mainImage;
     [self show];
     
     size_t total;
+    total = 0;
     id obj;
     for (obj in captureDrawing)
     {
@@ -1004,6 +1008,7 @@ UIImageView *mainImage;
 -(IBAction)draw:(id)sender
 {
     size_t total;
+    total = 0;
     id obj;
     for (obj in captureDrawing)
     {
@@ -1172,6 +1177,7 @@ UIImageView *mainImage;
         
         CGContextStrokePath(UIGraphicsGetCurrentContext());
         self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
         
     }
     
@@ -1230,6 +1236,7 @@ UIImageView *mainImage;
     [captureDrawing addObject:drawingDictionary];
     
     size_t total;
+    total = 0;
     id obj;
     for (obj in captureDrawing)
     {
