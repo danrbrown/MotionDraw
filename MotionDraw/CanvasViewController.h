@@ -70,6 +70,8 @@ extern UIImageView *mainImage;
     IBOutlet UIButton *stopB;
     IBOutlet UIButton *restartB;
     IBOutlet UIButton *replayB;
+    IBOutlet UIButton *redoB;
+    IBOutlet UIButton *startB;
     
     IBOutlet UIButton *secretAdminB;
     

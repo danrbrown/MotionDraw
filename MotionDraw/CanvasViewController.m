@@ -117,10 +117,12 @@ UIImageView *mainImage;
     {
         
         sendB.frame = CGRectMake(250, 383, 64, 40);
-        undoB.frame = CGRectMake(103, 383, 53, 47);
-        trashB.frame = CGRectMake(61, 383, 39, 45);
         saveB.frame = CGRectMake(6, 385, 49, 43);
         mainImage.frame = CGRectMake(0, 0, 320, 431);
+        redoB.frame = CGRectMake(8, 384, 79, 38);
+        startB.frame = CGRectMake(98, 191, 124, 56);
+        replayB.frame = CGRectMake(96, 382, 97, 42);
+        stopB.frame = CGRectMake(8, 378, 91, 50);
         
     }
     
