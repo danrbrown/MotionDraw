@@ -329,11 +329,16 @@
                                     <action selector="adminSecretButton:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="cYg-gh-Qvt"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NewTrace.png" id="2xo-OX-5IH">
+                                <rect key="frame" x="192" y="519" width="57" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="New Trace" image="NewTraceIcon.png" id="j6I-kg-DRt"/>
                     <connections>
+                        <outlet property="ball" destination="2xo-OX-5IH" id="AEh-CG-Keh"/>
                         <outlet property="brushSize" destination="7UY-JU-YOG" id="rQf-mK-i67"/>
                         <outlet property="colorValue" destination="M8l-gN-xXL" id="Vja-Zc-Z6a"/>
                         <outlet property="currentColorImage" destination="Dhp-PA-pba" id="rAC-lR-0qm"/>
@@ -1339,6 +1344,7 @@
         <image name="DrawButton.png" width="231" height="94"/>
         <image name="FriendsIcon.png" width="47" height="47"/>
         <image name="LoginButton.png" width="258" height="145"/>
+        <image name="NewTrace.png" width="168" height="115"/>
         <image name="NewTraceIcon.png" width="50" height="50"/>
         <image name="Replay.png" width="199" height="73"/>
         <image name="RequestsIcon.png" width="50" height="50"/>

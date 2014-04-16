@@ -625,8 +625,36 @@ UIImageView *mainImage;
             
         }
         
+        if (progress.progress > 0.8)
+        {
+            
+            progress.tintColor = [UIColor redColor];
+            
+            //[self almostDone];
+            
+        }
+        
     }
 
+}
+
+-(void) almostDone
+{
+    
+    CGPoint startPoint = (CGPoint){ball.frame.origin.x, ball.frame.origin.y};
+    CGPoint endPoint = (CGPoint){ball.frame.origin.x, ball.frame.origin.y - 20};
+    
+    CGMutablePathRef thePath = CGPathCreateMutable();
+    CGPathMoveToPoint(thePath, NULL, startPoint.x, startPoint.y);
+    CGPathAddLineToPoint(thePath, NULL, endPoint.x, endPoint.y);
+    
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    animation.duration = 0.6;
+    animation.path = thePath;
+    animation.autoreverses = YES;
+    animation.repeatCount = INFINITY;
+    [ball.layer addAnimation:animation forKey:@"position"];
+    
 }
 
 //----------------------------------------------------------------------------------

@@ -48,6 +48,10 @@ extern UIImageView *mainImage;
     NSMutableArray *captureDrawing;
     NSMutableDictionary *drawingDictionary;
     
+    int trpX;
+    
+    IBOutlet UIImageView *ball;
+    
     BOOL canDraw;
     
     //Variables
