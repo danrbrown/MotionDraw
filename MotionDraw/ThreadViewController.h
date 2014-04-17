@@ -44,6 +44,7 @@
     IBOutlet UIActivityIndicatorView *loadingSent;
     IBOutlet UIActivityIndicatorView *loadingTrace;
     IBOutlet UIImageView *sliderImage;
+    IBOutlet UIButton *replayB;
     UIView *_hudView;
     UILabel *_captionLabel;
     int viewText;

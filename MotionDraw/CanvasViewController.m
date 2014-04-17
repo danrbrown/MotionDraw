@@ -69,7 +69,7 @@ UIImageView *mainImage;
     undoRecordImageArray = [[NSMutableArray alloc] init];
     onlyUndoImageArray = [[NSMutableArray alloc] init];
     drawingDictionary = [[NSMutableDictionary alloc] init];
-
+    
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     red = 0;
@@ -80,7 +80,6 @@ UIImageView *mainImage;
     
     colorValue.value = 0.640678;
     brushSize.value = brush;
-    NSLog(@"%f", speed.value);
     
     hue = 0.640678;
     
@@ -1050,7 +1049,19 @@ UIImageView *mainImage;
     [undoRecordImageArray removeAllObjects];
     [undoImageArray removeAllObjects];
     [captureDrawing removeAllObjects];
+
+    red = 0;
+    green = 0;
+    blue = 255;
+    brush = 11.0;
+    opacity = 1.0;
+    colorValue.value = 0.640678;
+    brushSize.value = brush;
+    hue = 0.640678;
+    theColor = [UIColor colorWithHue:hue saturation:1.0 brightness:1.0 alpha:1.0];
+    currentColorImage.backgroundColor = theColor;
     
+    [self makeTabBarHidden];
     [currentColorImage setHidden:NO];
     [sliderImage setHidden:NO];
     [colorValue setHidden:NO];
@@ -1070,6 +1081,50 @@ UIImageView *mainImage;
     }
     
     NSLog(@"After before array size : %ld",total);
+    
+}
+
+-(void) makeTabBarHidden
+{
+    
+    if ( [self.tabBarController.view.subviews count] < 2 )
+    {
+        return;
+    }
+    UIView *contentView;
+    if ([[self.tabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]] )
+    {
+        contentView = [self.tabBarController.view.subviews objectAtIndex:1];
+    }
+    else
+    {
+        contentView = [self.tabBarController.view.subviews objectAtIndex:0];
+    }
+    contentView.frame = CGRectMake(self.tabBarController.view.bounds.origin.x, self.tabBarController.view.bounds.origin.y,                                       self.tabBarController.view.bounds.size.width, self.tabBarController.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height);
+    self.tabBarController.tabBar.hidden = YES;
+    mainImage.frame = CGRectMake(0, 0, 320, 568);
+    
+}
+
+-(void) makeTabBarShow
+{
+    
+    if ( [self.tabBarController.view.subviews count] < 2 )
+    {
+        return;
+    }
+    UIView *contentView;
+    if ([[self.tabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]] )
+    {
+        contentView = [self.tabBarController.view.subviews objectAtIndex:1];
+    }
+    else
+    {
+        contentView = [self.tabBarController.view.subviews objectAtIndex:0];
+    }
+    contentView.frame = CGRectMake(self.tabBarController.view.bounds.origin.x, self.tabBarController.view.bounds.origin.y,                                       self.tabBarController.view.bounds.size.width, self.tabBarController.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height);
+    self.tabBarController.tabBar.hidden = NO;
+    mainImage.frame = CGRectMake(0, 0, 320, 568);
     
 }
 
@@ -1124,6 +1179,7 @@ UIImageView *mainImage;
     {
         canDraw = NO;
         
+        [self makeTabBarShow];
         [currentColorImage setHidden:YES];
         [sliderImage setHidden:YES];
         [colorValue setHidden:YES];
@@ -1229,8 +1285,6 @@ UIImageView *mainImage;
 -(void) getMyCords: (int)currentX cord2:(int)currentY cord3:(int)lastx cord4:(int)lasty brush:(CGFloat)bSize red:(CGFloat)redC green:(CGFloat)greenC blue:(CGFloat)blueC
 {
     
-
-    
     id xId = [NSNumber numberWithInt:currentX];
     id yId = [NSNumber numberWithInt:currentY];
     id lxId = [NSNumber numberWithInt:lastx];
@@ -1251,7 +1305,7 @@ UIImageView *mainImage;
     [drawingDictionary setObject:greenId forKey:@"green"];
     [drawingDictionary setObject:blueId forKey:@"blue"];
     
-//    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+    /*    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
 //                          xId,@"x",
 //                          yId,@"y",
 //                          lxId,@"lastx",
@@ -1260,7 +1314,8 @@ UIImageView *mainImage;
 //                          redId,@"red",
 //                          greenId,@"green",
 //                          blueId, @"blue",nil];
-//   
+*/
+    
     [captureDrawing addObject:drawingDictionary];
     
     size_t total;
@@ -1271,7 +1326,7 @@ UIImageView *mainImage;
         total += class_getInstanceSize([obj class]);
     }
     
- //   NSLog(@"getMyCords 1 array size : %ld count of rows %lu",total,(unsigned long)captureDrawing.count);
+    //NSLog(@"getMyCords 1 array size : %ld count of rows %lu",total,(unsigned long)captureDrawing.count);
 
     
 }

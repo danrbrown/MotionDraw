@@ -77,18 +77,7 @@
         undoB.frame = CGRectMake(102, 430, 53, 47);
         trashB.frame = CGRectMake(61, 432, 39, 45);
         saveB.frame = CGRectMake(7, 433, 49, 43);
-        
-    }
-    
-    int bigScreen = 568;
-    
-    if(result.height == bigScreen)
-    {
-        
-        sendB.frame = CGRectMake(sendB.frame.origin.x, sendB.frame.origin.y, 64, 40);
-        trashB.frame = CGRectMake(trashB.frame.origin.x, trashB.frame.origin.y, 39, 45);
-        undoB.frame = CGRectMake(undoB.frame.origin.x, undoB.frame.origin.y, undoB.frame.size.width, undoB.frame.size.height);
-        saveB.frame = CGRectMake(saveB.frame.origin.x, saveB.frame.origin.y, 49, 43);
+        replayB.frame = CGRectMake(4, 438, 92, 38);
         
     }
     

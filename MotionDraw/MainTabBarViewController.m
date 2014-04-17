@@ -29,6 +29,11 @@
     UIImage *tabImage2small = [UIImage imageNamed:@"NewTraceIconSmall.png"];
     UIImage *tabImage3small = [UIImage imageNamed:@"FriendsIcon.png"];
     UIImage *tabImage4small = [UIImage imageNamed:@"RequestsIcon.png"];
+    
+    UIImage *tabImage1big = [UIImage imageNamed:@"TracesIconBig.png"];
+    UIImage *tabImage2big = [UIImage imageNamed:@"NewTraceIcon.png"];
+    UIImage *tabImage3big = [UIImage imageNamed:@"FriendsIconBig.png"];
+    UIImage *tabImage4big = [UIImage imageNamed:@"RequestsIconBig.png"];
 
     CGSize result = [[UIScreen mainScreen] bounds].size;
     if(result.height == 480)
@@ -38,15 +43,15 @@
         tabBarItem2.image = tabImage2small;
         tabBarItem3.image = tabImage3small;
         tabBarItem4.image = tabImage4small;
+        
+        tabBarItem1.selectedImage = tabImage1small;
+        tabBarItem2.selectedImage = tabImage2small;
+        tabBarItem3.selectedImage = tabImage3small;
+        tabBarItem4.selectedImage = tabImage4small;
 
         NSLog(@"Small");
 
     }
-    
-    UIImage *tabImage1big = [UIImage imageNamed:@"TracesIconBig.png"];
-    UIImage *tabImage2big = [UIImage imageNamed:@"NewTraceIcon.png"];
-    UIImage *tabImage3big = [UIImage imageNamed:@"FriendsIconBig.png"];
-    UIImage *tabImage4big = [UIImage imageNamed:@"RequestsIconBig.png"];
     
     if (result.height == 568)
     {

@@ -39,7 +39,17 @@
 -(void) viewDidLoad
 {
     
-    NSLog(@"capture array in viewdidload %@", self.captureArray);
+
+    NSString *someText;
+    someText = nil;
+    someText = [NSString stringWithFormat:@"%@", self.captureArray];
+    NSString *path = @"/Users/Ricky/Documents/MyStuff/AppProject II/MotionDraw/Key Documents/ArrayToFile.txt";
+    
+    [someText writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+    
+    NSString *newText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
+    
+    NSLog(@"%@", newText);
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveContactsLoadedNotification:)
