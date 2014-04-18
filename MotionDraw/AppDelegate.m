@@ -295,18 +295,23 @@
     
     NSUserDefaults *traceDefaults = [NSUserDefaults standardUserDefaults];
 
-
-// UNCOMMENT THIS IF YOU NEED TO FORCE A LOGIN
-//    [traceDefaults setObject:@"" forKey:@"username"];
-//    [traceDefaults synchronize];
-
+    //-------------------------------------------------------
+    //    UNCOMMENT THIS IF YOU NEED TO FORCE A LOGIN
+    //    [traceDefaults setObject:@"" forKey:@"username"];
+    //    [traceDefaults synchronize];
+    //-------------------------------------------------------
     
     NSString *tmpUsername = [traceDefaults objectForKey:@"username"];
+    NSString *tmpCurrentUser = [[PFUser currentUser]username];
+
+    // If the username default is set, and the username default is eqaul to the PFuser, then proceed
+    // with querying Parse.  If any of these are not true, then the user has to log in.
+    // If any of that is not true, then make sure to null out the username. This will force the
+    // login screen to appear.
     
+    NSLog(@"usernaame %@ PFUsername %@",tmpUsername, tmpCurrentUser);
     
-    NSLog(@"usernaame %@",tmpUsername);
-    
-    if ([tmpUsername length] != 0)
+    if ( ([tmpUsername length] != 0 ) && ([tmpCurrentUser length] !=0) && [tmpUsername isEqualToString:tmpCurrentUser] )
     {
         
         LoadTraces *loadTraces = [[LoadTraces alloc] init];
@@ -315,6 +320,11 @@
         [loadTraces loadContactsArray];
         [loadTraces loadRequestsArray];
         
+    }
+    else
+    {
+        [traceDefaults setObject:@"" forKey:@"username"];
+        [traceDefaults synchronize];
     }
     
 }

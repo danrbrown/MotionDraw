@@ -322,7 +322,6 @@ int screens;
         
         NSUserDefaults *traceDefaults = [NSUserDefaults standardUserDefaults];
         [traceDefaults setObject:@"" forKey:@"username"];
-        //[traceDefaults setObject:@"" forKey:@"password"];
         [traceDefaults synchronize];
         
         (APP).tracesArray = nil;
