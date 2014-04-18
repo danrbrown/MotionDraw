@@ -156,7 +156,7 @@
 
 -(void) logingIn
 {
-    
+    //rb
     if ([userNameTextField.text length] != 0)
     {
         

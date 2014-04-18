@@ -330,7 +330,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Qf0-Co-zo5">
-                                <rect key="frame" x="289" y="521" width="27" height="43"/>
+                                <rect key="frame" x="267" y="534" width="49" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Hide.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1349,7 +1349,7 @@
         <image name="ColorValueSlider.png" width="200" height="20"/>
         <image name="DrawButton.png" width="231" height="94"/>
         <image name="FriendsIcon.png" width="47" height="47"/>
-        <image name="Hide.png" width="63" height="105"/>
+        <image name="Hide.png" width="83" height="44"/>
         <image name="LoginButton.png" width="258" height="145"/>
         <image name="NewTraceIcon.png" width="50" height="50"/>
         <image name="Replay.png" width="199" height="73"/>

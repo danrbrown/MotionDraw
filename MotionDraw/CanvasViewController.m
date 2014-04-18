@@ -55,7 +55,7 @@ UIImageView *mainImage;
 #define DRAW_SPEED 0.0100
     
     showTools = YES;
-    
+    //rb
     if (!(APP).IS_ADMIN)
     {
         
@@ -1247,15 +1247,6 @@ UIImageView *mainImage;
 
     progress.progress = 0;
     
-    if (showTools)
-    {
-        
-        [self hideStuff:43];
-
-        showTools = NO;
-    
-    }
-    
     if (captureDrawing.count > 0)
     {
         
@@ -1269,6 +1260,15 @@ UIImageView *mainImage;
         NSLog(@"Total size of the drawing array %zu",total);
         
         canDraw = NO;
+        
+        if (showTools)
+        {
+            
+            [self hideStuff:43];
+            
+            showTools = NO;
+            
+        }
         
         [self makeTabBarShow];
         [currentColorImage setHidden:YES];

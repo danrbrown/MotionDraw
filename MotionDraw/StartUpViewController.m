@@ -45,7 +45,7 @@
 
 -(void) defaults
 {
-    
+    //rb
     LoadTraces *loadTraces = [[LoadTraces alloc] init];
     
     NSUserDefaults *traceDefaults = [NSUserDefaults standardUserDefaults];
