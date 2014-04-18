@@ -48,6 +48,9 @@ UIImageView *mainImage;
 -(void) viewDidLoad
 {
     
+    NSLog(@"view did load");
+
+    
 #define SPEED 0.0007
 #define DRAW_SPEED 0.0100
     
@@ -220,6 +223,8 @@ UIImageView *mainImage;
 -(void) viewDidAppear:(BOOL)animated
 {
     
+    NSLog(@"view did appear");
+    
     [self displayBadgeCounts];
     
     [self becomeFirstResponder];
@@ -239,6 +244,19 @@ UIImageView *mainImage;
     
     if (sentImage)
     {
+        
+        progress.progress = 0;
+        [timer invalidate];
+        [currentColorImage setHidden:YES];
+        [sliderImage setHidden:YES];
+        [colorValue setHidden:YES];
+        [brushSize setHidden:YES];
+        [stopB setHidden:YES];
+        [replayB setHidden:YES];
+        [redoB setHidden:YES];
+        [sendB setHidden:YES];
+        [drawB setHidden:NO];
+        [progress setHidden:YES];
         
         mainImage.image = nil;
         
@@ -858,23 +876,35 @@ UIImageView *mainImage;
 -(IBAction) send:(id)sender
 {
     
-    progress.progress = 0;
+    //progress.progress = 0;
     
-    [timer invalidate];
+    //[timer invalidate];
     
-    [currentColorImage setHidden:YES];
-    [sliderImage setHidden:YES];
+   // [currentColorImage setHidden:YES];
+   // [sliderImage setHidden:YES];
+    
     [colorValue setHidden:YES];
     [brushSize setHidden:YES];
-    [sendB setHidden:YES];
     [stopB setHidden:YES];
-    [drawB setHidden:NO];
-    [restartB setHidden:YES];
-    [replayB setHidden:YES];
-    [progress setHidden:YES];
+    [drawB setHidden:YES];
     
     [self performSegueWithIdentifier:@"selectAContact" sender:self];
       
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(void)cancelSend
+{
+    
+    NSLog(@"cancelSend");
+    
 }
 
 
@@ -977,12 +1007,22 @@ UIImageView *mainImage;
 
 -(IBAction)draw:(id)sender
 {
+    
     size_t total;
     total = 0;
     id obj;
     for (obj in captureDrawing)
     {
         total += class_getInstanceSize([obj class]);
+    }
+    
+    if (!showTools)
+    {
+        
+        [self showSuff:43];
+        
+        showTools = YES;
+        
     }
     
     mainImage.image = nil;
@@ -1084,20 +1124,7 @@ UIImageView *mainImage;
     
 }
 
-//----------------------------------------------------------------------------------
-//
-// Name:
-//
-// Purpose:
-//
-//----------------------------------------------------------------------------------
 
--(void)cancelSend
-{
-    
-    NSLog(@"cancelSend");
-    
-}
 
 -(void) showSuff:(int) over
 {
@@ -1220,6 +1247,15 @@ UIImageView *mainImage;
 
     progress.progress = 0;
     
+    if (showTools)
+    {
+        
+        [self hideStuff:43];
+
+        showTools = NO;
+    
+    }
+    
     if (captureDrawing.count > 0)
     {
         
@@ -1253,6 +1289,7 @@ UIImageView *mainImage;
         mainImage.image = nil;
         
         timer = [NSTimer scheduledTimerWithTimeInterval:DRAW_SPEED target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
+        
     }
     
 }

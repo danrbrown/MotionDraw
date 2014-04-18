@@ -165,47 +165,45 @@
             
             for (PFObject *myImages in objects)
             {
-            
-                capArray = [[NSMutableArray alloc] init];
                 
-                capArray = [myImages objectForKey:@"imgVid"];
-                
-                size_t total;
-                total = 0;
-                id obj;
-                for (obj in capArray)
-                {
-                    total += class_getInstanceSize([obj class]);
-                }
-                
-                if (!error)
-                {
+                PFFile *imageFile = [myImages objectForKey:@"imgVidFile"];
+
+                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                     
-                    
-                    [loadingTrace stopAnimating];
-                    [_hudView removeFromSuperview];
-                    
-                    NSString *tmpCurrentUser = [[PFUser currentUser]username];
-                    NSString *tmpLastSentBy = [myImages objectForKey:@"lastSentBy"];
-                    
-                    if (![tmpCurrentUser isEqualToString:tmpLastSentBy])
+                    if (!error)
                     {
+                        NSData *imageVidData = [imageFile getData];
+                        capArray = [NSKeyedUnarchiver unarchiveObjectWithData:imageVidData];
+                        NSLog(@"read array %@",capArray);
+
+                        [self callShowVideo];
                         
-                        if (((APP).unopenedTraceCount > 0) && ([traceStatus isEqualToString:@"D"]))
+                        [loadingTrace stopAnimating];
+                        [_hudView removeFromSuperview];
+                        
+                        NSString *tmpCurrentUser = [[PFUser currentUser]username];
+                        NSString *tmpLastSentBy = [myImages objectForKey:@"lastSentBy"];
+                        
+                        if (![tmpCurrentUser isEqualToString:tmpLastSentBy])
                         {
                             
-                            (APP).unopenedTraceCount--;
-                                                            
+                            if (((APP).unopenedTraceCount > 0) && ([traceStatus isEqualToString:@"D"]))
+                            {
+                                
+                                (APP).unopenedTraceCount--;
+                                                                
+                            }
+                            
+                            [myImages setObject:@"O"forKey:@"status"];
+                            [traceObject setObject:@"O"forKey:@"status"];
+                            [myImages saveInBackground];
+                            
                         }
-                        
-                        [myImages setObject:@"O"forKey:@"status"];
-                        [traceObject setObject:@"O"forKey:@"status"];
-                        [myImages saveInBackground];
-                        
+
                     }
-                }
                 
-                [self callShowVideo];
+                    
+                }];
               
             }
             

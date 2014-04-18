@@ -345,50 +345,77 @@
     
     PFObject *imageObject = [PFObject objectWithClassName:@"TracesObject"];
     
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.captureArray];
+    PFFile *file = [PFFile fileWithName:@"imgVid.txt" data:data];
+    
     [imageObject setObject:[PFUser currentUser].username forKey:@"fromUser"];
+    [imageObject setObject:file forKey:@"imgVidFile"];
     [imageObject setObject:@"YES" forKey:@"fromUserDisplay"];
     [imageObject setObject:[PFUser currentUser].username forKey:@"lastSentBy"];
     [imageObject setObject:currentDateTime forKey:@"lastSentByDateTime"];
     [imageObject setObject:tempContact forKey:@"toUser"];
     [imageObject setObject:@"YES" forKey:@"toUserDisplay"];
     [imageObject setObject:@"P"forKey:@"status"];
-    [imageObject setObject:self.captureArray forKey:@"imgVid"];
+//    [imageObject setObject:self.captureArray forKey:@"imgVid"];
     
     [(APP).tracesArray insertObject:imageObject atIndex:0];
     
     [self dismissViewControllerAnimated:NO completion:nil];
     
-    [imageObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                
+    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
         if (succeeded)
         {
-                    
-            NSString *newObjectId = [imageObject objectId];
+    
             [imageObject setObject:@"S"forKey:@"status"];
-            [imageObject saveInBackground];
-                    
-            NSDictionary *dataParms = [NSDictionary dictionaryWithObjectsAndKeys:tempContact, @"friend",newObjectId, @"objectId",nil];
-                    
-            [self performSelectorInBackground:@selector(sendPushToContact:) withObject:dataParms];
-                    
-            [self.navigationController popViewControllerAnimated:YES];
-                    
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"SendTraceNotification"
-             object:self];
-                    
+            [imageObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            
+                    if (succeeded)
+                    {
+                                
+                        NSString *newObjectId = [imageObject objectId];
+                        [imageObject setObject:@"S"forKey:@"status"];
+                        
+                        NSDictionary *dataParms = [NSDictionary dictionaryWithObjectsAndKeys:tempContact, @"friend",newObjectId, @"objectId",nil];
+                                
+                        [self performSelectorInBackground:@selector(sendPushToContact:) withObject:dataParms];
+                                
+                        [self.navigationController popViewControllerAnimated:YES];
+                                
+                        [[NSNotificationCenter defaultCenter]
+                         postNotificationName:@"SendTraceNotification"
+                         object:self];
+                                
+                    }
+                    else
+                    {
+                                
+                        UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Opps" message:@"There was an error sending your Trace, please try again" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                                
+                        [errorAlertView show];
+                                
+                    }
+                            
+                }];
         }
         else
         {
-                    
-            UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Opps" message:@"There was an error sending your Trace, please try again" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-                    
-            [errorAlertView show];
-                    
-        }
-                
-    }];
             
+            NSString *errorString = [[error userInfo] objectForKey:@"error"];
+            
+            UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [errorAlertView show];
+            
+        }
+        
+    }
+                      progressBlock:^(int percentDone)
+     {
+         
+         NSLog(@"New Trace %d %% done", percentDone);
+         
+     }];
+    
     return nil;
     
 }
