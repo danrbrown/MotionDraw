@@ -356,7 +356,6 @@
     [imageObject setObject:tempContact forKey:@"toUser"];
     [imageObject setObject:@"YES" forKey:@"toUserDisplay"];
     [imageObject setObject:@"P"forKey:@"status"];
-//    [imageObject setObject:self.captureArray forKey:@"imgVid"];
     
     [(APP).tracesArray insertObject:imageObject atIndex:0];
     

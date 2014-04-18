@@ -56,11 +56,10 @@ UIImageView *mainImage;
     
     showTools = YES;
     //rb
-    if (!(APP).IS_ADMIN)
+    if ((APP).IS_ADMIN)
     {
         
         [secretAdminB setHidden:NO];
-        (APP).IS_ADMIN = YES;
         
     }
     else
@@ -1090,8 +1089,22 @@ UIImageView *mainImage;
     }
     contentView.frame = CGRectMake(self.tabBarController.view.bounds.origin.x, self.tabBarController.view.bounds.origin.y,                                       self.tabBarController.view.bounds.size.width, self.tabBarController.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height);
     self.tabBarController.tabBar.hidden = YES;
-    mainImage.frame = CGRectMake(0, 0, 320, 568);
     
+    int smallScreen = 480;
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    if(result.height == smallScreen)
+    {
+        
+        mainImage.frame = CGRectMake(0, 0, 320, smallScreen);
+        
+    }
+    else
+    {
+        
+        mainImage.frame = CGRectMake(0, 0, 320, 568);
+    
+    }
+
 }
 
 //----------------------------------------------------------------------------------
@@ -1421,10 +1434,20 @@ UIImageView *mainImage;
     
     PFObject *introObject = [PFObject objectWithClassName:@"IntroObject"];
     
-    [introObject setObject:captureDrawing forKey:@"imgVid"];
-    
-    [introObject saveInBackground];
-    
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:captureDrawing];
+    PFFile *file = [PFFile fileWithName:@"imgVid.txt" data:data];
+
+    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+        if (succeeded)
+        {
+            
+            [introObject setObject:file forKey:@"imgVidFile"];
+            [introObject saveInBackground];
+        }
+        
+    }];
+
 }
 
 

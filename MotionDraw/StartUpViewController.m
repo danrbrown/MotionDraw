@@ -57,13 +57,13 @@
         if ([tmpUsername isEqual:@"admin"])
         {
             
-            (APP).IS_ADMIN = NO;
+            (APP).IS_ADMIN = YES;
             
         }
         else
         {
             
-            (APP).IS_ADMIN = YES;
+            (APP).IS_ADMIN = NO;
             
         }
         

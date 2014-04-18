@@ -267,24 +267,20 @@
 {
     
     NSString *newUser = [dataParms objectForKey:@"newUser"];
+    LoadTraces *loadTraces = [[LoadTraces alloc] init];
     
     // Get the Intro Trace
     
     PFQuery *introQuery = [PFQuery queryWithClassName:@"IntroObject"];
     
     PFObject *introObject = (PFObject *)[introQuery getFirstObject];
-
-    introVidArray = [[NSMutableArray alloc] init];
-            
-    introVidArray = [introObject objectForKey:@"imgVid"];
-    
-    LoadTraces *loadTraces = [[LoadTraces alloc] init];
+    PFFile *imageFile = [introObject objectForKey:@"imgVidFile"];
     
     NSDate *currentDateTime = [NSDate date];
     
     PFObject *firstTraceObject = [PFObject objectWithClassName:@"TracesObject"];
 
-    [firstTraceObject setObject:introVidArray forKey:@"imgVid"];
+    [firstTraceObject setObject:imageFile forKey:@"imgVidFile"];
     [firstTraceObject setObject:@"Leave A Trace" forKey:@"fromUser"];
     [firstTraceObject setObject:@"YES" forKey:@"fromUserDisplay"];
     [firstTraceObject setObject:@"Leave A Trace" forKey:@"lastSentBy"];
@@ -306,7 +302,7 @@
         else
         {
             
-            UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Opps" message:@"There was an error!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"There was an error!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             
             [errorAlertView show];
             

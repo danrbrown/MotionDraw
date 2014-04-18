@@ -346,7 +346,7 @@ int screens;
             
         }];
         
-        //[PFUser logOut];
+        (APP).IS_ADMIN = NO;
         
         [self performSegueWithIdentifier:@"LogOutSuccesful" sender:self];
         

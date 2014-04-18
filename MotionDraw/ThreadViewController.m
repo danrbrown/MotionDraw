@@ -174,7 +174,6 @@
                     {
                         NSData *imageVidData = [imageFile getData];
                         capArray = [NSKeyedUnarchiver unarchiveObjectWithData:imageVidData];
-                        NSLog(@"read array %@",capArray);
 
                         [self callShowVideo];
                         
