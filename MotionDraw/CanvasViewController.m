@@ -174,9 +174,6 @@ UIImageView *mainImage;
     {
         total += class_getInstanceSize([obj class]);
     }
-    
-    NSLog(@"View did load 1 array size : %ld count of rows %lu",total,(unsigned long)captureDrawing.count);
-
 
 }
 
@@ -701,9 +698,6 @@ UIImageView *mainImage;
         {
             total += class_getInstanceSize([obj class]);
         }
-
-        NSLog(@"Touches Ended Array size : %ld",total);
-        NSLog(@"captureDrawing.count %lu", (unsigned long)captureDrawing.count);
     
     }
     
@@ -991,8 +985,6 @@ UIImageView *mainImage;
         total += class_getInstanceSize([obj class]);
     }
     
-    NSLog(@"Draw before array size : %ld",total);
-
     mainImage.image = nil;
     
     [undoRecordImageArray removeAllObjects];
@@ -1029,8 +1021,6 @@ UIImageView *mainImage;
     {
         total += class_getInstanceSize([obj class]);
     }
-    
-    NSLog(@"After before array size : %ld",total);
     
 }
 
@@ -1233,6 +1223,15 @@ UIImageView *mainImage;
     if (captureDrawing.count > 0)
     {
         
+        size_t total;
+        total = 0;
+        id obj;
+        for (obj in captureDrawing)
+        {
+            total += class_getInstanceSize([obj class]);
+        }
+        NSLog(@"Total size of the drawing array %zu",total);
+        
         canDraw = NO;
         
         [self makeTabBarShow];
@@ -1362,29 +1361,7 @@ UIImageView *mainImage;
     [drawingDictionary setObject:greenId forKey:@"green"];
     [drawingDictionary setObject:blueId forKey:@"blue"];
     
-    /*    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
-//                          xId,@"x",
-//                          yId,@"y",
-//                          lxId,@"lastx",
-//                          lyId,@"lasty",
-//                          bId,@"y",
-//                          redId,@"red",
-//                          greenId,@"green",
-//                          blueId, @"blue",nil];
-*/
-    
     [captureDrawing addObject:drawingDictionary];
-    
-    size_t total;
-    total = 0;
-    id obj;
-    for (obj in captureDrawing)
-    {
-        total += class_getInstanceSize([obj class]);
-    }
-    
-    //NSLog(@"getMyCords 1 array size : %ld count of rows %lu",total,(unsigned long)captureDrawing.count);
-
     
 }
 

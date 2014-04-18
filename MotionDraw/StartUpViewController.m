@@ -53,9 +53,7 @@
     
     if ([tmpUsername length] != 0)
     {
-        
-        NSLog(@"username: %@", tmpUsername);
-        
+                
         if ([tmpUsername isEqual:@"admin"])
         {
             

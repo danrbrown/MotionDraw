@@ -49,8 +49,6 @@
         tabBarItem3.selectedImage = tabImage3small;
         tabBarItem4.selectedImage = tabImage4small;
 
-        NSLog(@"Small");
-
     }
     
     if (result.height == 568)
@@ -65,9 +63,7 @@
         tabBarItem2.selectedImage = tabImage2big;
         tabBarItem3.selectedImage = tabImage3big;
         tabBarItem4.selectedImage = tabImage4big;
-        
-        NSLog(@"Big");
-        
+                
     }
     
 }

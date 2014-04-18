@@ -47,9 +47,8 @@
     
     [someText writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:NULL];
     
-    NSString *newText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
-    
-    NSLog(@"%@", newText);
+    //NSString *newText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
+    //NSLog(@"%@", newText);
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveContactsLoadedNotification:)

@@ -178,11 +178,6 @@
                     total += class_getInstanceSize([obj class]);
                 }
                 
-                NSLog(@"Array size : %ld",total);
-                NSLog(@"array count %lu", (unsigned long)capArray.count);
-
-
-                
                 if (!error)
                 {
                     
@@ -331,9 +326,7 @@
         UIGraphicsEndImageContext();
         
     }
-    
-    // NSLog(@"threadTimerInt %d array count %lu",threadTimerInt, (unsigned long)capArray.count);
-    
+        
     threadTimerInt += 1;
     
     if (threadTimerInt == capArray.count)
