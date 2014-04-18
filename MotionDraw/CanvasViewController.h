@@ -55,6 +55,7 @@ extern UIImageView *mainImage;
     BOOL canDraw;
     
     //Variables
+    BOOL showTools;
     BOOL dontTrash;
     int viewText;
     NSMutableArray *imagesArray;
@@ -76,8 +77,8 @@ extern UIImageView *mainImage;
     IBOutlet UIButton *replayB;
     IBOutlet UIButton *redoB;
     IBOutlet UIButton *startB;
-    
     IBOutlet UIButton *secretAdminB;
+    IBOutlet UIButton *hideAndShowB;
     
     IBOutlet UIActivityIndicatorView *loading;
     IBOutlet UIImageView *sliderImage;
@@ -106,10 +107,10 @@ extern UIImageView *mainImage;
 -(IBAction) save:(id)sender;
 -(IBAction) clear:(id)sender;
 -(IBAction) sliderChanged:(id)sender;
+-(IBAction)reset:(id)sender;
 
 //Methods for view
--(void) hide;
--(void) show;
+-(void) cancelSend;
 -(void) fade;
 -(void) countTraces;
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;

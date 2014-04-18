@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C3E49A61900BC71005CC841 /* Show.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C3E49A41900BC71005CC841 /* Show.png */; };
+		9C3E49A71900BC71005CC841 /* Hide.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C3E49A51900BC71005CC841 /* Hide.png */; };
 		9C59DB3F18F4DBB00031829F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C59DB3E18F4DBB00031829F /* Foundation.framework */; };
 		9C59DB4118F4DBB00031829F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C59DB4018F4DBB00031829F /* CoreGraphics.framework */; };
 		9C59DB4318F4DBB00031829F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C59DB4218F4DBB00031829F /* UIKit.framework */; };
@@ -117,6 +119,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C3E49A41900BC71005CC841 /* Show.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Show.png; sourceTree = "<group>"; };
+		9C3E49A51900BC71005CC841 /* Hide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hide.png; sourceTree = "<group>"; };
 		9C59DB3B18F4DBB00031829F /* MotionDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MotionDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C59DB3E18F4DBB00031829F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9C59DB4018F4DBB00031829F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -441,6 +445,8 @@
 		9C59DBC018F4E2A10031829F /* other */ = {
 			isa = PBXGroup;
 			children = (
+				9C3E49A41900BC71005CC841 /* Show.png */,
+				9C3E49A51900BC71005CC841 /* Hide.png */,
 				9C8EA4E018FB26D10052A64D /* progressMin.png */,
 				9C8EA4E118FB26D10052A64D /* progressMax.png */,
 				9C79600918F9833E00D3A84D /* Replay.png */,
@@ -648,6 +654,7 @@
 				9C59DBE718F4E2A10031829F /* BrushSizeSliderMin.png in Resources */,
 				9C59DBDD18F4E2A10031829F /* CloseButton.png in Resources */,
 				9C59DBE418F4E2A10031829F /* Tutorial(3).png in Resources */,
+				9C3E49A61900BC71005CC841 /* Show.png in Resources */,
 				9C59DBF418F4E2A10031829F /* RequestsIcon@2x.png in Resources */,
 				9C59DB5718F4DBB00031829F /* Images.xcassets in Resources */,
 				9C59DBFA18F4E2A10031829F /* TracesIconBig@2x.png in Resources */,
@@ -655,6 +662,7 @@
 				9C59DBDF18F4E2A10031829F /* SaveButton.png in Resources */,
 				9C59DBF518F4E2A10031829F /* RequestsIconBig@2x.png in Resources */,
 				9C59DBE918F4E2A10031829F /* ColorValueSlider.png in Resources */,
+				9C3E49A71900BC71005CC841 /* Hide.png in Resources */,
 				9C59DBEE18F4E2A10031829F /* iconsberlin@2x.png in Resources */,
 				9C59DB4918F4DBB00031829F /* InfoPlist.strings in Resources */,
 				9C79600818F5F4E700D3A84D /* Reset.png in Resources */,

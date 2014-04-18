@@ -178,7 +178,11 @@
 -(IBAction) cancel
 {
     
-    [self dismissViewControllerAnimated:NO completion:nil];
+    CanvasViewController *canvas = [[CanvasViewController alloc] init];
+    
+    [self dismissViewControllerAnimated:NO completion:^{
+        [canvas cancelSend];
+    }];
     
 }
 

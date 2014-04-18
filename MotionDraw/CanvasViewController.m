@@ -51,6 +51,8 @@ UIImageView *mainImage;
 #define SPEED 0.0007
 #define DRAW_SPEED 0.0100
     
+    showTools = YES;
+    
     if (!(APP).IS_ADMIN)
     {
         
@@ -155,6 +157,7 @@ UIImageView *mainImage;
     [trashB setHidden:YES];
     [replayB setHidden:YES];
     [progress setHidden:YES];
+    [hideAndShowB setHidden:YES];
     
     canDraw = NO;
     
@@ -603,8 +606,6 @@ UIImageView *mainImage;
         
         lastPoint = currentPoint;
         
-        [self hide];
-        
         progress.progress = progress.progress + SPEED;
         
         if (progress.progress == 1)
@@ -667,42 +668,44 @@ UIImageView *mainImage;
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     
-    if(!mouseSwiped)
+    if (canDraw)
     {
     
-        UIGraphicsBeginImageContext(self.view.frame.size);
-        [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush);
-        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, opacity);
-        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
-        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
-        CGContextStrokePath(UIGraphicsGetCurrentContext());
-        CGContextFlush(UIGraphicsGetCurrentContext());
+        if(!mouseSwiped)
+        {
+
+            UIGraphicsBeginImageContext(self.view.frame.size);
+            [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+            CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+            CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush);
+            CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, opacity);
+            CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
+            CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
+            CGContextStrokePath(UIGraphicsGetCurrentContext());
+            CGContextFlush(UIGraphicsGetCurrentContext());
+            self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+        }
+
+        UIGraphicsBeginImageContext(self.mainImage.frame.size);
+        [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
+        [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) blendMode:kCGBlendModeNormal alpha:opacity];
         self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-        
+
+        size_t total;
+        total = 0;
+        id obj;
+        for (obj in captureDrawing)
+        {
+            total += class_getInstanceSize([obj class]);
+        }
+
+        NSLog(@"Touches Ended Array size : %ld",total);
+        NSLog(@"captureDrawing.count %lu", (unsigned long)captureDrawing.count);
+    
     }
-    
-    UIGraphicsBeginImageContext(self.mainImage.frame.size);
-    [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
-    [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) blendMode:kCGBlendModeNormal alpha:opacity];
-    self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    [self show];
-    
-    size_t total;
-    total = 0;
-    id obj;
-    for (obj in captureDrawing)
-    {
-        total += class_getInstanceSize([obj class]);
-    }
-    
-    NSLog(@"Touches Ended Array size : %ld",total);
-    NSLog(@"captureDrawing.count %lu", (unsigned long)captureDrawing.count);
-    
     
 }
 
@@ -877,63 +880,9 @@ UIImageView *mainImage;
     [progress setHidden:YES];
     
     [self performSegueWithIdentifier:@"selectAContact" sender:self];
-    
+      
 }
 
--(void) show
-{
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:5];
-    [colorValue setAlpha:1];
-    [UIView commitAnimations];
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
-    [trashB setAlpha:1];
-    [undoB setAlpha:1];
-    [saveB setAlpha:1];
-    [colorValue setAlpha:1];
-    [brushSize setAlpha:1];
-    [undoB setAlpha:1];
-    [sendB setAlpha:1];
-    [undoB setAlpha:1];
-    [sliderImage setAlpha:1];
-    [currentColorImage setAlpha:1];
-    [UIView commitAnimations];
-    
-}
-
-//----------------------------------------------------------------------------------
-//
-// Name:
-//
-// Purpose:
-//
-//----------------------------------------------------------------------------------
-
--(void) hide
-{
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.1];
-    [colorValue setAlpha:0];
-    [UIView commitAnimations];
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
-    [trashB setAlpha:0];
-    [undoB setAlpha:0];
-    [saveB setAlpha:0];
-    [colorValue setAlpha:0];
-    [brushSize setAlpha:0];
-    [undoB setAlpha:0];
-    [undoB setAlpha:0];
-    [currentColorImage setAlpha:0];
-    [sliderImage setAlpha:0];
-    [UIView commitAnimations];
-    
-}
 
 //----------------------------------------------------------------------------------
 //
@@ -1071,6 +1020,7 @@ UIImageView *mainImage;
     [undoB setHidden:NO];
     [trashB setHidden:NO];
     [progress setHidden:NO];
+    [hideAndShowB setHidden:NO];
     
     canDraw = YES;
     
@@ -1083,6 +1033,14 @@ UIImageView *mainImage;
     NSLog(@"After before array size : %ld",total);
     
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 -(void) makeTabBarHidden
 {
@@ -1106,6 +1064,14 @@ UIImageView *mainImage;
     
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 -(void) makeTabBarShow
 {
     
@@ -1125,6 +1091,96 @@ UIImageView *mainImage;
     contentView.frame = CGRectMake(self.tabBarController.view.bounds.origin.x, self.tabBarController.view.bounds.origin.y,                                       self.tabBarController.view.bounds.size.width, self.tabBarController.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height);
     self.tabBarController.tabBar.hidden = NO;
     mainImage.frame = CGRectMake(0, 0, 320, 568);
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(void)cancelSend
+{
+    
+    NSLog(@"cancelSend");
+    
+}
+
+-(void) showSuff:(int) over
+{
+    
+    [hideAndShowB setImage:[UIImage imageNamed:@"Hide.png"] forState:UIControlStateNormal];
+    
+    [UIView beginAnimations:@"animateAddContentView" context:nil];
+    [UIView setAnimationDuration:0.4];
+    
+    currentColorImage.frame= CGRectMake(currentColorImage.frame.origin.x - over, currentColorImage.frame.origin.y, currentColorImage.frame.size.width, currentColorImage.frame.size.height);
+    
+    sliderImage.frame= CGRectMake(sliderImage.frame.origin.x - over, sliderImage.frame.origin.y, sliderImage.frame.size.width, sliderImage.frame.size.height);
+    
+    colorValue.frame= CGRectMake(colorValue.frame.origin.x - over, colorValue.frame.origin.y, colorValue.frame.size.width, colorValue.frame.size.height);
+    
+    brushSize.frame= CGRectMake(brushSize.frame.origin.x - over, brushSize.frame.origin.y, brushSize.frame.size.width, brushSize.frame.size.height);
+    
+    undoB.frame= CGRectMake(undoB.frame.origin.x - over, undoB.frame.origin.y, undoB.frame.size.width, undoB.frame.size.height);
+    
+    trashB.frame= CGRectMake(trashB.frame.origin.x - over, trashB.frame.origin.y, trashB.frame.size.width, trashB.frame.size.height);
+    
+    progress.frame= CGRectMake(progress.frame.origin.x - 14, progress.frame.origin.y, progress.frame.size.width, progress.frame.size.height);
+    
+    [UIView commitAnimations];
+    
+}
+
+-(void) hideStuff:(int) over
+{
+    
+    [hideAndShowB setImage:[UIImage imageNamed:@"Show.png"] forState:UIControlStateNormal];
+    
+    [UIView beginAnimations:@"animateAddContentView" context:nil];
+    [UIView setAnimationDuration:0.4];
+    
+    currentColorImage.frame= CGRectMake(currentColorImage.frame.origin.x + over, currentColorImage.frame.origin.y, currentColorImage.frame.size.width, currentColorImage.frame.size.height);
+    
+    sliderImage.frame= CGRectMake(sliderImage.frame.origin.x + over, sliderImage.frame.origin.y, sliderImage.frame.size.width, sliderImage.frame.size.height);
+    
+    colorValue.frame= CGRectMake(colorValue.frame.origin.x + over, colorValue.frame.origin.y, colorValue.frame.size.width, colorValue.frame.size.height);
+    
+    brushSize.frame= CGRectMake(brushSize.frame.origin.x + over, brushSize.frame.origin.y, brushSize.frame.size.width, brushSize.frame.size.height);
+    
+    undoB.frame= CGRectMake(undoB.frame.origin.x + over, undoB.frame.origin.y, undoB.frame.size.width, undoB.frame.size.height);
+    
+    trashB.frame= CGRectMake(trashB.frame.origin.x + over, trashB.frame.origin.y, trashB.frame.size.width, trashB.frame.size.height);
+    
+    progress.frame= CGRectMake(progress.frame.origin.x + 14, progress.frame.origin.y, progress.frame.size.width, progress.frame.size.height);
+    
+    [UIView commitAnimations];
+    
+}
+
+-(IBAction)showAndHide:(id)sender
+{
+    
+    if (showTools)
+    {
+        
+        [self hideStuff:43];
+        
+        showTools = NO;
+        
+    }
+    else
+    {
+        
+        [self showSuff:43];
+        
+        showTools = YES;
+    
+    }
+    
     
 }
 
@@ -1174,9 +1230,9 @@ UIImageView *mainImage;
 
     progress.progress = 0;
     
-    
     if (captureDrawing.count > 0)
     {
+        
         canDraw = NO;
         
         [self makeTabBarShow];
@@ -1191,6 +1247,7 @@ UIImageView *mainImage;
         [undoB setHidden:YES];
         [trashB setHidden:YES];
         [replayB setHidden:NO];
+        [hideAndShowB setHidden:YES];
         
         timerInt = 0;
         
