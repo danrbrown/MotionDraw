@@ -49,7 +49,6 @@ UIImageView *mainImage;
 {
     
     NSLog(@"view did load");
-
     
 #define SPEED 0.0007
 #define DRAW_SPEED 0.0100
@@ -121,14 +120,20 @@ UIImageView *mainImage;
         
         sendB.frame = CGRectMake(250, 383, 64, 40);
         saveB.frame = CGRectMake(6, 385, 49, 43);
-        mainImage.frame = CGRectMake(0, 0, 320, 431);
         redoB.frame = CGRectMake(8, 384, 79, 38);
         startB.frame = CGRectMake(98, 191, 124, 56);
         replayB.frame = CGRectMake(96, 382, 97, 42);
         stopB.frame = CGRectMake(8, 378, 91, 50);
+        mainImage.frame = CGRectMake(0, 0, 320, 431);
         
     }
-    
+    else
+    {
+        
+        mainImage.frame = CGRectMake(0, 0, 320, 519);
+        
+    }
+
     if (!(APP).firstTime)
     {
     
@@ -194,21 +199,6 @@ UIImageView *mainImage;
     
     [self createIntroTrace];
     
-}
-
-//----------------------------------------------------------------------------------
-//
-// Name: viewWillAppear
-//
-// Purpose:
-//
-//----------------------------------------------------------------------------------
-
--(BOOL) prefersStatusBarHidden
-{
-
-    return YES;
-
 }
 
 //----------------------------------------------------------------------------------
@@ -1041,7 +1031,6 @@ UIImageView *mainImage;
     theColor = [UIColor colorWithHue:hue saturation:1.0 brightness:1.0 alpha:1.0];
     currentColorImage.backgroundColor = theColor;
     
-    [self makeTabBarHidden];
     [currentColorImage setHidden:NO];
     [sliderImage setHidden:NO];
     [colorValue setHidden:NO];
@@ -1062,82 +1051,6 @@ UIImageView *mainImage;
     }
     
 }
-
-//----------------------------------------------------------------------------------
-//
-// Name:
-//
-// Purpose:
-//
-//----------------------------------------------------------------------------------
-
--(void) makeTabBarHidden
-{
-    
-    if ( [self.tabBarController.view.subviews count] < 2 )
-    {
-        return;
-    }
-    UIView *contentView;
-    if ([[self.tabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]] )
-    {
-        contentView = [self.tabBarController.view.subviews objectAtIndex:1];
-    }
-    else
-    {
-        contentView = [self.tabBarController.view.subviews objectAtIndex:0];
-    }
-    contentView.frame = CGRectMake(self.tabBarController.view.bounds.origin.x, self.tabBarController.view.bounds.origin.y,                                       self.tabBarController.view.bounds.size.width, self.tabBarController.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height);
-    self.tabBarController.tabBar.hidden = YES;
-    
-    int smallScreen = 480;
-    CGSize result = [[UIScreen mainScreen] bounds].size;
-    if(result.height == smallScreen)
-    {
-        
-        mainImage.frame = CGRectMake(0, 0, 320, smallScreen);
-        
-    }
-    else
-    {
-        
-        mainImage.frame = CGRectMake(0, 0, 320, 568);
-    
-    }
-
-}
-
-//----------------------------------------------------------------------------------
-//
-// Name:
-//
-// Purpose:
-//
-//----------------------------------------------------------------------------------
-
--(void) makeTabBarShow
-{
-    
-    if ( [self.tabBarController.view.subviews count] < 2 )
-    {
-        return;
-    }
-    UIView *contentView;
-    if ([[self.tabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]] )
-    {
-        contentView = [self.tabBarController.view.subviews objectAtIndex:1];
-    }
-    else
-    {
-        contentView = [self.tabBarController.view.subviews objectAtIndex:0];
-    }
-    contentView.frame = CGRectMake(self.tabBarController.view.bounds.origin.x, self.tabBarController.view.bounds.origin.y,                                       self.tabBarController.view.bounds.size.width, self.tabBarController.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height);
-    self.tabBarController.tabBar.hidden = NO;
-    mainImage.frame = CGRectMake(0, 0, 320, 568);
-    
-}
-
-
 
 -(void) showSuff:(int) over
 {
@@ -1283,7 +1196,6 @@ UIImageView *mainImage;
             
         }
         
-        [self makeTabBarShow];
         [currentColorImage setHidden:YES];
         [sliderImage setHidden:YES];
         [colorValue setHidden:YES];
@@ -1390,6 +1302,8 @@ UIImageView *mainImage;
 
 -(void) getMyCords: (int)currentX cord2:(int)currentY cord3:(int)lastx cord4:(int)lasty brush:(CGFloat)bSize red:(CGFloat)redC green:(CGFloat)greenC blue:(CGFloat)blueC
 {
+    
+    NSLog(@"x = %i, y = %i, lx = %i, ly = %i", currentX, currentY, lastx, lasty);
     
     id xId = [NSNumber numberWithInt:currentX];
     id yId = [NSNumber numberWithInt:currentY];
