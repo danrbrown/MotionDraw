@@ -35,6 +35,10 @@ extern UIImageView *mainImage;
     BOOL mouseSwiped;
     UIColor *theColor;
     double hue;
+    double DRAW_SPEED;
+    double SLOW_SPEED;
+    double MEDIUM_SPEED;
+    double FAST_SPEED;
     
     //Undo
     UIImage *undoImage;
@@ -79,6 +83,7 @@ extern UIImageView *mainImage;
     IBOutlet UIButton *startB;
     IBOutlet UIButton *secretAdminB;
     IBOutlet UIButton *hideAndShowB;
+    IBOutlet UIButton *slow, *medium, *fast;
     
     IBOutlet UIActivityIndicatorView *loading;
     IBOutlet UIImageView *sliderImage;
@@ -102,7 +107,6 @@ extern UIImageView *mainImage;
 @property IBOutlet UISlider *speed;
 
 //Actions for view
--(IBAction) undo:(id)sender;
 -(IBAction) send:(id)sender;
 -(IBAction) save:(id)sender;
 -(IBAction) clear:(id)sender;

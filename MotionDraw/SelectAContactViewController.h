@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *validContactsTable;
 @property(nonatomic, assign) CanvasViewController *canvasViewController;
 @property (strong, nonatomic) NSMutableArray *captureArray;
+@property (nonatomic) double traceDrawSpeed;
 
 //Actions
 -(IBAction) cancel;

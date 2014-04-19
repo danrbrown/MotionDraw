@@ -51,10 +51,15 @@ UIImageView *mainImage;
     NSLog(@"view did load");
     
 #define SPEED 0.0007
-#define DRAW_SPEED 0.0100
+    
+    SLOW_SPEED = 0.06; //0.0100
+    MEDIUM_SPEED = 0.03;
+    FAST_SPEED = 0.0100;
+    
+    DRAW_SPEED = MEDIUM_SPEED;
     
     showTools = YES;
-    //rb
+    
     if ((APP).IS_ADMIN)
     {
         
@@ -473,7 +478,8 @@ UIImageView *mainImage;
     
     self.mainImage.image = nil;
     
-    [self getMyCords:0 cord2:0 cord3:0 cord4:0 brush:0 red:0 green:0 blue:0];
+    progress.progress = 0;
+    [captureDrawing removeAllObjects];
     
 }
 
@@ -497,30 +503,6 @@ UIImageView *mainImage;
     mainImage.image = nil;
     
     timer = [NSTimer scheduledTimerWithTimeInterval:DRAW_SPEED target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
-    
-}
-
-//----------------------------------------------------------------------------------
-//
-// Name: undo
-//
-// Purpose:
-//
-//----------------------------------------------------------------------------------
-
--(IBAction) undo:(id)sender
-{
-    
-    if (undoImageArray.count > 0)
-    {
-        
-        undoImage = [undoImageArray lastObject];
-        
-        [undoImageArray removeLastObject];
-        
-        mainImage.image = undoImage;
-        
-    }
     
 }
 
@@ -727,6 +709,7 @@ UIImageView *mainImage;
         UINavigationController *navigationController = segue.destinationViewController;
         SelectAContactViewController *controller = (SelectAContactViewController *)navigationController.topViewController;
         controller.captureArray = captureDrawing;
+        controller.traceDrawSpeed = DRAW_SPEED;
         
     }
     
@@ -1052,6 +1035,98 @@ UIImageView *mainImage;
     
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(IBAction) slow:(id)sender
+{
+    
+    [self changeSpeed:@"slow"];
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(IBAction) medium:(id)sender
+{
+    
+    [self changeSpeed:@"medium"];
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(IBAction) fast:(id)sender
+{
+    
+    [self changeSpeed:@"fast"];
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(void) changeSpeed:(NSString *)Vidspeed
+{
+    
+    if ([Vidspeed isEqual:@"slow"])
+    {
+        
+        DRAW_SPEED = SLOW_SPEED;
+        NSLog(@"slow");
+        
+    }
+    
+    else if ([Vidspeed isEqual:@"medium"])
+    {
+        
+        DRAW_SPEED = MEDIUM_SPEED;
+        NSLog(@"medium");
+        
+    }
+    
+    else if ([Vidspeed isEqual:@"fast"])
+    {
+        
+        DRAW_SPEED = FAST_SPEED;
+        NSLog(@"fast");
+        
+    }
+    
+    [self replay:nil];
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 -(void) showSuff:(int) over
 {
     
@@ -1077,6 +1152,14 @@ UIImageView *mainImage;
     [UIView commitAnimations];
     
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 -(void) hideStuff:(int) over
 {
@@ -1104,6 +1187,14 @@ UIImageView *mainImage;
     
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 -(IBAction)showAndHide:(id)sender
 {
     
@@ -1123,7 +1214,6 @@ UIImageView *mainImage;
         showTools = YES;
     
     }
-    
     
 }
 
@@ -1254,34 +1344,18 @@ UIImageView *mainImage;
     float greenColor = [STRgreen floatValue];
     float blueColor = [STRblue floatValue];
     
-    if ((x_int == 0) && (y_int == 0))
-    {
-
-        [UIView beginAnimations:@"suck" context:NULL];
-        [UIView setAnimationTransition:108 forView:mainImage cache:NO];
-        [UIView setAnimationDuration:0.1f];
-        [UIView commitAnimations];
-        
-        self.mainImage.image = nil;
-
-    }
-    else
-    {
-        
-        UIGraphicsBeginImageContext(self.view.frame.size);
-        [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), last_x_int, last_y_int); // lastX, lastY
-        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x_int, y_int); //x, y
-        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush_size);
-        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), redColor, greenColor, blueColor, 1.0);
-        CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
-        
-        CGContextStrokePath(UIGraphicsGetCurrentContext());
-        self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-    }
+    UIGraphicsBeginImageContext(self.view.frame.size);
+    [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), last_x_int, last_y_int); // lastX, lastY
+    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x_int, y_int); //x, y
+    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush_size);
+    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), redColor, greenColor, blueColor, 1.0);
+    CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
+    
+    CGContextStrokePath(UIGraphicsGetCurrentContext());
+    self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     
     timerInt += 1;
     
@@ -1302,8 +1376,6 @@ UIImageView *mainImage;
 
 -(void) getMyCords: (int)currentX cord2:(int)currentY cord3:(int)lastx cord4:(int)lasty brush:(CGFloat)bSize red:(CGFloat)redC green:(CGFloat)greenC blue:(CGFloat)blueC
 {
-    
-    NSLog(@"x = %i, y = %i, lx = %i, ly = %i", currentX, currentY, lastx, lasty);
     
     id xId = [NSNumber numberWithInt:currentX];
     id yId = [NSNumber numberWithInt:currentY];

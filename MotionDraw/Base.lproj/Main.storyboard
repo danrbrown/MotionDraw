@@ -283,18 +283,8 @@
                                     <action selector="reset:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="sMi-hL-nKQ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="XrS-dY-ARZ">
-                                <rect key="frame" x="273" y="314" width="47" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="undoButton.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="undo:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="VCE-ey-Jff"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2Rt-fV-QTj">
-                                <rect key="frame" x="279" y="362" width="38" height="43"/>
+                                <rect key="frame" x="287" y="316" width="30" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="TrashButton.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -339,6 +329,36 @@
                                     <action selector="showAndHide:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="5Nb-ju-vNa"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="q2H-jU-kxq">
+                                <rect key="frame" x="28" y="21" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Slow">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="slow:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="QW1-gs-tnV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8X5-F4-e8s">
+                                <rect key="frame" x="74" y="21" width="56" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Medium">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="medium:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="2jt-al-g4C"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bZ7-kc-FiY">
+                                <rect key="frame" x="141" y="21" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Fast">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="fast:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="PlG-b5-xHV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -348,8 +368,10 @@
                         <outlet property="colorValue" destination="M8l-gN-xXL" id="Vja-Zc-Z6a"/>
                         <outlet property="currentColorImage" destination="Dhp-PA-pba" id="rAC-lR-0qm"/>
                         <outlet property="drawB" destination="e9h-Rw-NuY" id="3yB-yb-bBS"/>
+                        <outlet property="fast" destination="bZ7-kc-FiY" id="ADK-9d-mnS"/>
                         <outlet property="hideAndShowB" destination="Qf0-Co-zo5" id="mLh-Ks-VyC"/>
                         <outlet property="mainImage" destination="Ktt-qL-5WB" id="aRv-QJ-fg6"/>
+                        <outlet property="medium" destination="8X5-F4-e8s" id="GGa-Pn-RxN"/>
                         <outlet property="progress" destination="hx9-kt-CHJ" id="s90-yP-dpf"/>
                         <outlet property="redoB" destination="aIX-xn-cqq" id="BKT-rs-NmA"/>
                         <outlet property="replayB" destination="KoQ-aO-BsI" id="n9L-aS-Owu"/>
@@ -357,10 +379,10 @@
                         <outlet property="secretAdminB" destination="wiy-xu-WPw" id="ijs-Yn-ZBd"/>
                         <outlet property="sendB" destination="fiK-rM-BBR" id="90V-C6-4Pl"/>
                         <outlet property="sliderImage" destination="JqE-Z3-IEX" id="ed8-8t-WfK"/>
+                        <outlet property="slow" destination="q2H-jU-kxq" id="Ya0-cZ-xIh"/>
                         <outlet property="startB" destination="e9h-Rw-NuY" id="Mmi-hZ-8WL"/>
                         <outlet property="stopB" destination="Tgc-Ha-kmI" id="pFy-QW-50k"/>
                         <outlet property="trashB" destination="2Rt-fV-QTj" id="1IE-Rj-HDp"/>
-                        <outlet property="undoB" destination="XrS-dY-ARZ" id="1dr-jq-Emc"/>
                         <segue destination="3yg-77-4Js" kind="modal" identifier="selectAContact" animates="NO" id="svf-mJ-lnx"/>
                     </connections>
                 </viewController>
@@ -1363,7 +1385,6 @@
         <image name="TrashButton.png" width="105" height="172"/>
         <image name="WelcomeImage.png" width="320" height="568"/>
         <image name="iconsberlin.png" width="30" height="30"/>
-        <image name="undoButton.png" width="100" height="94"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

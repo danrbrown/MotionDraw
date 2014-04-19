@@ -39,16 +39,7 @@
 -(void) viewDidLoad
 {
     
-
-    NSString *someText;
-    someText = nil;
-    someText = [NSString stringWithFormat:@"%@", self.captureArray];
-    NSString *path = @"/Users/Ricky/Documents/MyStuff/AppProject II/MotionDraw/Key Documents/ArrayToFile.txt";
-    
-    [someText writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-    
-    //NSString *newText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
-    //NSLog(@"%@", newText);
+    NSLog(@"traceDrawSpeed = %f", _traceDrawSpeed);
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveContactsLoadedNotification:)
@@ -339,6 +330,8 @@
     
     [undoImageArray removeAllObjects];
     
+    id traceSpeedObj = [NSNumber numberWithDouble:_traceDrawSpeed];
+    
     PFObject *tempObject = [validContacts objectAtIndex:indexPath.row];
     NSString *tempContact = [tempObject objectForKey:@"contact"];
     NSDate *currentDateTime = [NSDate date];
@@ -356,6 +349,7 @@
     [imageObject setObject:tempContact forKey:@"toUser"];
     [imageObject setObject:@"YES" forKey:@"toUserDisplay"];
     [imageObject setObject:@"P"forKey:@"status"];
+    [imageObject setObject:traceSpeedObj forKey:@"traceDrawSpeed"];
     
     [(APP).tracesArray insertObject:imageObject atIndex:0];
     

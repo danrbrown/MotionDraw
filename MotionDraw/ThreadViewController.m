@@ -39,9 +39,6 @@
 -(void) viewDidLoad
 {
     
-#define SPEED 0.0009
-#define DRAW_SPEED 0.008
-    
     undoThreadImageArray = [[NSMutableArray alloc] init];
     
     red = 0;
@@ -175,7 +172,10 @@
                         NSData *imageVidData = [imageFile getData];
                         capArray = [NSKeyedUnarchiver unarchiveObjectWithData:imageVidData];
 
-                        [self callShowVideo];
+                        NSNumber *traceDrawSpeed = [myImages objectForKey:@"traceDrawSpeed"];
+                        double traceDrawSpeedDBL = [traceDrawSpeed floatValue];
+                       
+                        [self callShowVideo:traceDrawSpeedDBL];
                         
                         [loadingTrace stopAnimating];
                         [_hudView removeFromSuperview];
@@ -248,14 +248,14 @@
 //
 //----------------------------------------------------------------------------------
 
--(void) callShowVideo
+-(void) callShowVideo:(double)traceDrawSpeed
 {
     
     threadTimerInt = 0;
     
     mainThreadImage.image = nil;
     
-    threadTimer = [NSTimer scheduledTimerWithTimeInterval:0.008 target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
+    threadTimer = [NSTimer scheduledTimerWithTimeInterval:traceDrawSpeed target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
     
 }
 
