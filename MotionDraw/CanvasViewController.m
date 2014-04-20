@@ -138,8 +138,9 @@ UIImageView *mainImage;
         redoB.frame = CGRectMake(8, 384, 79, 38);
         startB.frame = CGRectMake(98, 191, 124, 56);
         replayB.frame = CGRectMake(96, 382, 97, 42);
-        stopB.frame = CGRectMake(8, 378, 91, 50);
+        stopB.frame = CGRectMake(-2, 382, 91, 50);
         mainImage.frame = CGRectMake(0, 0, 320, 431);
+        hideAndShowB.frame = CGRectMake(272, 402, 44, 24);
         
     }
     else
@@ -183,6 +184,8 @@ UIImageView *mainImage;
     [slow setHidden:YES];
     [medium setHidden:YES];
     [fast setHidden:YES];
+    [newProg setHidden:YES];
+    [newProgMin setHidden:YES];
     
     canDraw = NO;
     
@@ -1057,6 +1060,8 @@ UIImageView *mainImage;
     [trashB setHidden:NO];
     [progress setHidden:YES];
     [hideAndShowB setHidden:NO];
+    [newProg setHidden:NO];
+    [newProgMin setHidden:NO];
     
     canDraw = YES;
     
@@ -1308,6 +1313,8 @@ UIImageView *mainImage;
     [slow setHidden:YES];
     [medium setHidden:YES];
     [fast setHidden:YES];
+    [newProg setHidden:YES];
+    [newProgMin setHidden:YES];
     
     [undoRecordImageArray removeAllObjects];
     [undoImageArray removeAllObjects];

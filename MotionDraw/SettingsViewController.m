@@ -342,6 +342,8 @@ int screens;
                 
                 [PFUser logOut];
                 
+                (APP).unopenedTraceCount = 0;
+                (APP).friendRequestsCount = 0;
             }
             
         }];

@@ -9,7 +9,7 @@
             <objects>
                 <tableViewController id="6n3-Rw-LbR" customClass="ContactsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="54" sectionHeaderHeight="22" sectionFooterHeight="22" id="wnq-ny-Fc5">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.47966343839999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="c1u-Da-goQ">
@@ -98,7 +98,7 @@
             <objects>
                 <tableViewController id="hM2-WG-Kf8" customClass="AddItemViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ln7-mX-fSV">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.47966343839999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="0.13809828760000001" green="0.4538568046" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -207,7 +207,7 @@
             <objects>
                 <viewController id="2Kp-CN-lfG" customClass="CanvasViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mP4-U8-ab3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Ktt-qL-5WB">
@@ -271,7 +271,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Tgc-Ha-kmI">
-                                <rect key="frame" x="0.0" y="462" width="96" height="60"/>
+                                <rect key="frame" x="-2" y="462" width="96" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Stop.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -327,7 +327,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Qf0-Co-zo5">
-                                <rect key="frame" x="111" y="470" width="67" height="39"/>
+                                <rect key="frame" x="272" y="488" width="42" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Hide.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -409,7 +409,7 @@
             <objects>
                 <tableViewController id="K0S-Gd-Ukn" customClass="SelectAContactViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="54" sectionHeaderHeight="22" sectionFooterHeight="22" id="JIX-jt-lAQ">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.47966343839999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="9ya-fj-QzG">
@@ -485,7 +485,7 @@
             <objects>
                 <tableViewController id="aeT-oL-6yf" customClass="RequestsAndLogOutViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="54" sectionHeaderHeight="22" sectionFooterHeight="22" id="rdI-KT-ATp">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.47966343839999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="0.30152911999999998" green="0.74419076780000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -579,7 +579,7 @@
             <objects>
                 <tableViewController id="nPK-DC-9Tx" customClass="SettingsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="46" sectionHeaderHeight="10" sectionFooterHeight="10" id="w5B-fW-V1p">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.47966343839999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="0.96002072699999996" green="0.96002072699999996" blue="0.96002072699999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -825,7 +825,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WelcomeImage.png" id="GJe-ih-ilo">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="1" width="320" height="582"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="LYp-gy-0QR">
@@ -841,7 +841,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.13809828760000001" green="0.4538568046" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.035127737226277371" green="0.19519844890510948" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0MR-pz-Qk6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1143,12 +1143,12 @@
             </objects>
             <point key="canvasLocation" x="1872" y="-884"/>
         </scene>
-        <!--Traces View Controller - CEO-->
+        <!--Traces View Controller - Leave A Trace-->
         <scene sceneID="E3g-7R-xlC">
             <objects>
                 <tableViewController id="5GE-U6-U7F" customClass="tracesViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mcs-gf-HSD">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="0.00053359762919999996" green="0.70037105580000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1221,7 +1221,7 @@
                             <outlet property="delegate" destination="5GE-U6-U7F" id="Ahp-rd-tqV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="CEO" id="zVb-kD-KaM">
+                    <navigationItem key="navigationItem" title="Leave A Trace" id="zVb-kD-KaM">
                         <barButtonItem key="leftBarButtonItem" image="iconsberlin.png" id="047-Tx-YYc">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -1273,7 +1273,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kHB-nY-U8s">
-                                <rect key="frame" x="4" y="525" width="92" height="38"/>
+                                <rect key="frame" x="4" y="526" width="92" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Replay.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1306,6 +1306,7 @@
                         <outlet property="newProg" destination="hlq-sg-c0l" id="fPb-QA-EGN"/>
                         <outlet property="newProgMin" destination="M4G-CF-3YT" id="GDa-Yx-ZKQ"/>
                         <outlet property="progress" destination="DpL-yp-sr7" id="k1r-2r-k4T"/>
+                        <outlet property="replayB" destination="kHB-nY-U8s" id="qg1-Um-0g1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aka-aW-9yf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1405,7 +1406,7 @@
         <image name="Stop.png" width="158" height="88"/>
         <image name="TracesIcon.png" width="50" height="50"/>
         <image name="TrashButton.png" width="105" height="172"/>
-        <image name="WelcomeImage.png" width="320" height="568"/>
+        <image name="WelcomeImage.png" width="320" height="662"/>
         <image name="iconsberlin.png" width="30" height="30"/>
         <image name="progressMax.png" width="224" height="10"/>
         <image name="progressMin.png" width="226" height="12"/>
@@ -1416,8 +1417,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Nbp-7R-eQn"/>
-        <segue reference="WpX-bP-YOc"/>
+        <segue reference="HwZ-9X-S4x"/>
+        <segue reference="onn-AB-67w"/>
         <segue reference="xzF-XI-UKE"/>
     </inferredMetricsTieBreakers>
 </document>
