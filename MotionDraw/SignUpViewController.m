@@ -137,7 +137,6 @@
     
     LoadTraces *loadTraces = [[LoadTraces alloc] init];
     NSUserDefaults *traceDefaults = [NSUserDefaults standardUserDefaults];
-
     
     if ([passwordSignUpTextField.text isEqual:varifyPasswordSignUpTextField.text])
     {
@@ -164,11 +163,14 @@
             
                  [[PFInstallation currentInstallation] saveEventually];
                  
+                 NSNumber *defaultNumber = @0;
                  [[PFUser currentUser] setObject:@"Y" forKey:@"LoggedIn"];
+                 [[PFUser currentUser] setObject:defaultNumber forKey:@"tracesSent"];
+                 [[PFUser currentUser] setObject:defaultNumber forKey:@"tracesViewed"];
                  [[PFUser currentUser] saveInBackground];
                  
                  [traceDefaults setObject:user.username forKey:@"username"];
-                 [traceDefaults setObject:@"NO" forKey:@"sawTut"];
+                 [traceDefaults setObject:@"NO" forKey:@"sawTutorial"];
                  [traceDefaults synchronize];
                  
                  [self establishLeaveATraceFriendship:user.username];

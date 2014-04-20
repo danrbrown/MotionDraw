@@ -60,6 +60,7 @@ extern UIImageView *mainImage;
     
     //Variables
     BOOL showTools;
+    BOOL showTutorial;
     BOOL dontTrash;
     int viewText;
     NSMutableArray *imagesArray;

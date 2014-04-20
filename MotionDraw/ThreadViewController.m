@@ -140,9 +140,9 @@
     
     viewText = 1;
     
-    NSUserDefaults *traceDefaults = [NSUserDefaults standardUserDefaults];
-    [traceDefaults setObject:@"YES" forKey:@"sawTut"];
-    [traceDefaults synchronize];
+//    NSUserDefaults *traceDefaults = [NSUserDefaults standardUserDefaults];
+//    [traceDefaults setObject:@"YES" forKey:@"sawTut"];
+//    [traceDefaults synchronize];
     
     [self loadingTrace];
     

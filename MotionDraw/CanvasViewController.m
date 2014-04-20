@@ -59,6 +59,7 @@ UIImageView *mainImage;
     DRAW_SPEED = MEDIUM_SPEED;
     
     showTools = YES;
+    showTutorial = NO;
     
     if ((APP).IS_ADMIN)
     {
@@ -534,7 +535,12 @@ UIImageView *mainImage;
 
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    
+    if (showTutorial)
+    {
+        mainImage.image = nil;
+        showTutorial = NO;
+    }
+ 
     if (canDraw)
     {
      
@@ -561,7 +567,7 @@ UIImageView *mainImage;
         [self getMyCords:currentPoint.x cord2:currentPoint.y cord3:lastPoint.x cord4:lastPoint.y brush:brush red:red green:green blue:blue];
         
     }
-    
+
 }
 
 //----------------------------------------------------------------------------------
@@ -984,25 +990,30 @@ UIImageView *mainImage;
 //
 //----------------------------------------------------------------------------------
 
-- (IBAction)HideTut:(UITapGestureRecognizer *)sender
-{
-
-    [tutorialImage setHidden:YES];
-    
-}
-
-//----------------------------------------------------------------------------------
-//
-// Name:
-//
-// Purpose:
-//
-//----------------------------------------------------------------------------------
-
 -(IBAction)draw:(id)sender
 {
     
-    //mainImage.image = [UIImage imageNamed:@"tutImage.png"];
+    NSUserDefaults *traceDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *tmpSawTutorial = [traceDefaults objectForKey:@"sawTutorial"];
+    
+    if ([tmpSawTutorial length] > 0)
+    {
+        
+        if ([tmpSawTutorial isEqual:@"NO"])
+        {
+            mainImage.image = [UIImage imageNamed:@"tutImage.png"];
+            [traceDefaults setObject:@"YES" forKey:@"sawTutorial"];
+            [traceDefaults synchronize];
+            showTutorial = YES;
+            
+        }
+
+    }
+    else
+    {
+        mainImage.image = nil;
+        showTutorial = NO;
+    }
     
     size_t total;
     total = 0;
@@ -1020,8 +1031,6 @@ UIImageView *mainImage;
         showTools = YES;
         
     }
-    
-    //mainImage.image = nil;
     
     [undoRecordImageArray removeAllObjects];
     [undoImageArray removeAllObjects];

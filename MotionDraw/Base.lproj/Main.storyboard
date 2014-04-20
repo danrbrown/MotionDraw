@@ -214,6 +214,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="YtH-ev-cUV" appends="YES" id="dVs-L6-CyP"/>
+                                </connections>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="progressMin.png" id="2mH-9y-ims">
                                 <rect key="frame" x="15" y="23" width="266" height="9"/>
@@ -397,11 +400,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yez-Zu-kBZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="YtH-ev-cUV">
-                    <connections>
-                        <action selector="HideTut:" destination="2Kp-CN-lfG" id="p1x-dA-l51"/>
-                    </connections>
-                </tapGestureRecognizer>
+                <tapGestureRecognizer id="YtH-ev-cUV"/>
             </objects>
             <point key="canvasLocation" x="2252" y="463"/>
         </scene>
