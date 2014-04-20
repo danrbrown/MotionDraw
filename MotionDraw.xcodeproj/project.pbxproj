@@ -39,7 +39,6 @@
 		9C59DB9D18F4DFF70031829F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C59DB9C18F4DFF70031829F /* Security.framework */; };
 		9C59DB9F18F4E0000031829F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C59DB9E18F4E0000031829F /* QuartzCore.framework */; };
 		9C59DBA118F4E00A0031829F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C59DBA018F4E00A0031829F /* Social.framework */; };
-		9C59DBA318F4E0150031829F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C59DBA218F4E0150031829F /* StoreKit.framework */; };
 		9C59DBA518F4E0220031829F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C59DBA418F4E0220031829F /* SystemConfiguration.framework */; };
 		9C59DBA718F4E03E0031829F /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C59DBA618F4E03E0031829F /* Parse.framework */; };
 		9C59DBAA18F4E0770031829F /* LoadTraces.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C59DBA918F4E0770031829F /* LoadTraces.m */; };
@@ -160,7 +159,6 @@
 		9C59DB9C18F4DFF70031829F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9C59DB9E18F4E0000031829F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9C59DBA018F4E00A0031829F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		9C59DBA218F4E0150031829F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9C59DBA418F4E0220031829F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9C59DBA618F4E03E0031829F /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		9C59DBA818F4E0770031829F /* LoadTraces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadTraces.h; sourceTree = "<group>"; };
@@ -261,7 +259,6 @@
 				9C59DB8D18F4DF040031829F /* AudioToolbox.framework in Frameworks */,
 				9C59DBA718F4E03E0031829F /* Parse.framework in Frameworks */,
 				9C59DBA518F4E0220031829F /* SystemConfiguration.framework in Frameworks */,
-				9C59DBA318F4E0150031829F /* StoreKit.framework in Frameworks */,
 				9C59DBA118F4E00A0031829F /* Social.framework in Frameworks */,
 				9C59DB9F18F4E0000031829F /* QuartzCore.framework in Frameworks */,
 				9C59DB9D18F4DFF70031829F /* Security.framework in Frameworks */,
@@ -328,7 +325,6 @@
 				9C8EA4E418FB48380052A64D /* AVFoundation.framework */,
 				9C59DBA618F4E03E0031829F /* Parse.framework */,
 				9C59DBA418F4E0220031829F /* SystemConfiguration.framework */,
-				9C59DBA218F4E0150031829F /* StoreKit.framework */,
 				9C59DBA018F4E00A0031829F /* Social.framework */,
 				9C59DB9E18F4E0000031829F /* QuartzCore.framework */,
 				9C59DB9C18F4DFF70031829F /* Security.framework */,
@@ -622,6 +618,11 @@
 				TargetAttributes = {
 					9C59DB3A18F4DBB00031829F = {
 						DevelopmentTeam = 69QHNGD4FM;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 					9C59DB5B18F4DBB00031829F = {
 						TestTargetID = 9C59DB3A18F4DBB00031829F;
@@ -882,7 +883,7 @@
 				INFOPLIST_FILE = "MotionDraw/MotionDraw-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "71866A19-38C6-4A1D-B6A3-5AE7E616ECDE";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -903,7 +904,7 @@
 				INFOPLIST_FILE = "MotionDraw/MotionDraw-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "71866A19-38C6-4A1D-B6A3-5AE7E616ECDE";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

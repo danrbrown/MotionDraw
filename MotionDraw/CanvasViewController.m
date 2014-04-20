@@ -271,6 +271,8 @@ UIImageView *mainImage;
         [slow setHidden:YES];
         [medium setHidden:YES];
         [fast setHidden:YES];
+        [newProg setHidden:YES];
+        [newProgMin setHidden:YES];
         
         mainImage.image = nil;
         
