@@ -1380,7 +1380,6 @@ UIImageView *mainImage;
 
 -(void) showVideo
 {
-    
     progress.progress = progress.progress + SPEED;
     newProg.frame = CGRectMake(newProg.frame.origin.x, newProg.frame.origin.y, newProg.frame.size.width + 0.187, newProg.frame.size.height);
     
@@ -1396,20 +1395,28 @@ UIImageView *mainImage;
     NSString *STRgreen = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"green"];
     NSString *STRblue = [[captureDrawing objectAtIndex:timerInt] objectForKey:@"blue"];
     
-    int x_int = [STRx intValue];
-    int y_int = [STRy intValue];
-    int last_x_int = [STRlastx intValue];
-    int last_y_int = [STRlasty intValue];
+    float x_float = [STRx floatValue];
+    float y_float = [STRy floatValue];
+    float last_x_float = [STRlastx floatValue];
+    float last_y_float = [STRlasty floatValue];
     float brush_size = [bSize floatValue];
     
+//    x_float *= 480.0/568.0;
+//    last_x_float *= 480.0/568.0;
+//
+//    y_float *= 480.0/568.0;
+//    last_y_float *= 480.0/568.0;
+//    brush_size *= 480.0/568.0;
+
     float redColor = [STRred floatValue];
     float greenColor = [STRgreen floatValue];
     float blueColor = [STRblue floatValue];
     
     UIGraphicsBeginImageContext(self.view.frame.size);
+    
     [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), last_x_int, last_y_int); // lastX, lastY
-    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x_int, y_int); //x, y
+    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), last_x_float, last_y_float); // lastX, lastY
+    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x_float, y_float); //x, y
     CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
     CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush_size);
     CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), redColor, greenColor, blueColor, 1.0);

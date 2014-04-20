@@ -78,6 +78,14 @@
         saveB.frame = CGRectMake(7, 433, 49, 43);
         replayB.frame = CGRectMake(4, 438, 92, 38);
         
+        userScreenSize = @"4";
+        
+    }
+    else
+    {
+        
+        userScreenSize = @"5";
+        
     }
     
     UIImage *MaxImage = [UIImage imageNamed:@"BrushSizeSliderMax.png"];
@@ -164,6 +172,7 @@
                         NSNumber *traceDrawSpeed = [myImages objectForKey:@"traceDrawSpeed"];
                         trace_DRAW_SPEED = [traceDrawSpeed floatValue];
                        
+                        friendScreenSize = [myImages objectForKey:@"screenSize"];
                         [self callShowVideo];
                         
                         [loadingTrace stopAnimating];
@@ -247,6 +256,25 @@
     
     threadTimerInt = 0;
     subtractionAmount = 264.0 / (float) capArray.count;
+    
+    if ([friendScreenSize isEqual:userScreenSize])
+    {
+        SCALING_FACTOR = 1.0;
+    }
+    
+    if ([friendScreenSize isEqual:@"4"] && [userScreenSize isEqual:@"5"])
+    {
+
+        SCALING_FACTOR = 568.0/480.0;
+        
+    }
+    
+    if ([friendScreenSize isEqual:@"5"] && [userScreenSize isEqual:@"4"])
+    {
+        
+        SCALING_FACTOR = 480.0/568.0;
+        
+    }
 
     mainThreadImage.image = nil;
     
@@ -279,45 +307,39 @@
     NSString *STRgreen = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"green"];
     NSString *STRblue = [[capArray objectAtIndex:threadTimerInt] objectForKey:@"blue"];
     
-    int x_int = [STRx intValue];
-    int y_int = [STRy intValue];
-    int last_x_int = [STRlastx intValue];
-    int last_y_int = [STRlasty intValue];
+    float x_float = [STRx floatValue];
+    float y_float = [STRy floatValue];
+    float last_x_float = [STRlastx floatValue];
+    float last_y_float = [STRlasty floatValue];
     float brush_size = [bSize floatValue];
+    
+    // Possible code to scale to different screen sizes. Not part of release 1.0
+//    x_float *= SCALING_FACTOR;
+//    last_x_float *= SCALING_FACTOR;
+//    
+//    y_float *= SCALING_FACTOR;
+//    last_y_float *= SCALING_FACTOR;
+//    brush_size *= SCALING_FACTOR;
+
     
     float redColor = [STRred floatValue];
     float greenColor = [STRgreen floatValue];
     float blueColor = [STRblue floatValue];
     
-    if ((x_int == 0) && (y_int == 0))
-    {
-        
-        [UIView beginAnimations:@"suck" context:NULL];
-        [UIView setAnimationTransition:108 forView:mainThreadImage cache:NO];
-        [UIView setAnimationDuration:0.3f];
-        [UIView commitAnimations];
-        
-        self.mainThreadImage.image = nil;
 
-    }
-    else
-    {
-
-        UIGraphicsBeginImageContext(self.view.frame.size);
-        [self.mainThreadImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), last_x_int, last_y_int); // lastX, lastY
-        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x_int, y_int); //x, y
-        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush_size);
-        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), redColor, greenColor, blueColor, 1.0);
-        CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
-        
-        CGContextStrokePath(UIGraphicsGetCurrentContext());
-        self.mainThreadImage.image = UIGraphicsGetImageFromCurrentImageContext();
-        
-        UIGraphicsEndImageContext();
-        
-    }
+    UIGraphicsBeginImageContext(self.view.frame.size);
+    [self.mainThreadImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), last_x_float, last_y_float); // lastX, lastY
+    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x_float, y_float); //x, y
+    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush_size);
+    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), redColor, greenColor, blueColor, 1.0);
+    CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
+    
+    CGContextStrokePath(UIGraphicsGetCurrentContext());
+    self.mainThreadImage.image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
         
     threadTimerInt += 1;
     

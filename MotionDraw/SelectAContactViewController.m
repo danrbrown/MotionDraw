@@ -323,7 +323,22 @@
 
 -(NSIndexPath *) tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    int smallScreen = 480;
+    NSString *screenSize;
     
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    if(result.height == smallScreen)
+    {
+        
+        screenSize = @"4";
+        
+    }
+    else
+    {
+        screenSize = @"5";
+        
+    }
+
     sentImage = YES;
     
     mainImage.image = nil;
@@ -349,6 +364,7 @@
     [imageObject setObject:tempContact forKey:@"toUser"];
     [imageObject setObject:@"YES" forKey:@"toUserDisplay"];
     [imageObject setObject:@"P"forKey:@"status"];
+    [imageObject setObject:screenSize forKey:@"screenSize"];
     [imageObject setObject:traceSpeedObj forKey:@"traceDrawSpeed"];
     
     [(APP).tracesArray insertObject:imageObject atIndex:0];

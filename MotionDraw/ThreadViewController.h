@@ -23,6 +23,8 @@
     double hue;
     double trace_DRAW_SPEED;
     float subtractionAmount;
+    float SCALING_FACTOR;
+
     
     //Undo
     UIImage *undoThreadImage;
@@ -35,6 +37,9 @@
     
     NSTimer *threadTimer;
     int threadTimerInt;
+    
+    NSString *friendScreenSize;
+    NSString *userScreenSize;
     
     //Variables
     IBOutlet UIButton *undoB;

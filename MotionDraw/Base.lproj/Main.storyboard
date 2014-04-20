@@ -1144,7 +1144,7 @@
             </objects>
             <point key="canvasLocation" x="1872" y="-884"/>
         </scene>
-        <!--Traces View Controller - Motion Draw-->
+        <!--Traces View Controller - CEO-->
         <scene sceneID="E3g-7R-xlC">
             <objects>
                 <tableViewController id="5GE-U6-U7F" customClass="tracesViewController" sceneMemberID="viewController">
@@ -1222,7 +1222,7 @@
                             <outlet property="delegate" destination="5GE-U6-U7F" id="Ahp-rd-tqV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Motion Draw" id="zVb-kD-KaM">
+                    <navigationItem key="navigationItem" title="CEO" id="zVb-kD-KaM">
                         <barButtonItem key="leftBarButtonItem" image="iconsberlin.png" id="047-Tx-YYc">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
