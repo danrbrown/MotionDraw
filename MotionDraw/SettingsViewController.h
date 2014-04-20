@@ -19,6 +19,7 @@ extern int screens;
     
 }
 
+@property (weak, nonatomic) IBOutlet UITableView *settingsTable;
 @property (copy) NSMutableArray *acountInfo;
 @property (copy) NSMutableArray *acountInfoDetail;
 @property (copy) NSMutableArray *actions;

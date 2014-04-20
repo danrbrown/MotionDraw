@@ -21,6 +21,8 @@
     BOOL mouseSwiped;
     UIColor *theColor;
     double hue;
+    double trace_DRAW_SPEED;
+    float subtractionAmount;
     
     //Undo
     UIImage *undoThreadImage;
@@ -45,6 +47,8 @@
     IBOutlet UIActivityIndicatorView *loadingTrace;
     IBOutlet UIImageView *sliderImage;
     IBOutlet UIButton *replayB;
+    IBOutlet UIImageView *newProg, *newProgMin;
+    
     UIView *_hudView;
     UILabel *_captionLabel;
     int viewText;

@@ -215,6 +215,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="progressMin.png" id="2mH-9y-ims">
+                                <rect key="frame" x="15" y="23" width="266" height="9"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fiK-rM-BBR">
                                 <rect key="frame" x="249" y="471" width="64" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
@@ -303,8 +307,8 @@
                                     <action selector="replay:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="8Lv-ev-kG5"/>
                                 </connections>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" id="hx9-kt-CHJ">
-                                <rect key="frame" x="14" y="21" width="264" height="2"/>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" id="hx9-kt-CHJ">
+                                <rect key="frame" x="16" y="23" width="264" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </progressView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wiy-xu-WPw">
@@ -329,36 +333,40 @@
                                     <action selector="showAndHide:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="5Nb-ju-vNa"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="q2H-jU-kxq">
-                                <rect key="frame" x="28" y="21" width="34" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="q2H-jU-kxq">
+                                <rect key="frame" x="37" y="36" width="50" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Slow">
+                                <state key="normal" image="Slow.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="slow:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="QW1-gs-tnV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8X5-F4-e8s">
-                                <rect key="frame" x="74" y="21" width="56" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8X5-F4-e8s">
+                                <rect key="frame" x="130" y="36" width="63" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Medium">
+                                <state key="normal" image="Medium.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="medium:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="2jt-al-g4C"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bZ7-kc-FiY">
-                                <rect key="frame" x="141" y="21" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bZ7-kc-FiY">
+                                <rect key="frame" x="228" y="36" width="53" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Fast">
+                                <state key="normal" image="Fast.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="fast:" destination="2Kp-CN-lfG" eventType="touchUpInside" id="PlG-b5-xHV"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="progressMax.png" id="Eox-NM-RQx">
+                                <rect key="frame" x="15" y="23" width="0.0" height="9"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -372,6 +380,8 @@
                         <outlet property="hideAndShowB" destination="Qf0-Co-zo5" id="mLh-Ks-VyC"/>
                         <outlet property="mainImage" destination="Ktt-qL-5WB" id="aRv-QJ-fg6"/>
                         <outlet property="medium" destination="8X5-F4-e8s" id="GGa-Pn-RxN"/>
+                        <outlet property="newProg" destination="Eox-NM-RQx" id="pi6-z6-XeD"/>
+                        <outlet property="newProgMin" destination="2mH-9y-ims" id="S3a-U1-g61"/>
                         <outlet property="progress" destination="hx9-kt-CHJ" id="s90-yP-dpf"/>
                         <outlet property="redoB" destination="aIX-xn-cqq" id="BKT-rs-NmA"/>
                         <outlet property="replayB" destination="KoQ-aO-BsI" id="n9L-aS-Owu"/>
@@ -618,6 +628,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="settingsTable" destination="w5B-fW-V1p" id="Bk1-uR-sDy"/>
                         <segue destination="GYI-5t-CG3" kind="modal" identifier="LogOutSuccesful" modalTransitionStyle="flipHorizontal" id="WpX-bP-YOc"/>
                     </connections>
                 </tableViewController>
@@ -1252,7 +1263,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="epg-9X-T6L">
-                                <rect key="frame" x="2" y="9" width="32" height="43"/>
+                                <rect key="frame" x="2" y="13" width="32" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="17"/>
                                 <state key="normal" image="CloseButton.png">
@@ -1273,9 +1284,17 @@
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="1" id="DpL-yp-sr7">
-                                <rect key="frame" x="49" y="30" width="257" height="2"/>
+                                <rect key="frame" x="46" y="30" width="257" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </progressView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="progressMin.png" id="M4G-CF-3YT">
+                                <rect key="frame" x="42" y="27" width="266" height="9"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="progressMax.png" id="hlq-sg-c0l">
+                                <rect key="frame" x="42" y="28" width="264" height="8"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -1283,9 +1302,10 @@
                         <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title=" " id="F2Y-yd-7LD"/>
                     </navigationItem>
-                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="mainThreadImage" destination="wG9-Yq-XdK" id="6k8-VR-7Mv"/>
+                        <outlet property="newProg" destination="hlq-sg-c0l" id="fPb-QA-EGN"/>
+                        <outlet property="newProgMin" destination="M4G-CF-3YT" id="GDa-Yx-ZKQ"/>
                         <outlet property="progress" destination="DpL-yp-sr7" id="k1r-2r-k4T"/>
                     </connections>
                 </viewController>
@@ -1370,9 +1390,11 @@
         <image name="CloseButton.png" width="90" height="155"/>
         <image name="ColorValueSlider.png" width="200" height="20"/>
         <image name="DrawButton.png" width="231" height="94"/>
+        <image name="Fast.png" width="97" height="35"/>
         <image name="FriendsIcon.png" width="47" height="47"/>
         <image name="Hide.png" width="83" height="44"/>
         <image name="LoginButton.png" width="258" height="145"/>
+        <image name="Medium.png" width="123" height="28"/>
         <image name="NewTraceIcon.png" width="50" height="50"/>
         <image name="Replay.png" width="199" height="73"/>
         <image name="RequestsIcon.png" width="50" height="50"/>
@@ -1380,11 +1402,14 @@
         <image name="SentTrace.png" width="157" height="109"/>
         <image name="SettingsIcon.png" width="32" height="30"/>
         <image name="SignUpButton.png" width="259" height="146"/>
+        <image name="Slow.png" width="105" height="37"/>
         <image name="Stop.png" width="158" height="88"/>
         <image name="TracesIcon.png" width="50" height="50"/>
         <image name="TrashButton.png" width="105" height="172"/>
         <image name="WelcomeImage.png" width="320" height="568"/>
         <image name="iconsberlin.png" width="30" height="30"/>
+        <image name="progressMax.png" width="224" height="10"/>
+        <image name="progressMin.png" width="226" height="12"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

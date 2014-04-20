@@ -52,6 +52,8 @@
     
     hue = 0.640678;
     
+    trace_DRAW_SPEED = 0.0;
+    
     theColor = [UIColor colorWithHue:hue saturation:1.0 brightness:1.0 alpha:1.0];
     
     currentColorImage.backgroundColor = theColor;
@@ -88,21 +90,6 @@
     
     UIImage *colorThumbImage = [UIImage imageNamed:@"Nothing.png"];
     [_colorValue setThumbImage:colorThumbImage forState:UIControlStateNormal];
-    
-}
-
-//----------------------------------------------------------------------------------
-//
-// Name: 
-//
-// Purpose:
-//
-//----------------------------------------------------------------------------------
-
--(BOOL) prefersStatusBarHidden
-{
-
-    return YES;
     
 }
 
@@ -169,13 +156,15 @@
                     
                     if (!error)
                     {
-                        NSData *imageVidData = [imageFile getData];
+                        //NSData *imageVidData = [imageFile getData];
+
+                        NSData *imageVidData = data;
                         capArray = [NSKeyedUnarchiver unarchiveObjectWithData:imageVidData];
 
                         NSNumber *traceDrawSpeed = [myImages objectForKey:@"traceDrawSpeed"];
-                        double traceDrawSpeedDBL = [traceDrawSpeed floatValue];
+                        trace_DRAW_SPEED = [traceDrawSpeed floatValue];
                        
-                        [self callShowVideo:traceDrawSpeedDBL];
+                        [self callShowVideo];
                         
                         [loadingTrace stopAnimating];
                         [_hudView removeFromSuperview];
@@ -190,7 +179,11 @@
                             {
                                 
                                 (APP).unopenedTraceCount--;
-                                                                
+                                
+                                [[PFUser currentUser] incrementKey:@"tracesViewed"];
+                                [[PFUser currentUser] saveInBackground];
+ 
+                                
                             }
                             
                             [myImages setObject:@"O"forKey:@"status"];
@@ -231,12 +224,13 @@
     [threadTimer invalidate];
     
     progress.progress = 1.0;
+    newProg.frame = CGRectMake(newProg.frame.origin.x, newProg.frame.origin.y, 264, newProg.frame.size.height);
 
     threadTimerInt = 0;
     
     mainThreadImage.image = nil;
     
-    threadTimer = [NSTimer scheduledTimerWithTimeInterval:0.008 target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
+    threadTimer = [NSTimer scheduledTimerWithTimeInterval:trace_DRAW_SPEED target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
     
 }
 
@@ -248,14 +242,15 @@
 //
 //----------------------------------------------------------------------------------
 
--(void) callShowVideo:(double)traceDrawSpeed
+-(void) callShowVideo
 {
     
     threadTimerInt = 0;
-    
+    subtractionAmount = 264.0 / (float) capArray.count;
+
     mainThreadImage.image = nil;
     
-    threadTimer = [NSTimer scheduledTimerWithTimeInterval:traceDrawSpeed target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
+    threadTimer = [NSTimer scheduledTimerWithTimeInterval:trace_DRAW_SPEED target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
     
 }
 
@@ -270,7 +265,7 @@
 -(void) showVideo
 {
     
-    progress.progress = progress.progress - (1.0 / capArray.count);
+    newProg.frame = CGRectMake(newProg.frame.origin.x, newProg.frame.origin.y, newProg.frame.size.width - subtractionAmount, newProg.frame.size.height);
     
     progress.tintColor = [UIColor blackColor];
     

@@ -84,6 +84,8 @@ extern UIImageView *mainImage;
     IBOutlet UIButton *secretAdminB;
     IBOutlet UIButton *hideAndShowB;
     IBOutlet UIButton *slow, *medium, *fast;
+    IBOutlet UIImageView *newProg;
+    IBOutlet UIImageView *newProgMin;
     
     IBOutlet UIActivityIndicatorView *loading;
     IBOutlet UIImageView *sliderImage;

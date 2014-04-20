@@ -7,8 +7,6 @@
 //
 
 #import "SettingsViewController.h"
-//#import "FirstPageViewController.h"
-//#import "DetialViewController.h"
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 
@@ -20,6 +18,7 @@ int screens;
 @end
 
 @implementation SettingsViewController
+@synthesize settingsTable;
 
 //----------------------------------------------------------------------------------
 //
@@ -29,28 +28,62 @@ int screens;
 //
 //----------------------------------------------------------------------------------
 
-- (void)viewDidLoad
+- (void)viewDidAppear:(BOOL)animated
 {
+    
+    [self displayUserData];
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name: getThreadTrace
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(void) displayUserData
+{
+    
+    NSLog(@"displayUserData");
     
     NSString *usernameString = [[PFUser currentUser] username];
     NSString *emailString = [[PFUser currentUser] email];
     NSDate *createdAt = [[PFUser currentUser] createdAt];
     
-    NSDateFormatter *displayDayAndTimeFormat = [[NSDateFormatter alloc] init];
-    [displayDayAndTimeFormat setDateFormat:@"MMM dd, YYYY h:mm a"];
-    NSString *createdAtString = [NSString stringWithFormat:@"%@", [displayDayAndTimeFormat stringFromDate:createdAt]];
+    PFQuery *userQuery = [PFUser query];
+    [userQuery whereKey:@"username" equalTo:usernameString];
     
-    self.acountInfo = [@[@"Username", @"Email", @"Leave A Trace user since"] mutableCopy];
+    [userQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
     
-    self.acountInfoDetail = [@[usernameString, emailString, createdAtString] mutableCopy];
-    
-    self.actions = [@[@"Log out", @"Clear my traces"] mutableCopy];
-    
-    self.info = [@[@"Support", @"Privacy policy", @"Terms of use"] mutableCopy];
-    
-    self.speeds = [@[@"Fast", @"Medium", @"Slow"] mutableCopy];
+        if (!error)
+        {
+            NSNumber *tracesSent = [object objectForKey:@"tracesSent"];
+            NSString *tracesSentString = [NSString stringWithFormat:@"%@", tracesSent];
+            
+            NSNumber *tracesViewed = [object objectForKey:@"tracesViewed"];
+            NSString *tracesViewedString = [NSString stringWithFormat:@"%@", tracesViewed];
+            
+            NSDateFormatter *displayDayAndTimeFormat = [[NSDateFormatter alloc] init];
+            [displayDayAndTimeFormat setDateFormat:@"MMM dd, YYYY h:mm a"];
+            NSString *createdAtString = [NSString stringWithFormat:@"%@", [displayDayAndTimeFormat stringFromDate:createdAt]];
+            
+            self.acountInfo = [@[@"Username", @"Email", @"Leave A Trace user since", @"Traces sent", @"Traces viewed"] mutableCopy];
+            
+            self.acountInfoDetail = [@[usernameString, emailString, createdAtString, tracesSentString, tracesViewedString] mutableCopy];
+            
+            self.actions = [@[@"Log out", @"Clear my traces"] mutableCopy];
+            
+            self.info = [@[@"Support", @"Privacy policy", @"Terms of use"] mutableCopy];
+            
+            [settingsTable reloadData];
+            
+        }
+        
+    }];
 
-    
+
 }
 
 //----------------------------------------------------------------------------------
@@ -76,16 +109,10 @@ int screens;
         return self.actions.count;
     
     }
-    else if (section == 2)
-    {
-        
-        return self.info.count;
-        
-    }
     else
     {
         
-        return  self.speeds.count;
+        return self.info.count;
         
     }
     
@@ -102,7 +129,7 @@ int screens;
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     
-    return 4;
+    return 3;
 
 }
 
@@ -129,16 +156,10 @@ int screens;
         return @"Actions";
     
     }
-    else if (section == 2)
-    {
-        
-        return @"Information";
-        
-    }
     else
     {
         
-        return @"Speed";
+        return @"Information";
         
     }
     
@@ -281,27 +302,6 @@ int screens;
         
     }
     
-    if (indexPath.section == 3 && indexPath.row == 0)
-    {
-        
-        NSLog(@"Need for speed - fast");
-        
-    }
-    
-    if (indexPath.section == 3 && indexPath.row == 1)
-    {
-        
-        NSLog(@"Need for speed - medium");
-        
-    }
-    
-    if (indexPath.section == 3 && indexPath.row == 2)
-    {
-        
-        NSLog(@"Need for speed - slow");
-        
-    }
-    
     return nil;
     
 }
@@ -385,18 +385,11 @@ int screens;
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         
     }
-    else if (indexPath.section == 2)
+    else
     {
         
         text = self.info[indexPath.row];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-        
-    }
-    else
-    {
-        
-        text = self.speeds[indexPath.row];
-        [cell setAccessoryType:UITableViewCellAccessoryNone];
         
     }
     

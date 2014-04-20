@@ -52,9 +52,9 @@ UIImageView *mainImage;
     
 #define SPEED 0.0007
     
-    SLOW_SPEED = 0.06; //0.0100
-    MEDIUM_SPEED = 0.03;
-    FAST_SPEED = 0.0100;
+    SLOW_SPEED = 0.03; //0.0100
+    MEDIUM_SPEED = 0.02;
+    FAST_SPEED = 0.009;
     
     DRAW_SPEED = MEDIUM_SPEED;
     
@@ -92,6 +92,15 @@ UIImageView *mainImage;
     hue = 0.640678;
     
     theColor = [UIColor colorWithHue:hue saturation:1.0 brightness:1.0 alpha:1.0];
+    
+    [medium setEnabled:NO];
+    [medium setAlpha:0.5];
+    
+    [slow setEnabled:YES];
+    [slow setAlpha:1];
+    
+    [fast setEnabled:YES];
+    [fast setAlpha:1];
     
     currentColorImage.backgroundColor = theColor;
     currentColorImage.layer.cornerRadius = 0.0;
@@ -170,6 +179,9 @@ UIImageView *mainImage;
     [replayB setHidden:YES];
     [progress setHidden:YES];
     [hideAndShowB setHidden:YES];
+    [slow setHidden:YES];
+    [medium setHidden:YES];
+    [fast setHidden:YES];
     
     canDraw = NO;
     
@@ -240,6 +252,7 @@ UIImageView *mainImage;
     {
         
         progress.progress = 0;
+        newProg.frame = CGRectMake(newProg.frame.origin.x, newProg.frame.origin.y, 0, newProg.frame.size.height);
         [timer invalidate];
         [currentColorImage setHidden:YES];
         [sliderImage setHidden:YES];
@@ -251,6 +264,9 @@ UIImageView *mainImage;
         [sendB setHidden:YES];
         [drawB setHidden:NO];
         [progress setHidden:YES];
+        [slow setHidden:YES];
+        [medium setHidden:YES];
+        [fast setHidden:YES];
         
         mainImage.image = nil;
         
@@ -479,6 +495,7 @@ UIImageView *mainImage;
     self.mainImage.image = nil;
     
     progress.progress = 0;
+    newProg.frame = CGRectMake(newProg.frame.origin.x, newProg.frame.origin.y, 0, newProg.frame.size.height);
     [captureDrawing removeAllObjects];
     
 }
@@ -497,6 +514,7 @@ UIImageView *mainImage;
     [timer invalidate];
     
     progress.progress = 0;
+    newProg.frame = CGRectMake(newProg.frame.origin.x, newProg.frame.origin.y, 0, newProg.frame.size.height);
     
     timerInt = 0;
     
@@ -594,6 +612,8 @@ UIImageView *mainImage;
         
         progress.progress = progress.progress + SPEED;
         
+        newProg.frame = CGRectMake(newProg.frame.origin.x, newProg.frame.origin.y, newProg.frame.size.width + 0.187, newProg.frame.size.height);
+        
         if (progress.progress == 1)
         {
             
@@ -606,7 +626,7 @@ UIImageView *mainImage;
             [stopDrawing show];
             
             [progress setHidden:NO];
-            
+           
             [self stop:nil];
             
         }
@@ -855,6 +875,8 @@ UIImageView *mainImage;
    // [currentColorImage setHidden:YES];
    // [sliderImage setHidden:YES];
     
+    [UIImagePNGRepresentation(mainImage.image) writeToFile:@"/Users/Ricky/Documents/MyStuff/tutImage.png" atomically:YES];
+    
     [colorValue setHidden:YES];
     [brushSize setHidden:YES];
     [stopB setHidden:YES];
@@ -980,6 +1002,8 @@ UIImageView *mainImage;
 -(IBAction)draw:(id)sender
 {
     
+    //mainImage.image = [UIImage imageNamed:@"tutImage.png"];
+    
     size_t total;
     total = 0;
     id obj;
@@ -997,7 +1021,7 @@ UIImageView *mainImage;
         
     }
     
-    mainImage.image = nil;
+    //mainImage.image = nil;
     
     [undoRecordImageArray removeAllObjects];
     [undoImageArray removeAllObjects];
@@ -1022,7 +1046,7 @@ UIImageView *mainImage;
     [drawB setHidden:YES];
     [undoB setHidden:NO];
     [trashB setHidden:NO];
-    [progress setHidden:NO];
+    [progress setHidden:YES];
     [hideAndShowB setHidden:NO];
     
     canDraw = YES;
@@ -1094,6 +1118,15 @@ UIImageView *mainImage;
     if ([Vidspeed isEqual:@"slow"])
     {
         
+        [slow setEnabled:NO];
+        [slow setAlpha:0.5];
+        
+        [medium setEnabled:YES];
+        [medium setAlpha:1];
+        
+        [fast setEnabled:YES];
+        [fast setAlpha:1];
+        
         DRAW_SPEED = SLOW_SPEED;
         NSLog(@"slow");
         
@@ -1102,6 +1135,15 @@ UIImageView *mainImage;
     else if ([Vidspeed isEqual:@"medium"])
     {
         
+        [medium setEnabled:NO];
+        [medium setAlpha:0.5];
+        
+        [slow setEnabled:YES];
+        [slow setAlpha:1];
+        
+        [fast setEnabled:YES];
+        [fast setAlpha:1];
+        
         DRAW_SPEED = MEDIUM_SPEED;
         NSLog(@"medium");
         
@@ -1109,6 +1151,15 @@ UIImageView *mainImage;
     
     else if ([Vidspeed isEqual:@"fast"])
     {
+        
+        [fast setEnabled:NO];
+        [fast setAlpha:0.5];
+        
+        [slow setEnabled:YES];
+        [slow setAlpha:1];
+        
+        [medium setEnabled:YES];
+        [medium setAlpha:1];
         
         DRAW_SPEED = FAST_SPEED;
         NSLog(@"fast");
@@ -1147,7 +1198,8 @@ UIImageView *mainImage;
     
     trashB.frame= CGRectMake(trashB.frame.origin.x - over, trashB.frame.origin.y, trashB.frame.size.width, trashB.frame.size.height);
     
-    progress.frame= CGRectMake(progress.frame.origin.x - 14, progress.frame.origin.y, progress.frame.size.width, progress.frame.size.height);
+    newProg.frame= CGRectMake(newProg.frame.origin.x - 14, newProg.frame.origin.y, newProg.frame.size.width, newProg.frame.size.height);
+    newProgMin.frame= CGRectMake(newProgMin.frame.origin.x - 14, newProgMin.frame.origin.y, newProgMin.frame.size.width, newProgMin.frame.size.height);
     
     [UIView commitAnimations];
     
@@ -1181,7 +1233,8 @@ UIImageView *mainImage;
     
     trashB.frame= CGRectMake(trashB.frame.origin.x + over, trashB.frame.origin.y, trashB.frame.size.width, trashB.frame.size.height);
     
-    progress.frame= CGRectMake(progress.frame.origin.x + 14, progress.frame.origin.y, progress.frame.size.width, progress.frame.size.height);
+    newProg.frame= CGRectMake(newProg.frame.origin.x + 14, newProg.frame.origin.y, newProg.frame.size.width, newProg.frame.size.height);
+    newProgMin.frame= CGRectMake(27, newProgMin.frame.origin.y, newProgMin.frame.size.width, newProgMin.frame.size.height);
     
     [UIView commitAnimations];
     
@@ -1229,6 +1282,7 @@ UIImageView *mainImage;
 {
     
     progress.progress = 0;
+    newProg.frame = CGRectMake(newProg.frame.origin.x, newProg.frame.origin.y, 0, newProg.frame.size.height);
     
     [timer invalidate];
    
@@ -1242,6 +1296,9 @@ UIImageView *mainImage;
     [restartB setHidden:YES];
     [replayB setHidden:YES];
     [progress setHidden:YES];
+    [slow setHidden:YES];
+    [medium setHidden:YES];
+    [fast setHidden:YES];
     
     [undoRecordImageArray removeAllObjects];
     [undoImageArray removeAllObjects];
@@ -1262,6 +1319,7 @@ UIImageView *mainImage;
 {
 
     progress.progress = 0;
+    newProg.frame = CGRectMake(newProg.frame.origin.x, newProg.frame.origin.y, 0, newProg.frame.size.height);
     
     if (captureDrawing.count > 0)
     {
@@ -1298,6 +1356,9 @@ UIImageView *mainImage;
         [trashB setHidden:YES];
         [replayB setHidden:NO];
         [hideAndShowB setHidden:YES];
+        [slow setHidden:NO];
+        [medium setHidden:NO];
+        [fast setHidden:NO];
         
         timerInt = 0;
         
@@ -1321,6 +1382,7 @@ UIImageView *mainImage;
 {
     
     progress.progress = progress.progress + SPEED;
+    newProg.frame = CGRectMake(newProg.frame.origin.x, newProg.frame.origin.y, newProg.frame.size.width + 0.187, newProg.frame.size.height);
     
     progress.tintColor = [UIColor blackColor];
     

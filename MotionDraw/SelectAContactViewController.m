@@ -378,6 +378,11 @@
                         [[NSNotificationCenter defaultCenter]
                          postNotificationName:@"SendTraceNotification"
                          object:self];
+                        
+                        // Update the number of traces received in the user table
+                        
+                        [[PFUser currentUser] incrementKey:@"tracesSent"];
+                        [[PFUser currentUser] saveInBackground];
                                 
                     }
                     else
