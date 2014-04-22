@@ -17,6 +17,8 @@ extern int screens;
     
     BOOL option;
     
+    IBOutlet UILabel *endLabel;
+    
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *settingsTable;

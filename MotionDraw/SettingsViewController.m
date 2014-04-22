@@ -28,23 +28,10 @@ int screens;
 //
 //----------------------------------------------------------------------------------
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewDidLoad
 {
     
-    [self displayUserData];
-    
-}
-
-//----------------------------------------------------------------------------------
-//
-// Name: getThreadTrace
-//
-// Purpose:
-//
-//----------------------------------------------------------------------------------
-
--(void) displayUserData
-{
+    endLabel.font = [UIFont fontWithName:@"PWSimpleHandwriting" size:16];
     
     NSLog(@"displayUserData");
     
@@ -52,38 +39,18 @@ int screens;
     NSString *emailString = [[PFUser currentUser] email];
     NSDate *createdAt = [[PFUser currentUser] createdAt];
     
-    PFQuery *userQuery = [PFUser query];
-    [userQuery whereKey:@"username" equalTo:usernameString];
+    NSDateFormatter *displayDayAndTimeFormat = [[NSDateFormatter alloc] init];
+    [displayDayAndTimeFormat setDateFormat:@"MMM dd, YYYY h:mm a"];
+    NSString *createdAtString = [NSString stringWithFormat:@"%@", [displayDayAndTimeFormat stringFromDate:createdAt]];
     
-    [userQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+    self.acountInfo = [@[@"Username", @"Email", @"Leave A Trace user since"] mutableCopy];
     
-        if (!error)
-        {
-            NSNumber *tracesSent = [object objectForKey:@"tracesSent"];
-            NSString *tracesSentString = [NSString stringWithFormat:@"%@", tracesSent];
-            
-            NSNumber *tracesViewed = [object objectForKey:@"tracesViewed"];
-            NSString *tracesViewedString = [NSString stringWithFormat:@"%@", tracesViewed];
-            
-            NSDateFormatter *displayDayAndTimeFormat = [[NSDateFormatter alloc] init];
-            [displayDayAndTimeFormat setDateFormat:@"MMM dd, YYYY h:mm a"];
-            NSString *createdAtString = [NSString stringWithFormat:@"%@", [displayDayAndTimeFormat stringFromDate:createdAt]];
-            
-            self.acountInfo = [@[@"Username", @"Email", @"Leave A Trace user since", @"Traces sent", @"Traces viewed"] mutableCopy];
-            
-            self.acountInfoDetail = [@[usernameString, emailString, createdAtString, tracesSentString, tracesViewedString] mutableCopy];
-            
-            self.actions = [@[@"Log out", @"Clear my traces"] mutableCopy];
-            
-            self.info = [@[@"Support", @"Privacy policy", @"Terms of use"] mutableCopy];
-            
-            [settingsTable reloadData];
-            
-        }
-        
-    }];
-
-
+    self.acountInfoDetail = [@[usernameString, emailString, createdAtString] mutableCopy];
+    
+    self.actions = [@[@"Log out", @"Clear my traces"] mutableCopy];
+    
+    self.info = [@[@"Support", @"Privacy policy", @"Terms of use"] mutableCopy];
+    
 }
 
 //----------------------------------------------------------------------------------
@@ -147,7 +114,7 @@ int screens;
     if (section == 0)
     {
         
-        return @"Acount";
+        return @"Account";
     
     }
     else if (section == 1)
