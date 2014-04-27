@@ -17,13 +17,16 @@
     NSString *userAccepted;
     NSString *userContact;
     PFQuery *query;
+    BOOL checked;
+    NSMutableArray *sendToArray;
     
     //Outlets
     IBOutlet UILabel *noSendTo;
     IBOutlet UIActivityIndicatorView *loadingValid;
-    
+    IBOutlet UIButton *box;
 }
 
+@property (weak, nonatomic) IBOutlet UIButton *checkBox;
 @property (strong,nonatomic) NSMutableArray *filteredArray;
 @property IBOutlet UISearchBar *SearchBar;
 @property (weak, nonatomic) IBOutlet UITableView *validContactsTable;

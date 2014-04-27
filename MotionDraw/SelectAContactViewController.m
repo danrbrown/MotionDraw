@@ -52,6 +52,10 @@
     
     noSendTo.font = noFont;
     
+    checked = YES;
+    
+    sendToArray = [[NSMutableArray alloc] init];
+    
 }
 
 //----------------------------------------------------------------------------------
@@ -323,6 +327,58 @@
 
 -(NSIndexPath *) tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    UITableViewCell *cell = [tableView
+                             cellForRowAtIndexPath:indexPath];
+    if (cell.accessoryType == UITableViewCellAccessoryNone)
+    {
+
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        
+        NSString *userToSentTo = [NSString stringWithFormat:@"%lu", indexPath.row];
+        [sendToArray addObject:userToSentTo];
+        NSLog(@"%@", sendToArray);
+        
+    }
+    else
+    {
+        
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        
+        NSString *NotuserToSentTo = [NSString stringWithFormat:@"%lu", indexPath.row];
+        [sendToArray removeObject:NotuserToSentTo];
+        NSLog(@"%@", sendToArray);
+        
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
+    return nil;
+    
+}
+
+-(IBAction)sendIt:(id)sender
+{
+    unsigned long idx;
+    
+    for (NSString *toIdx in sendToArray)
+    {
+        idx = [toIdx longLongValue];
+        
+        NSLog(@"toIdx %@  idx %ld",toIdx,idx);
+        
+        [self sendTheTraceToFriend:idx];
+    }
+    
+    sentImage = YES;
+    [self dismissViewControllerAnimated:NO completion:nil];
+
+}
+
+-(void)sendTheTraceToFriend:(unsigned long)toIdx
+{
+    
     int smallScreen = 480;
     NSString *screenSize;
     
@@ -338,8 +394,6 @@
         screenSize = @"5";
         
     }
-
-    sentImage = YES;
     
     mainImage.image = nil;
     
@@ -347,7 +401,7 @@
     
     id traceSpeedObj = [NSNumber numberWithDouble:_traceDrawSpeed];
     
-    PFObject *tempObject = [validContacts objectAtIndex:indexPath.row];
+    PFObject *tempObject = [validContacts objectAtIndex:toIdx];
     NSString *tempContact = [tempObject objectForKey:@"contact"];
     NSDate *currentDateTime = [NSDate date];
     
@@ -369,48 +423,46 @@
     
     [(APP).tracesArray insertObject:imageObject atIndex:0];
     
-    [self dismissViewControllerAnimated:NO completion:nil];
-    
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         
         if (succeeded)
         {
-    
+            
             [imageObject setObject:@"S"forKey:@"status"];
             [imageObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                            
-                    if (succeeded)
-                    {
-                                
-                        NSString *newObjectId = [imageObject objectId];
-                        [imageObject setObject:@"S"forKey:@"status"];
-                        
-                        NSDictionary *dataParms = [NSDictionary dictionaryWithObjectsAndKeys:tempContact, @"friend",newObjectId, @"objectId",nil];
-                                
-                        [self performSelectorInBackground:@selector(sendPushToContact:) withObject:dataParms];
-                                
-                        [self.navigationController popViewControllerAnimated:YES];
-                                
-                        [[NSNotificationCenter defaultCenter]
-                         postNotificationName:@"SendTraceNotification"
-                         object:self];
-                        
-                        // Update the number of traces received in the user table
-                        
-                        [[PFUser currentUser] incrementKey:@"tracesSent"];
-                        [[PFUser currentUser] saveInBackground];
-                                
-                    }
-                    else
-                    {
-                                
-                        UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Opps" message:@"There was an error sending your Trace, please try again" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-                                
-                        [errorAlertView show];
-                                
-                    }
-                            
-                }];
+                
+                if (succeeded)
+                {
+                    
+                    NSString *newObjectId = [imageObject objectId];
+                    [imageObject setObject:@"S"forKey:@"status"];
+                    
+                    NSDictionary *dataParms = [NSDictionary dictionaryWithObjectsAndKeys:tempContact, @"friend",newObjectId, @"objectId",nil];
+                    
+                    [self performSelectorInBackground:@selector(sendPushToContact:) withObject:dataParms];
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                    
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:@"SendTraceNotification"
+                     object:self];
+                    
+                    // Update the number of traces received in the user table
+                    
+                    [[PFUser currentUser] incrementKey:@"tracesSent"];
+                    [[PFUser currentUser] saveInBackground];
+                    
+                }
+                else
+                {
+                    
+                    UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Opps" message:@"There was an error sending your Trace, please try again" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    
+                    [errorAlertView show];
+                    
+                }
+                
+            }];
         }
         else
         {
@@ -429,9 +481,7 @@
          NSLog(@"New Trace %d %% done", percentDone);
          
      }];
-    
-    return nil;
-    
+
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -444,6 +494,25 @@
         
     }
     
+}
+
+-(IBAction)check:(id)sender
+{
+    
+    if (checked)
+    {
+        
+        [sender setImage:[UIImage imageNamed:@"checkBoxUncheckedButton"] forState:UIControlStateNormal];
+        checked = !checked;
+        
+    }
+    else if (!checked)
+    {
+        
+        [sender setImage:[UIImage imageNamed:@"checkBoxCheckedButton.png"] forState:UIControlStateNormal];
+        checked = !checked;
+    }
+
 }
 
 @end
