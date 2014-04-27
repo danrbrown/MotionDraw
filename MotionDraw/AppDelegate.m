@@ -30,10 +30,23 @@
     _firstTimeTrace = YES;
     _firstTimeThread = YES;
     _IS_ADMIN = NO;
+
     
-    [Parse setApplicationId:@"Kdf476m7VNchMaa6Ylqyd9UF9sBvZ9c2ry5GYapw"
-                  clientKey:@"wUt0JnO791TAa3UTir4zUdAihK0HMw3yayNud6XJ"];
+    // *************************************************************************
+    // PRODUCTION
+    // *************************************************************************
+
+//    [Parse setApplicationId:@"Kdf476m7VNchMaa6Ylqyd9UF9sBvZ9c2ry5GYapw"
+//                  clientKey:@"wUt0JnO791TAa3UTir4zUdAihK0HMw3yayNud6XJ"];
     
+    // *************************************************************************
+    // DEV
+    // *************************************************************************
+    
+    [Parse setApplicationId:@"gMqjn4iqWV9yNyVgrmQPVeqWlnv9OK3cU2AbCwtz"
+                    clientKey:@"Nw2QOT4Ocf2BoZKxkDhgyzO5bCZD9AFMMm1JvtMF"];
+
+
     // Register for push notifications
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge |UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
     
