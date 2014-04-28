@@ -12,7 +12,7 @@
 //----------------------------------------------------------------------------------
 
 #import "tracesViewController.h"
-//#import "ThreadViewController.h"
+#import "ThreadViewController.h"
 #import "traceCell.h"
 //#import "FirstPageViewController.h"
 //#import "CanvasViewController.h"
@@ -126,6 +126,13 @@ NSInteger traceObjectIdx;
 -(void) viewWillAppear:(BOOL)animated
 {
 
+    if (responding)
+    {
+        
+        [self.tabBarController setSelectedIndex:1];
+        
+    }
+    
     [tracesTable reloadData];
     [self displayBadgeCounts];
     

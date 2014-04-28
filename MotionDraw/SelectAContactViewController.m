@@ -56,6 +56,8 @@
     
     sendToArray = [[NSMutableArray alloc] init];
     
+    [send setEnabled:NO];
+    
 }
 
 //----------------------------------------------------------------------------------
@@ -225,6 +227,13 @@
     
     sendToCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
+    UIImage *image = [UIImage imageNamed:@"checkBoxUncheckedButton.png"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.frame = CGRectMake(10, 10, 30, 30);
+    cell.accessoryView = imageView;
+    
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    
     PFObject *tempObject = [validContacts objectAtIndex:indexPath.row];
     
     cell.sendToTitle.text = [tempObject objectForKey:@"contact"];
@@ -318,10 +327,9 @@
 
 //----------------------------------------------------------------------------------
 //
-// Name: tableView:willSelectRowAtIndexPath
+// Name:
 //
-// Purpose: This method will determine which contact has been selected, and then
-// send the image up to Parse for that person.
+// Purpose:
 //
 //----------------------------------------------------------------------------------
 
@@ -330,24 +338,47 @@
     
     UITableViewCell *cell = [tableView
                              cellForRowAtIndexPath:indexPath];
+    
     if (cell.accessoryType == UITableViewCellAccessoryNone)
     {
+        
+        UIImage *image = [UIImage imageNamed:@"checkBoxCheckedButton.png"];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        imageView.frame = CGRectMake(10, 10, 30, 30);
+        cell.accessoryView = imageView;
 
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
         NSString *userToSentTo = [NSString stringWithFormat:@"%lu", indexPath.row];
         [sendToArray addObject:userToSentTo];
-        NSLog(@"%@", sendToArray);
+        
+        if (sendToArray.count > 0)
+        {
+            
+            [send setEnabled:YES];
+            
+        }
         
     }
     else
     {
         
+        UIImage *image = [UIImage imageNamed:@"checkBoxUncheckedButton.png"];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        imageView.frame = CGRectMake(10, 10, 30, 30);
+        cell.accessoryView = imageView;
+        
         cell.accessoryType = UITableViewCellAccessoryNone;
         
         NSString *NotuserToSentTo = [NSString stringWithFormat:@"%lu", indexPath.row];
         [sendToArray removeObject:NotuserToSentTo];
-        NSLog(@"%@", sendToArray);
+        
+        if (sendToArray.count <= 0)
+        {
+            
+            [send setEnabled:NO];
+            
+        }
         
     }
     
@@ -357,6 +388,14 @@
     return nil;
     
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 -(IBAction)sendIt:(id)sender
 {
@@ -375,6 +414,14 @@
     [self dismissViewControllerAnimated:NO completion:nil];
 
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 -(void)sendTheTraceToFriend:(unsigned long)toIdx
 {
@@ -484,6 +531,14 @@
 
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     
@@ -495,6 +550,14 @@
     }
     
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 -(IBAction)check:(id)sender
 {

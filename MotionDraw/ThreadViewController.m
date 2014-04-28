@@ -17,6 +17,7 @@
 #import "AppDelegate.h"
 #import <objc/runtime.h>
 
+BOOL responding;
 
 @interface ThreadViewController ()
 
@@ -98,6 +99,8 @@
     
     UIImage *colorThumbImage = [UIImage imageNamed:@"Nothing.png"];
     [_colorValue setThumbImage:colorThumbImage forState:UIControlStateNormal];
+    
+    responding = NO;
     
 }
 
@@ -240,6 +243,22 @@
     mainThreadImage.image = nil;
     
     threadTimer = [NSTimer scheduledTimerWithTimeInterval:trace_DRAW_SPEED target:self selector:@selector(showVideo) userInfo:nil repeats:YES];
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(IBAction)respond:(id)sender
+{
+    
+    responding = YES;
+    [self dismissViewControllerAnimated:NO completion:nil];
     
 }
 

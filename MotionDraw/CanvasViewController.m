@@ -12,6 +12,7 @@
 
 #import "CanvasViewController.h"
 #import "SelectAContactViewController.h"
+#import "ThreadViewController.h"
 #import "AppDelegate.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
@@ -279,6 +280,14 @@ UIImageView *mainImage;
         [self.tabBarController setSelectedIndex:0];
         
         sentImage = NO;
+        
+    }
+    
+    if (responding)
+    {
+        
+        [self draw:nil];
+        responding = NO;
         
     }
     

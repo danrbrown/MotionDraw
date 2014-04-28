@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
+extern BOOL responding;
+
 @interface ThreadViewController : UIViewController <UIActionSheetDelegate> {
     
     //Variables for drawing
@@ -24,7 +26,6 @@
     double trace_DRAW_SPEED;
     float subtractionAmount;
     float SCALING_FACTOR;
-
     
     //Undo
     UIImage *undoThreadImage;
