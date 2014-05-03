@@ -216,45 +216,85 @@
 {
     
     CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
-    
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
     
     PFObject *tempObject = [(APP).requestsArray objectAtIndex:indexPath.row];
     
     NSString *name = [tempObject objectForKey:@"username"];
     
-    // Insert the new row for the new friend relationship
-    
-    PFObject *newContact = [PFObject objectWithClassName:@"UserContact"];
-    
-    [newContact setObject:[PFUser currentUser].username forKey:@"username"];
-    [newContact setObject:name forKey:@"contact"];
-    [newContact setObject:@"YES" forKey:@"userAccepted"];
-    
     (APP).friendRequestsCount--;
     
-    [(APP).contactsArray insertObject:newContact atIndex:0];
-    NSSortDescriptor *sort1 = [NSSortDescriptor sortDescriptorWithKey:@"contact" ascending:YES selector:@selector(caseInsensitiveCompare:)];
-    [(APP).contactsArray sortUsingDescriptors:[NSArray arrayWithObject:sort1]];
+    //-------------------------------------------------------------------------
+    // It's possible that both users asked each other to be friends. Check
+    // for this first.  If they both asked then just update the accpted
+    // field to yes. Else insert the new row
+    //-------------------------------------------------------------------------
     
-    [newContact saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        
-        if (!succeeded)
+    query = [PFQuery queryWithClassName:@"UserContact"];
+    
+    [query whereKey:@"username" equalTo:[[PFUser currentUser]username]];
+    [query whereKey:@"contact" equalTo:name];
+    [query whereKey:@"userAccepted" equalTo:@"NO"];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error)
         {
+            PFObject *newContact = [PFObject objectWithClassName:@"UserContact"];
+            [newContact setObject:[PFUser currentUser].username forKey:@"username"];
+            [newContact setObject:name forKey:@"contact"];
+            [newContact setObject:@"YES" forKey:@"userAccepted"];
 
+            // One row means that both users asked each other to be a friend
+            
+            if (objects.count == 1)
+            {
+                for (PFObject *userObj in objects)
+                {
+                    
+                    [userObj setObject:@"YES" forKey:@"userAccepted"];
+                    [userObj saveInBackground];
+               
+                }
+            }
+            
+            // Zero rows means only one person asked to be a friend
+            
+            else if (objects.count == 0)
+            {
+                
+                [newContact saveInBackground];
+                
+            }
+
+            // It should never come to this.
+
+            else
+            {
+                UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Should never get here - please contact support!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                
+                [errorAlertView show];
+
+            }
+            
+            // In either case decrement the friend counter, add the person to the array and sort.
+            
+            [(APP).contactsArray insertObject:newContact atIndex:0];
+            NSSortDescriptor *sort1 = [NSSortDescriptor sortDescriptorWithKey:@"contact" ascending:YES
+                                                                     selector:@selector(caseInsensitiveCompare:)];
+            [(APP).contactsArray sortUsingDescriptors:[NSArray arrayWithObject:sort1]];
+            
+
+        } else {
+            
             UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was an error accepting, please try again!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             
             [errorAlertView show];
-            
+
         }
-
-        [self performSelectorInBackground:@selector(sendPushAccptedFriendRequest:)
-                               withObject:name];
-
-        [newContact objectId];
-       
     }];
 
+    //-------------------------------------------------------------------------
+    
     // Now update the existing row and set the boolean flat to YES
 
     query = [PFQuery queryWithClassName:@"UserContact"];
@@ -297,6 +337,9 @@
     }
     
     NSString *acceptedMessage = [NSString stringWithFormat:@"You are now friends with %@!", name];
+
+    [self displayBadgeCounts];
+
     
     UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:acceptedMessage message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
     

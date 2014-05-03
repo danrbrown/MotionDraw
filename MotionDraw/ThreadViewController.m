@@ -365,7 +365,6 @@ NSString *respondingTraceUsername;
     float redColor = [STRred floatValue];
     float greenColor = [STRgreen floatValue];
     float blueColor = [STRblue floatValue];
-    
 
     UIGraphicsBeginImageContext(self.view.frame.size);
     [self.mainThreadImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];

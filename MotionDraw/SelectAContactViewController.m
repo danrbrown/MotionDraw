@@ -239,7 +239,7 @@
     
     NSLog(@"cell.sendToTitle.text %@ respondingTraceUsername %@",cell.sendToTitle.text,respondingTraceUsername);
     
-    if ([cell.sendToTitle.text isEqual:respondingTraceUsername])
+    if ([cell.sendToTitle.text isEqual:respondingTraceUsername] && responding)
     {
         
         UIImage *image = [UIImage imageNamed:@"checkBoxCheckedButton.png"];
