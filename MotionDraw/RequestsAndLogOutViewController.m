@@ -49,7 +49,7 @@
                                                  name:@"RequestsLoadedNotification"
                                                object:nil];
     
-    UIFont *noFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:20];
+    UIFont *noFont = [UIFont fontWithName:@"ComicRelief" size:20];
     
     noRequests.font = noFont;
     
@@ -441,7 +441,7 @@
     
     cell.cellTitle.text = [tempObject objectForKey:@"username"];
     
-    UIFont *requestsFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:24];
+    UIFont *requestsFont = [UIFont fontWithName:@"ComicRelief" size:24];
     
     cell.cellTitle.font = requestsFont;
     

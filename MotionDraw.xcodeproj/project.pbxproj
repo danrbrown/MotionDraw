@@ -10,6 +10,9 @@
 		9C3350D3190D608600F377B7 /* checkBoxCheckedButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C3350D1190D608600F377B7 /* checkBoxCheckedButton.png */; };
 		9C3350D4190D608600F377B7 /* checkBoxUncheckedButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C3350D2190D608600F377B7 /* checkBoxUncheckedButton.png */; };
 		9C3350D6190DD00300F377B7 /* Respond.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C3350D5190DD00300F377B7 /* Respond.png */; };
+		9C3350D819118EF200F377B7 /* SendButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C3350D719118EF200F377B7 /* SendButton.png */; };
+		9C3350DA1911916B00F377B7 /* ComicRelief.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C3350D91911914800F377B7 /* ComicRelief.ttf */; };
+		9C3350DE1911D92100F377B7 /* SpeachBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C3350DD1911D92100F377B7 /* SpeachBubble.png */; };
 		9C3E49A61900BC71005CC841 /* Show.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C3E49A41900BC71005CC841 /* Show.png */; };
 		9C3E49A71900BC71005CC841 /* Hide.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C3E49A51900BC71005CC841 /* Hide.png */; };
 		9C59DB3F18F4DBB00031829F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C59DB3E18F4DBB00031829F /* Foundation.framework */; };
@@ -109,6 +112,8 @@
 		9C9E3198190342D2007CEDCD /* Medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C9E3195190342D2007CEDCD /* Medium.png */; };
 		9C9E3199190342D2007CEDCD /* Fast.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C9E3196190342D2007CEDCD /* Fast.png */; };
 		9C9E319B19034971007CEDCD /* tutImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C9E319A19034971007CEDCD /* tutImage.png */; };
+		9CCBAC53191562DD00F39AE1 /* SpeachBubbleButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CCBAC52191562DD00F39AE1 /* SpeachBubbleButton.png */; };
+		9CCBAC571915635600F39AE1 /* NoSpeachBubbleButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CCBAC561915635600F39AE1 /* NoSpeachBubbleButton.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +130,9 @@
 		9C3350D1190D608600F377B7 /* checkBoxCheckedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBoxCheckedButton.png; sourceTree = "<group>"; };
 		9C3350D2190D608600F377B7 /* checkBoxUncheckedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBoxUncheckedButton.png; sourceTree = "<group>"; };
 		9C3350D5190DD00300F377B7 /* Respond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Respond.png; sourceTree = "<group>"; };
+		9C3350D719118EF200F377B7 /* SendButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SendButton.png; sourceTree = "<group>"; };
+		9C3350D91911914800F377B7 /* ComicRelief.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ComicRelief.ttf; sourceTree = "<group>"; };
+		9C3350DD1911D92100F377B7 /* SpeachBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpeachBubble.png; sourceTree = "<group>"; };
 		9C3E49A41900BC71005CC841 /* Show.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Show.png; sourceTree = "<group>"; };
 		9C3E49A51900BC71005CC841 /* Hide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hide.png; sourceTree = "<group>"; };
 		9C59DB3B18F4DBB00031829F /* MotionDraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MotionDraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,6 +260,8 @@
 		9C9E3195190342D2007CEDCD /* Medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Medium.png; sourceTree = "<group>"; };
 		9C9E3196190342D2007CEDCD /* Fast.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fast.png; sourceTree = "<group>"; };
 		9C9E319A19034971007CEDCD /* tutImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutImage.png; sourceTree = "<group>"; };
+		9CCBAC52191562DD00F39AE1 /* SpeachBubbleButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpeachBubbleButton.png; sourceTree = "<group>"; };
+		9CCBAC561915635600F39AE1 /* NoSpeachBubbleButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoSpeachBubbleButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -426,10 +436,13 @@
 		9C59DBB518F4E2A10031829F /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				9C3350D719118EF200F377B7 /* SendButton.png */,
 				9C3350D1190D608600F377B7 /* checkBoxCheckedButton.png */,
 				9C3350D2190D608600F377B7 /* checkBoxUncheckedButton.png */,
 				9C59DBB618F4E2A10031829F /* CloseButton.png */,
+				9CCBAC52191562DD00F39AE1 /* SpeachBubbleButton.png */,
 				9C59DBB718F4E2A10031829F /* LoginButton.png */,
+				9CCBAC561915635600F39AE1 /* NoSpeachBubbleButton.png */,
 				9C59DBB818F4E2A10031829F /* SaveButton.png */,
 				9C59DBB918F4E2A10031829F /* SignUpButton.png */,
 				9C59DBBA18F4E2A10031829F /* TrashButton.png */,
@@ -450,6 +463,7 @@
 		9C59DBC018F4E2A10031829F /* other */ = {
 			isa = PBXGroup;
 			children = (
+				9C3350DD1911D92100F377B7 /* SpeachBubble.png */,
 				9C3350D5190DD00300F377B7 /* Respond.png */,
 				9C9E3194190342D2007CEDCD /* Slow.png */,
 				9C9E3195190342D2007CEDCD /* Medium.png */,
@@ -495,6 +509,7 @@
 				9C59DBDA18F4E2A10031829F /* Leave A Trace - Terms of Use.docx */,
 				9C59DBDB18F4E2A10031829F /* Leave A Trace - Terms of Use.pdf */,
 				9C59DC3B18F4E4E30031829F /* PWSimpleHandwriting.ttf */,
+				9C3350D91911914800F377B7 /* ComicRelief.ttf */,
 			);
 			path = "Key Documents";
 			sourceTree = "<group>";
@@ -659,6 +674,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C3350DA1911916B00F377B7 /* ComicRelief.ttf in Resources */,
 				9C59DC3E18F4E83B0031829F /* PWSimpleHandwriting.ttf in Resources */,
 				9C59DBF118F4E2A10031829F /* NewTraceIconSmall@2x.png in Resources */,
 				9C59DBF018F4E2A10031829F /* NewTraceIcon@2x.png in Resources */,
@@ -666,9 +682,11 @@
 				9C9E3198190342D2007CEDCD /* Medium.png in Resources */,
 				9C9E3197190342D2007CEDCD /* Slow.png in Resources */,
 				9C59DBE118F4E2A10031829F /* TrashButton.png in Resources */,
+				9C3350DE1911D92100F377B7 /* SpeachBubble.png in Resources */,
 				9C59DBE718F4E2A10031829F /* BrushSizeSliderMin.png in Resources */,
 				9C59DBDD18F4E2A10031829F /* CloseButton.png in Resources */,
 				9C3350D4190D608600F377B7 /* checkBoxUncheckedButton.png in Resources */,
+				9CCBAC571915635600F39AE1 /* NoSpeachBubbleButton.png in Resources */,
 				9C9E3199190342D2007CEDCD /* Fast.png in Resources */,
 				9C3E49A61900BC71005CC841 /* Show.png in Resources */,
 				9C59DBF418F4E2A10031829F /* RequestsIcon@2x.png in Resources */,
@@ -685,11 +703,13 @@
 				9C59DBEA18F4E2A10031829F /* Default-568h@2x.png in Resources */,
 				9C9E319B19034971007CEDCD /* tutImage.png in Resources */,
 				9C59DBF218F4E2A10031829F /* Nothing.png in Resources */,
+				9CCBAC53191562DD00F39AE1 /* SpeachBubbleButton.png in Resources */,
 				9C59DBE618F4E2A10031829F /* BrushSizeSliderMax.png in Resources */,
 				9C59DBEC18F4E2A10031829F /* FriendsIcon@2x.png in Resources */,
 				9C59DC7518F4EDFB0031829F /* Stop.png in Resources */,
 				9C59DBF718F4E2A10031829F /* SentTrace.png in Resources */,
 				9C59DBE818F4E2A10031829F /* BrushSizeSliderThumb.png in Resources */,
+				9C3350D819118EF200F377B7 /* SendButton.png in Resources */,
 				9C59DBFF18F4E2A10031829F /* Leave A Trace - Terms of Use.pdf in Resources */,
 				9C3350D3190D608600F377B7 /* checkBoxCheckedButton.png in Resources */,
 				9C59DBFD18F4E2A10031829F /* Leave A Trace - Privacy Policy.pdf in Resources */,

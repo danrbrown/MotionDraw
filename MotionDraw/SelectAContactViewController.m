@@ -13,6 +13,7 @@
 
 #import "SelectAContactViewController.h"
 #import "CanvasViewController.h"
+#import "ThreadViewController.h"
 #import "sendToCell.h"
 #import "AppDelegate.h"
 #import "LoadTraces.h"
@@ -39,8 +40,6 @@
 -(void) viewDidLoad
 {
     
-    NSLog(@"traceDrawSpeed = %f", _traceDrawSpeed);
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveContactsLoadedNotification:)
                                                  name:@"ContactsLoadedNotification"
@@ -48,7 +47,7 @@
     
     [self performSelector:@selector(displayValidContacts)];
     
-    UIFont *noFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:20];
+    UIFont *noFont = [UIFont fontWithName:@"ComicRelief" size:20];
     
     noSendTo.font = noFont;
     
@@ -229,7 +228,7 @@
     
     UIImage *image = [UIImage imageNamed:@"checkBoxUncheckedButton.png"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.frame = CGRectMake(10, 10, 30, 30);
+    imageView.frame = CGRectMake(10, 10, 23, 23);
     cell.accessoryView = imageView;
     
     cell.accessoryType = UITableViewCellAccessoryNone;
@@ -238,7 +237,34 @@
     
     cell.sendToTitle.text = [tempObject objectForKey:@"contact"];
     
-    UIFont *sendFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:23];
+    NSLog(@"cell.sendToTitle.text %@ respondingTraceUsername %@",cell.sendToTitle.text,respondingTraceUsername);
+    
+    if ([cell.sendToTitle.text isEqual:respondingTraceUsername])
+    {
+        
+        UIImage *image = [UIImage imageNamed:@"checkBoxCheckedButton.png"];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        imageView.frame = CGRectMake(10, 10, 23, 23);
+        cell.accessoryView = imageView;
+        
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        
+        NSString *userToSentTo = [NSString stringWithFormat:@"%lu", (long)indexPath.row];
+        NSLog(@"%@", userToSentTo);
+        [sendToArray addObject:userToSentTo];
+        
+        if (sendToArray.count > 0)
+        {
+            
+            [send setEnabled:YES];
+            
+        }
+        
+        responding = NO;
+        
+    }
+    
+    UIFont *sendFont = [UIFont fontWithName:@"ComicRelief" size:23];
     
     cell.sendToTitle.font = sendFont;
     
@@ -344,12 +370,12 @@
         
         UIImage *image = [UIImage imageNamed:@"checkBoxCheckedButton.png"];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        imageView.frame = CGRectMake(10, 10, 30, 30);
+        imageView.frame = CGRectMake(10, 10, 23, 23);
         cell.accessoryView = imageView;
 
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
-        NSString *userToSentTo = [NSString stringWithFormat:@"%lu", indexPath.row];
+        NSString *userToSentTo = [NSString stringWithFormat:@"%lu", (long)indexPath.row];
         [sendToArray addObject:userToSentTo];
         
         if (sendToArray.count > 0)
@@ -365,12 +391,12 @@
         
         UIImage *image = [UIImage imageNamed:@"checkBoxUncheckedButton.png"];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        imageView.frame = CGRectMake(10, 10, 30, 30);
+        imageView.frame = CGRectMake(10, 10, 23, 23);
         cell.accessoryView = imageView;
         
         cell.accessoryType = UITableViewCellAccessoryNone;
         
-        NSString *NotuserToSentTo = [NSString stringWithFormat:@"%lu", indexPath.row];
+        NSString *NotuserToSentTo = [NSString stringWithFormat:@"%lu", (long)indexPath.row];
         [sendToArray removeObject:NotuserToSentTo];
         
         if (sendToArray.count <= 0)
@@ -403,7 +429,8 @@
     
     for (NSString *toIdx in sendToArray)
     {
-        idx = [toIdx longLongValue];
+        
+        idx = [toIdx integerValue];
         
         NSLog(@"toIdx %@  idx %ld",toIdx,idx);
         
@@ -448,6 +475,9 @@
     
     id traceSpeedObj = [NSNumber numberWithDouble:_traceDrawSpeed];
     
+    id xCordText = [NSNumber numberWithInt:self.xText];
+    id yCordText = [NSNumber numberWithInt:self.yText];
+    
     PFObject *tempObject = [validContacts objectAtIndex:toIdx];
     NSString *tempContact = [tempObject objectForKey:@"contact"];
     NSDate *currentDateTime = [NSDate date];
@@ -467,6 +497,9 @@
     [imageObject setObject:@"P"forKey:@"status"];
     [imageObject setObject:screenSize forKey:@"screenSize"];
     [imageObject setObject:traceSpeedObj forKey:@"traceDrawSpeed"];
+    [imageObject setObject:self.textMessage forKey:@"textMessage"];
+    [imageObject setObject:xCordText forKey:@"xCord"];
+    [imageObject setObject:yCordText forKey:@"yCord"];
     
     [(APP).tracesArray insertObject:imageObject atIndex:0];
     

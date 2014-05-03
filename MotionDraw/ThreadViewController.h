@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 
 extern BOOL responding;
+extern NSString *respondingTraceUsername;
 
 @interface ThreadViewController : UIViewController <UIActionSheetDelegate> {
     
@@ -26,6 +27,9 @@ extern BOOL responding;
     double trace_DRAW_SPEED;
     float subtractionAmount;
     float SCALING_FACTOR;
+    float xCord;
+    float yCord;
+    NSString *textMessageText;
     
     //Undo
     UIImage *undoThreadImage;
@@ -54,6 +58,8 @@ extern BOOL responding;
     IBOutlet UIImageView *sliderImage;
     IBOutlet UIButton *replayB;
     IBOutlet UIImageView *newProg, *newProgMin;
+    IBOutlet UIImageView *textBox;
+    IBOutlet UITextField *textMessage;
     
     UIView *_hudView;
     UILabel *_captionLabel;

@@ -51,11 +51,7 @@ extern UIImageView *mainImage;
     NSMutableArray *onlyUndoImageArray;
     NSMutableArray *captureDrawing;
     NSMutableDictionary *drawingDictionary;
-    
     int trpX;
-    
-    IBOutlet UIImageView *ball;
-    
     BOOL canDraw;
     
     //Variables
@@ -87,12 +83,23 @@ extern UIImageView *mainImage;
     IBOutlet UIButton *slow, *medium, *fast;
     IBOutlet UIImageView *newProg;
     IBOutlet UIImageView *newProgMin;
-    
+    IBOutlet UILabel *respondToLabel;
+    IBOutlet UIButton *speachB;
     IBOutlet UIActivityIndicatorView *loading;
     IBOutlet UIImageView *sliderImage;
     IBOutlet UIImageView *tutorialImage;
     UIView *_hudView;
     UILabel *_captionLabel;
+    
+    //Text
+    IBOutlet UIImageView *textBoxs;
+    IBOutlet UITextField *textBoxText;
+    int originXBox;
+    int originYBox;
+    int originXText;
+    int originYText;
+    BOOL typing;
+    BOOL wantsType;
     
 }
 
@@ -114,7 +121,11 @@ extern UIImageView *mainImage;
 -(IBAction) save:(id)sender;
 -(IBAction) clear:(id)sender;
 -(IBAction) sliderChanged:(id)sender;
--(IBAction)reset:(id)sender;
+-(IBAction) reset:(id)sender;
+-(IBAction) textDidStart:(id)sender;
+-(IBAction) DismissKeyboard:(id)sender;
+-(IBAction) typingMessage:(id)sender;
+-(IBAction) startText:(id)sender;
 
 //Methods for view
 -(void) cancelSend;

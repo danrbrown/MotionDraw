@@ -13,11 +13,14 @@
 
 #import "ThreadViewController.h"
 #import "tracesViewController.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import "LoadTraces.h"
 #import "AppDelegate.h"
 #import <objc/runtime.h>
 
 BOOL responding;
+NSString *respondingTraceUsername;
 
 @interface ThreadViewController ()
 
@@ -101,7 +104,13 @@ BOOL responding;
     [_colorValue setThumbImage:colorThumbImage forState:UIControlStateNormal];
     
     responding = NO;
+    respondingTraceUsername = @"";
     
+    textMessage.font = [UIFont fontWithName:@"ComicRelief" size:14];
+    textMessage.text = @"testing";
+    
+    
+        
 }
 
 //----------------------------------------------------------------------------------
@@ -121,6 +130,7 @@ BOOL responding;
     
     NSString *userWhoSentTrace = [traceObject objectForKey:@"toUser"];
     NSString *tmpStatus = [traceObject objectForKey:@"status"];
+    respondingTraceUsername = [traceObject objectForKey:@"toUser"];
     
     otherUser.text = userWhoSentTrace;
     
@@ -173,9 +183,16 @@ BOOL responding;
                         capArray = [NSKeyedUnarchiver unarchiveObjectWithData:imageVidData];
 
                         NSNumber *traceDrawSpeed = [myImages objectForKey:@"traceDrawSpeed"];
+                        NSNumber *xCordTmp = [myImages objectForKey:@"xCord"];
+                        NSNumber *yCordTmp = [myImages objectForKey:@"yCord"];
+                        textMessageText = [myImages objectForKey:@"textMessage"];
+                        
+                        xCord = [xCordTmp floatValue];
+                        yCord = [yCordTmp floatValue];
                         trace_DRAW_SPEED = [traceDrawSpeed floatValue];
                        
                         friendScreenSize = [myImages objectForKey:@"screenSize"];
+                        
                         [self callShowVideo];
                         
                         [loadingTrace stopAnimating];
@@ -312,6 +329,9 @@ BOOL responding;
 -(void) showVideo
 {
     
+    [textMessage setAlpha:0];
+    [textBox setAlpha:0];
+    
     newProg.frame = CGRectMake(newProg.frame.origin.x, newProg.frame.origin.y, newProg.frame.size.width - subtractionAmount, newProg.frame.size.height);
     
     progress.tintColor = [UIColor blackColor];
@@ -366,9 +386,44 @@ BOOL responding;
     {
         [threadTimer invalidate];
          progress.progress = 0;
+        
+        if (textMessageText.length > 0)
+        {
+            
+            textBox.frame = CGRectMake(xCord, yCord, textBox.frame.size.width, textBox.frame.size.height);
+            textMessage.frame = CGRectMake(xCord, yCord, textMessage.frame.size.width, textMessage.frame.size.height);
+            textMessage.text = textMessageText;
+            
+            [UIView beginAnimations:@"fadeInMessage" context:nil];
+            [UIView setAnimationDuration:0.5];
+            
+            [textBox setAlpha:0.92];
+            [textMessage setAlpha:0.92];
+            
+            [UIView commitAnimations];
+            
+        }
+
     }
     
 
+}
+//----------------------------------------------------------------------------------
+//
+// Name: speakText
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(IBAction) speakText:(id)sender
+{
+    
+    AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc]init];
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:textMessageText];
+    [utterance setRate:0.3f];
+    [synthesizer speakUtterance:utterance];
+    
 }
 
 //----------------------------------------------------------------------------------

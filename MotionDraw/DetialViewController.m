@@ -33,7 +33,7 @@
         [supportText setHidden:NO];
         [supportButton setHidden:NO];
         
-        supportText.font = [UIFont fontWithName:@"PWSimpleHandwriting" size:18];
+        supportText.font = [UIFont fontWithName:@"ComicRelief" size:18];
         
         [pdf setHidden:YES];
         
@@ -111,7 +111,7 @@
 -(void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     
-    UIFont *titleFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:26];
+    UIFont *titleFont = [UIFont fontWithName:@"ComicRelief" size:26];
     
     NSShadow* shadow = [NSShadow new];
     shadow.shadowOffset = CGSizeMake(0.0f, 0.0f);

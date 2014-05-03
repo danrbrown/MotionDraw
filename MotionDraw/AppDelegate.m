@@ -69,7 +69,7 @@
     
     application.applicationSupportsShakeToEdit = YES;
     
-    UIFont *titleFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:26];
+    UIFont *titleFont = [UIFont fontWithName:@"ComicRelief" size:27];
     
     NSShadow* shadow = [NSShadow new];
     shadow.shadowOffset = CGSizeMake(0.0f, 0.0f);

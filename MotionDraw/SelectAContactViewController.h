@@ -33,6 +33,9 @@
 @property(nonatomic, assign) CanvasViewController *canvasViewController;
 @property (strong, nonatomic) NSMutableArray *captureArray;
 @property (nonatomic) double traceDrawSpeed;
+@property (nonatomic, retain) NSString *textMessage;
+@property (nonatomic) int xText;
+@property (nonatomic) int yText;
 
 //Actions
 -(IBAction) cancel;

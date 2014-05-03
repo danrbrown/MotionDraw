@@ -76,7 +76,7 @@
         
     }
     
-    UIFont *textFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:20];
+    UIFont *textFont = [UIFont fontWithName:@"ComicRelief" size:20];
     
     userSignUpTextField.font = textFont;
     emailTextField.font = textFont;

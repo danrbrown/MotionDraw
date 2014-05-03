@@ -58,7 +58,7 @@ NSInteger traceObjectIdx;
                                                  name:@"SendTraceNotification"
                                                object:nil];
     
-    UIFont *noFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:20];
+    UIFont *noFont = [UIFont fontWithName:@"ComicRelief" size:20];
     
     noTraces.font = noFont;
     
@@ -466,8 +466,8 @@ NSInteger traceObjectIdx;
     
     cell.dateAndTimeLabel.text = combined;
     
-    UIFont *titleFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:20];
-    UIFont *detailFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:13];
+    UIFont *titleFont = [UIFont fontWithName:@"ComicRelief" size:20];
+    UIFont *detailFont = [UIFont fontWithName:@"ComicRelief" size:13];
     
     cell.usernameTitle.font = titleFont;
     cell.dateAndTimeLabel.font = detailFont;

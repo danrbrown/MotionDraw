@@ -8,6 +8,7 @@
 
 #import "SettingsViewController.h"
 #import "AppDelegate.h"
+#import "ThreadViewController.h"
 #import <Parse/Parse.h>
 
 NSString *titleText;
@@ -31,7 +32,7 @@ int screens;
 - (void)viewDidLoad
 {
     
-    endLabel.font = [UIFont fontWithName:@"PWSimpleHandwriting" size:16];
+    endLabel.font = [UIFont fontWithName:@"ComicRelief" size:16];
     
     NSLog(@"displayUserData");
     
@@ -164,7 +165,7 @@ int screens;
         
     }
     
-    UIFont *sectionFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:19];
+    UIFont *sectionFont = [UIFont fontWithName:@"ComicRelief" size:19];
     
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor whiteColor];
@@ -365,8 +366,8 @@ int screens;
     cell.textLabel.text = text;
     cell.detailTextLabel.text = detail;
     
-    UIFont *titleFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:18];
-    UIFont *detailFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:14];
+    UIFont *titleFont = [UIFont fontWithName:@"ComicRelief" size:18];
+    UIFont *detailFont = [UIFont fontWithName:@"ComicRelief" size:14];
 
     cell.textLabel.font = titleFont;
     cell.detailTextLabel.font = detailFont;

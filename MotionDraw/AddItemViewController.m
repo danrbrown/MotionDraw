@@ -46,7 +46,7 @@
     
     textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     
-    UIFont *textfieldFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:23];
+    UIFont *textfieldFont = [UIFont fontWithName:@"ComicRelief" size:23];
     textField.font = textfieldFont;
     
 }
@@ -86,14 +86,14 @@
 
     [contacts setPeoplePickerDelegate:self];
     
-    [self presentViewController:contacts animated:YES completion:nil];
+    [self presentViewController:contacts animated:NO completion:nil];
     
 }
 
 -(void) peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
 {
     
-    UIFont *titleFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:26];
+    UIFont *titleFont = [UIFont fontWithName:@"ComicRelief" size:26];
     
     NSShadow* shadow = [NSShadow new];
     shadow.shadowOffset = CGSizeMake(0.0f, 0.0f);
@@ -104,7 +104,7 @@
                                                             NSShadowAttributeName:shadow
                                                             }];
     
-    [contacts dismissViewControllerAnimated:YES completion:nil];
+    [contacts dismissViewControllerAnimated:NO completion:nil];
     
 }
 

@@ -53,7 +53,7 @@
                                                  name:@"ContactsLoadedNotification"
                                                object:nil];
     
-    UIFont *noFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:20];
+    UIFont *noFont = [UIFont fontWithName:@"ComicRelief" size:20];
     
     noContacts.font = noFont;
     
@@ -245,7 +245,7 @@
 {
     
     cell.textLabel.enabled = YES;
-    UIFont *friendsFont = [UIFont fontWithName:@"PWSimpleHandwriting" size:24];
+    UIFont *friendsFont = [UIFont fontWithName:@"ComicRelief" size:24];
     
     if ([isAFriend isEqualToString:@"NO"])
     {
@@ -324,7 +324,7 @@
 -(void) addItemViewControllerDidCancel:(AddItemViewController *)controller
 {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
     
 }
 

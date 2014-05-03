@@ -80,6 +80,11 @@ UIImageView *mainImage;
     onlyUndoImageArray = [[NSMutableArray alloc] init];
     drawingDictionary = [[NSMutableDictionary alloc] init];
     
+    respondToLabel.font = [UIFont fontWithName:@"ComicRelief" size:20];
+    respondToLabel.text = @"";
+    
+    textBoxText.font = [UIFont fontWithName:@"ComicRelief" size:14];
+    
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     red = 0;
@@ -187,8 +192,13 @@ UIImageView *mainImage;
     [fast setHidden:YES];
     [newProg setHidden:YES];
     [newProgMin setHidden:YES];
+    [respondToLabel setHidden:YES];
+    [textBoxText setHidden:YES];
+    [textBoxs setHidden:YES];
+    [speachB setHidden:YES];
     
     canDraw = NO;
+    wantsType = YES;
     
     captureDrawing = [[NSMutableArray alloc] init];
 
@@ -274,6 +284,12 @@ UIImageView *mainImage;
         [fast setHidden:YES];
         [newProg setHidden:YES];
         [newProgMin setHidden:YES];
+        [respondToLabel setHidden:YES];
+        [textBoxText setHidden:YES];
+        [textBoxs setHidden:YES];
+        [speachB setHidden:YES];
+        
+        textBoxText.text = @"";
         
         mainImage.image = nil;
         
@@ -286,9 +302,21 @@ UIImageView *mainImage;
     if (responding)
     {
         
-        [self draw:nil];
-        responding = NO;
+        [self reset:nil];
         
+        [respondToLabel setAlpha:1.0];
+        [respondToLabel setHidden:NO];
+        respondToLabel.text = [NSString stringWithFormat:@"Responding to %@", respondingTraceUsername];
+        
+        [UIView beginAnimations:@"hideLabel" context:nil];
+        [UIView setAnimationDuration:5];
+        [respondToLabel setAlpha:0.0];
+        [UIView commitAnimations];
+        
+        [self draw:nil];
+        
+        NSLog(@"respondingTraceUsername %@",respondingTraceUsername);
+    
     }
     
 }
@@ -549,6 +577,14 @@ UIImageView *mainImage;
 
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    
+    if (typing)
+    {
+        [self DismissKeyboard:nil];
+    }
+    
+    [textBoxText resignFirstResponder];
+    
     if (showTutorial)
     {
         mainImage.image = nil;
@@ -579,6 +615,16 @@ UIImageView *mainImage;
         [undoImageArray addObject:undoImage];
      
         [self getMyCords:currentPoint.x cord2:currentPoint.y cord3:lastPoint.x cord4:lastPoint.y brush:brush red:red green:green blue:blue];
+        
+    }
+    else
+    {
+        
+        UITouch *touch = [[event allTouches] anyObject];
+        CGPoint location = [touch locationInView:touch.view];
+        textBoxs.center = location;
+        textBoxText.center = location;
+        textBoxText.frame = CGRectMake(textBoxText.frame.origin.x, textBoxText.frame.origin.y, textBoxText.frame.size.width, textBoxText.frame.size.height);
         
     }
 
@@ -645,42 +691,46 @@ UIImageView *mainImage;
          
             [stopDrawing show];
             
-            [progress setHidden:NO];
+            [progress setHidden:YES];
            
             [self stop:nil];
             
         }
         
-        if (progress.progress > 0.8)
+    }
+    else
+    {
+        
+        UITouch *touch = [[event allTouches] anyObject];
+        
+        CGPoint location = [touch locationInView:touch.view];
+        
+        while (location.x < 132)
         {
-            
-            progress.tintColor = [UIColor redColor];
-            
-            //[self almostDone];
+           
+            location.x = location.x + 1;
             
         }
         
+        while (location.x > 188)
+        {
+            
+            location.x = location.x - 1;
+            
+        }
+        
+        while (location.y > mainImage.frame.size.height - 13)
+        {
+            
+            location.y = location.y - 1;
+            
+        }
+        
+        textBoxs.center = location;
+        textBoxText.center = location;
+        
     }
 
-}
-
--(void) almostDone
-{
-    
-    CGPoint startPoint = (CGPoint){ball.frame.origin.x, ball.frame.origin.y};
-    CGPoint endPoint = (CGPoint){ball.frame.origin.x, ball.frame.origin.y - 20};
-    
-    CGMutablePathRef thePath = CGPathCreateMutable();
-    CGPathMoveToPoint(thePath, NULL, startPoint.x, startPoint.y);
-    CGPathAddLineToPoint(thePath, NULL, endPoint.x, endPoint.y);
-    
-    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    animation.duration = 0.6;
-    animation.path = thePath;
-    animation.autoreverses = YES;
-    animation.repeatCount = INFINITY;
-    [ball.layer addAnimation:animation forKey:@"position"];
-    
 }
 
 //----------------------------------------------------------------------------------
@@ -750,6 +800,9 @@ UIImageView *mainImage;
         SelectAContactViewController *controller = (SelectAContactViewController *)navigationController.topViewController;
         controller.captureArray = captureDrawing;
         controller.traceDrawSpeed = DRAW_SPEED;
+        controller.textMessage = textBoxText.text;
+        controller.xText = textBoxText.frame.origin.x;
+        controller.yText = textBoxText.frame.origin.y;
         
     }
     
@@ -1073,6 +1126,7 @@ UIImageView *mainImage;
     [hideAndShowB setHidden:NO];
     [newProg setHidden:NO];
     [newProgMin setHidden:NO];
+    [speachB setHidden:YES];
     
     canDraw = YES;
     
@@ -1326,11 +1380,104 @@ UIImageView *mainImage;
     [fast setHidden:YES];
     [newProg setHidden:YES];
     [newProgMin setHidden:YES];
+    [respondToLabel setHidden:YES];
+    [speachB setHidden:YES];
+    [textBoxText setHidden:YES];
+    [textBoxs setHidden:YES];
+    textBoxText.text = @"";
     
     [undoRecordImageArray removeAllObjects];
     [undoImageArray removeAllObjects];
     [captureDrawing removeAllObjects];
     mainImage.image = nil;
+    
+}
+
+-(IBAction) textDidStart:(id)sender
+{
+        
+    typing = YES;
+
+    int tx = 30;
+    int ty = 307;
+
+    originXBox = textBoxs.frame.origin.x;
+    originYBox = textBoxs.frame.origin.y;
+
+    originXText = textBoxText.frame.origin.x;
+    originYText = textBoxText.frame.origin.y;
+
+    [UIView beginAnimations:@"textUp" context:nil];
+    [UIView setAnimationDuration:0.3];
+
+    textBoxText.frame = CGRectMake(tx, ty, textBoxText.frame.size.width, textBoxText.frame.size.height);
+    textBoxs.frame = CGRectMake(tx, ty, textBoxs.frame.size.width, textBoxs.frame.size.height);
+
+    [UIView commitAnimations];
+    
+}
+
+-(IBAction) DismissKeyboard:(id)sender
+{
+    
+    typing = NO;
+    
+    [sender resignFirstResponder];
+    
+    [UIView beginAnimations:@"textBack" context:nil];
+    [UIView setAnimationDuration:0.3];
+    
+    textBoxText.frame = CGRectMake(originXText, originYText, textBoxText.frame.size.width, textBoxText.frame.size.height);
+    textBoxs.frame = CGRectMake(originXBox, originYText, textBoxs.frame.size.width, textBoxs.frame.size.height);
+    
+    [UIView commitAnimations];
+    
+}
+
+-(IBAction) typingMessage:(id)sender
+{
+    
+    if (textBoxText.text.length >= 38)
+    {
+        
+        textBoxText.text = [textBoxText.text substringWithRange:NSMakeRange(0, 37)];
+        
+    }
+    
+}
+
+-(IBAction) startText:(id)sender
+{
+    
+    if (wantsType)
+    {
+        
+        [speachB setImage:[UIImage imageNamed:@"NoSpeachBubbleButton.png"] forState:UIControlStateNormal];
+        speachB.frame = CGRectMake(speachB.frame.origin.x, speachB.frame.origin.y, 37, 35);
+        
+        [textBoxText setHidden:NO];
+        [textBoxs setHidden:NO];
+        [textBoxText becomeFirstResponder];
+        [self textDidStart:nil];
+        
+        wantsType = NO;
+        
+    }
+    else
+    {
+        
+        [speachB setImage:[UIImage imageNamed:@"SpeachBubbleButton.png"] forState:UIControlStateNormal];
+        speachB.frame = CGRectMake(speachB.frame.origin.x, speachB.frame.origin.y, 37, 33);
+        
+        [textBoxText setHidden:YES];
+        [textBoxs setHidden:YES];
+        [textBoxText resignFirstResponder];
+        textBoxText.text = @"";
+        
+        wantsType = YES;
+        
+    }
+    
     
 }
 
@@ -1386,6 +1533,8 @@ UIImageView *mainImage;
         [slow setHidden:NO];
         [medium setHidden:NO];
         [fast setHidden:NO];
+        [respondToLabel setHidden:YES];
+        [speachB setHidden:NO];
         
         timerInt = 0;
         
@@ -1407,6 +1556,7 @@ UIImageView *mainImage;
 
 -(void) showVideo
 {
+    
     progress.progress = progress.progress + SPEED;
     newProg.frame = CGRectMake(newProg.frame.origin.x, newProg.frame.origin.y, newProg.frame.size.width + 0.187, newProg.frame.size.height);
     
@@ -1531,7 +1681,6 @@ UIImageView *mainImage;
     }];
 
 }
-
 
 @end
 

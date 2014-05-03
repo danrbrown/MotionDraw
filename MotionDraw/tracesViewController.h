@@ -22,7 +22,7 @@ extern NSInteger traceObjectIdx;
     IBOutlet UIActivityIndicatorView *loadingTraces;
     IBOutlet UIImageView *tutorialImage2;
     IBOutlet UINavigationController *TracesTitle;
-    
+
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tracesTable;
