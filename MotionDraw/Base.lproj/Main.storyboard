@@ -1373,10 +1373,10 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="i37-wB-Ypf">
-                                <rect key="frame" x="137" y="533" width="47" height="20"/>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="i37-wB-Ypf">
+                                <rect key="frame" x="99" y="525" width="35" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Speak">
+                                <state key="normal" image="SpeachButton.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1396,6 +1396,7 @@
                         <outlet property="newProgMin" destination="M4G-CF-3YT" id="GDa-Yx-ZKQ"/>
                         <outlet property="progress" destination="DpL-yp-sr7" id="k1r-2r-k4T"/>
                         <outlet property="replayB" destination="kHB-nY-U8s" id="qg1-Um-0g1"/>
+                        <outlet property="speachB" destination="i37-wB-Ypf" id="7lW-Kv-jh6"/>
                         <outlet property="textBox" destination="XL7-km-csN" id="JvS-jZ-bgZ"/>
                         <outlet property="textMessage" destination="DAd-Ec-UcC" id="sh4-BX-wcp"/>
                     </connections>
@@ -1498,6 +1499,7 @@
         <image name="Slow.png" width="98" height="36"/>
         <image name="SpeachBubble.png" width="298" height="41"/>
         <image name="SpeachBubbleButton.png" width="65" height="57"/>
+        <image name="SpeachButton.png" width="83" height="120"/>
         <image name="Stop.png" width="158" height="88"/>
         <image name="TracesIcon.png" width="50" height="50"/>
         <image name="TrashButton.png" width="105" height="172"/>

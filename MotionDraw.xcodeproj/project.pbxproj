@@ -114,6 +114,7 @@
 		9C9E319B19034971007CEDCD /* tutImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C9E319A19034971007CEDCD /* tutImage.png */; };
 		9CCBAC53191562DD00F39AE1 /* SpeachBubbleButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CCBAC52191562DD00F39AE1 /* SpeachBubbleButton.png */; };
 		9CCBAC571915635600F39AE1 /* NoSpeachBubbleButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CCBAC561915635600F39AE1 /* NoSpeachBubbleButton.png */; };
+		9CCBAC5919157BD800F39AE1 /* SpeachButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CCBAC5819157BD800F39AE1 /* SpeachButton.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -262,6 +263,7 @@
 		9C9E319A19034971007CEDCD /* tutImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutImage.png; sourceTree = "<group>"; };
 		9CCBAC52191562DD00F39AE1 /* SpeachBubbleButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpeachBubbleButton.png; sourceTree = "<group>"; };
 		9CCBAC561915635600F39AE1 /* NoSpeachBubbleButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoSpeachBubbleButton.png; sourceTree = "<group>"; };
+		9CCBAC5819157BD800F39AE1 /* SpeachButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpeachButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -437,6 +439,7 @@
 			isa = PBXGroup;
 			children = (
 				9C3350D719118EF200F377B7 /* SendButton.png */,
+				9CCBAC5819157BD800F39AE1 /* SpeachButton.png */,
 				9C3350D1190D608600F377B7 /* checkBoxCheckedButton.png */,
 				9C3350D2190D608600F377B7 /* checkBoxUncheckedButton.png */,
 				9C59DBB618F4E2A10031829F /* CloseButton.png */,
@@ -728,6 +731,7 @@
 				9C8EA4E218FB26D10052A64D /* progressMin.png in Resources */,
 				9C59DBFB18F4E2A10031829F /* undoButton.png in Resources */,
 				9C79600A18F9833E00D3A84D /* Replay.png in Resources */,
+				9CCBAC5919157BD800F39AE1 /* SpeachButton.png in Resources */,
 				9C8EA4E318FB26D10052A64D /* progressMax.png in Resources */,
 				9C59DBF818F4E2A10031829F /* SettingsIcon@2x.png in Resources */,
 			);

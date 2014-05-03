@@ -331,6 +331,7 @@ NSString *respondingTraceUsername;
     
     [textMessage setAlpha:0];
     [textBox setAlpha:0];
+    [speachB setEnabled:NO];
     
     newProg.frame = CGRectMake(newProg.frame.origin.x, newProg.frame.origin.y, newProg.frame.size.width - subtractionAmount, newProg.frame.size.height);
     
@@ -389,6 +390,8 @@ NSString *respondingTraceUsername;
         
         if (textMessageText.length > 0)
         {
+            
+            [speachB setEnabled:YES];
             
             textBox.frame = CGRectMake(xCord, yCord, textBox.frame.size.width, textBox.frame.size.height);
             textMessage.frame = CGRectMake(xCord, yCord, textMessage.frame.size.width, textMessage.frame.size.height);
