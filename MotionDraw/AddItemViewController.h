@@ -28,6 +28,7 @@
     IBOutlet UIButton *askButton;
     
     NSMutableArray *info;
+    NSString *message;
     
 }
 

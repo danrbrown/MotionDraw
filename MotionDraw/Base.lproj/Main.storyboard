@@ -380,6 +380,9 @@
                             <imageView userInteractionEnabled="NO" alpha="0.94999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SpeachBubble.png" id="RSb-WJ-GsL">
                                 <rect key="frame" x="28" y="270" width="265" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="CV7-ib-Y7f" appends="YES" id="4eR-7r-tMB"/>
+                                </connections>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lN6-YK-T2S">
                                 <rect key="frame" x="200" y="477" width="37" height="33"/>
@@ -392,7 +395,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.94999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Message here..." textAlignment="center" minimumFontSize="17" id="56g-a7-g2u">
-                                <rect key="frame" x="29" y="271" width="265" height="28"/>
+                                <rect key="frame" x="28" y="270" width="265" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
@@ -400,6 +403,7 @@
                                     <action selector="DismissKeyboard:" destination="2Kp-CN-lfG" eventType="editingDidEndOnExit" id="zm4-Ai-hVG"/>
                                     <action selector="textDidStart:" destination="2Kp-CN-lfG" eventType="editingDidBegin" id="CcH-nK-KMr"/>
                                     <action selector="typingMessage:" destination="2Kp-CN-lfG" eventType="editingChanged" id="rnh-1U-rEo"/>
+                                    <outletCollection property="gestureRecognizers" destination="CV7-ib-Y7f" appends="YES" id="6fU-7q-e2S"/>
                                 </connections>
                             </textField>
                         </subviews>
@@ -437,6 +441,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yez-Zu-kBZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="YtH-ev-cUV"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="CV7-ib-Y7f">
+                    <connections>
+                        <action selector="DragText:" destination="2Kp-CN-lfG" id="P0t-kH-qOS"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2252" y="463"/>
         </scene>
@@ -1374,7 +1383,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="i37-wB-Ypf">
-                                <rect key="frame" x="99" y="525" width="35" height="36"/>
+                                <rect key="frame" x="99" y="525" width="33" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="SpeachButton.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>

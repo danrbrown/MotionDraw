@@ -617,16 +617,6 @@ UIImageView *mainImage;
         [self getMyCords:currentPoint.x cord2:currentPoint.y cord3:lastPoint.x cord4:lastPoint.y brush:brush red:red green:green blue:blue];
         
     }
-    else
-    {
-        
-        UITouch *touch = [[event allTouches] anyObject];
-        CGPoint location = [touch locationInView:touch.view];
-        textBoxs.center = location;
-        textBoxText.center = location;
-        textBoxText.frame = CGRectMake(textBoxText.frame.origin.x, textBoxText.frame.origin.y, textBoxText.frame.size.width, textBoxText.frame.size.height);
-        
-    }
 
 }
 
@@ -696,38 +686,6 @@ UIImageView *mainImage;
             [self stop:nil];
             
         }
-        
-    }
-    else
-    {
-        
-        UITouch *touch = [[event allTouches] anyObject];
-        
-        CGPoint location = [touch locationInView:touch.view];
-        
-        while (location.x < 132)
-        {
-           
-            location.x = location.x + 1;
-            
-        }
-        
-        while (location.x > 188)
-        {
-            
-            location.x = location.x - 1;
-            
-        }
-        
-        while (location.y > mainImage.frame.size.height - 13)
-        {
-            
-            location.y = location.y - 1;
-            
-        }
-        
-        textBoxs.center = location;
-        textBoxText.center = location;
         
     }
 
@@ -1478,6 +1436,33 @@ UIImageView *mainImage;
         
     }
     
+    
+}
+
+- (IBAction)DragText:(UIPanGestureRecognizer *)sender
+{
+    
+    CGPoint transition = [sender translationInView:self.view];
+    
+    if (textBoxText.center.x + transition.x >= 187)
+    {
+        
+        int x = textBoxText.center.x + transition.x;
+        x = x - 5;
+        
+    }
+    
+    if (textBoxText.center.x + transition.x <= 132)
+    {
+        
+        int x = textBoxText.center.x + transition.x;
+        x = x + 5;
+        
+    }
+    
+    textBoxText.center = CGPointMake(textBoxText.center.x + transition.x, textBoxText.center.y + transition.y);
+    textBoxs.center = CGPointMake(textBoxs.center.x + transition.x, textBoxs.center.y + transition.y);
+    [sender setTranslation:CGPointMake(0, 0) inView:self.view];
     
 }
 

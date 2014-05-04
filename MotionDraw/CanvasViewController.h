@@ -126,6 +126,7 @@ extern UIImageView *mainImage;
 -(IBAction) DismissKeyboard:(id)sender;
 -(IBAction) typingMessage:(id)sender;
 -(IBAction) startText:(id)sender;
+-(IBAction) DragText:(UIPanGestureRecognizer *)sender;
 
 //Methods for view
 -(void) cancelSend;

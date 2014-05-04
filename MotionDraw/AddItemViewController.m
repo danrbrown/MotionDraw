@@ -49,6 +49,8 @@
     UIFont *textfieldFont = [UIFont fontWithName:@"ComicRelief" size:23];
     textField.font = textfieldFont;
     
+    message = [NSString stringWithFormat:@"Join Leave A Trace, the best drawing social media app out there! https://itunes.apple.com/us/app/leave-a-trace/id823998456?mt=8.\n My username is %@", [PFUser currentUser].username];
+    
 }
 
 //----------------------------------------------------------------------------------
@@ -234,7 +236,7 @@
         
         [textMessage setRecipients:[NSArray arrayWithObjects:info[1], nil]];
         
-        [textMessage setBody:@"Join Leave A Trace, the best drawing social media app out there!"];
+        [textMessage setBody:message];
         
         [self presentViewController:textMessage animated:YES completion:nil];
         
@@ -256,7 +258,7 @@
         
         [mailComposer setSubject:@"Leave A Trace"];
         
-        [mailComposer setMessageBody:@"Join Leave A Trace, the best drawing social media app out there!" isHTML:NO];
+        [mailComposer setMessageBody:message isHTML:NO];
         
         [self presentViewController:mailComposer animated:YES completion:nil];
         
