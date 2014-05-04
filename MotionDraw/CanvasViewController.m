@@ -289,6 +289,8 @@ UIImageView *mainImage;
         [textBoxs setHidden:YES];
         [speachB setHidden:YES];
         
+        [speachB setImage:[UIImage imageNamed:@"SpeachBubbleButton.png"] forState:UIControlStateNormal];
+        
         textBoxText.text = @"";
         
         mainImage.image = nil;
@@ -296,6 +298,7 @@ UIImageView *mainImage;
         [self.tabBarController setSelectedIndex:0];
         
         sentImage = NO;
+        wantsType = YES;
         
     }
     
