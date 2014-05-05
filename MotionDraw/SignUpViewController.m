@@ -271,6 +271,8 @@
     NSString *newUser = [dataParms objectForKey:@"newUser"];
     LoadTraces *loadTraces = [[LoadTraces alloc] init];
     
+    id traceSpeedObj = [NSNumber numberWithDouble:0.02];
+    
     // Get the Intro Trace
     
     PFQuery *introQuery = [PFQuery queryWithClassName:@"IntroObject"];
@@ -290,6 +292,7 @@
     [firstTraceObject setObject:newUser forKey:@"toUser"];
     [firstTraceObject setObject:@"YES" forKey:@"toUserDisplay"];
     [firstTraceObject setObject:@"D"forKey:@"status"];
+    [firstTraceObject setObject:traceSpeedObj forKey:@"traceDrawSpeed"];
     
     [(APP).tracesArray insertObject:firstTraceObject atIndex:0];
     
