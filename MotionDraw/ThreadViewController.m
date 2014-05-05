@@ -81,6 +81,8 @@ NSString *respondingTraceUsername;
         trashB.frame = CGRectMake(61, 432, 39, 45);
         saveB.frame = CGRectMake(7, 433, 49, 43);
         replayB.frame = CGRectMake(4, 438, 92, 38);
+        speachB.frame = CGRectMake(speachB.frame.origin.x, 435, speachB.frame.size.width, speachB.frame.size.height);
+        respondB.frame = CGRectMake(respondB.frame.origin.x, 432, respondB.frame.size.width, respondB.frame.size.height);
         
         userScreenSize = @"4";
         

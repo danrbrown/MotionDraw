@@ -223,7 +223,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fiK-rM-BBR">
-                                <rect key="frame" x="251" y="471" width="64" height="40"/>
+                                <rect key="frame" x="253" y="475" width="61" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" image="SendButton.png">
@@ -385,7 +385,7 @@
                                 </connections>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lN6-YK-T2S">
-                                <rect key="frame" x="200" y="477" width="37" height="33"/>
+                                <rect key="frame" x="201" y="478" width="37" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="SpeachBubbleButton.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1363,7 +1363,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yMO-Wk-FAX">
-                                <rect key="frame" x="227" y="522" width="87" height="43"/>
+                                <rect key="frame" x="227" y="520" width="87" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Respond.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1376,14 +1376,14 @@
                                 <rect key="frame" x="28" y="270" width="265" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="fvdfvf" textAlignment="center" minimumFontSize="17" id="DAd-Ec-UcC">
+                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" id="DAd-Ec-UcC">
                                 <rect key="frame" x="28" y="270" width="265" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="i37-wB-Ypf">
-                                <rect key="frame" x="99" y="525" width="33" height="36"/>
+                                <rect key="frame" x="99" y="523" width="33" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="SpeachButton.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1405,6 +1405,7 @@
                         <outlet property="newProgMin" destination="M4G-CF-3YT" id="GDa-Yx-ZKQ"/>
                         <outlet property="progress" destination="DpL-yp-sr7" id="k1r-2r-k4T"/>
                         <outlet property="replayB" destination="kHB-nY-U8s" id="qg1-Um-0g1"/>
+                        <outlet property="respondB" destination="yMO-Wk-FAX" id="zXJ-5B-6f7"/>
                         <outlet property="speachB" destination="i37-wB-Ypf" id="7lW-Kv-jh6"/>
                         <outlet property="textBox" destination="XL7-km-csN" id="JvS-jZ-bgZ"/>
                         <outlet property="textMessage" destination="DAd-Ec-UcC" id="sh4-BX-wcp"/>

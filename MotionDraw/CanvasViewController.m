@@ -147,6 +147,7 @@ UIImageView *mainImage;
         stopB.frame = CGRectMake(-2, 382, 91, 50);
         mainImage.frame = CGRectMake(0, 0, 320, 431);
         hideAndShowB.frame = CGRectMake(272, 402, 44, 24);
+        speachB.frame = CGRectMake(speachB.frame.origin.x, 391, speachB.frame.size.width, speachB.frame.size.height);
         
     }
     else
@@ -1346,6 +1347,8 @@ UIImageView *mainImage;
     [textBoxText setHidden:YES];
     [textBoxs setHidden:YES];
     textBoxText.text = @"";
+    wantsType = YES;
+    [speachB setImage:[UIImage imageNamed:@"SpeachBubbleButton.png"] forState:UIControlStateNormal];
     
     [undoRecordImageArray removeAllObjects];
     [undoImageArray removeAllObjects];
@@ -1371,8 +1374,21 @@ UIImageView *mainImage;
     [UIView beginAnimations:@"textUp" context:nil];
     [UIView setAnimationDuration:0.3];
 
-    textBoxText.frame = CGRectMake(tx, ty, textBoxText.frame.size.width, textBoxText.frame.size.height);
-    textBoxs.frame = CGRectMake(tx, ty, textBoxs.frame.size.width, textBoxs.frame.size.height);
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    if(result.height == 480)
+    {
+        
+        textBoxText.frame = CGRectMake(tx, ty - 80, textBoxText.frame.size.width, textBoxText.frame.size.height);
+        textBoxs.frame = CGRectMake(tx, ty - 80, textBoxs.frame.size.width, textBoxs.frame.size.height);
+        
+    }
+    else
+    {
+        
+        textBoxText.frame = CGRectMake(tx, ty, textBoxText.frame.size.width, textBoxText.frame.size.height);
+        textBoxs.frame = CGRectMake(tx, ty, textBoxs.frame.size.width, textBoxs.frame.size.height);
+        
+    }
 
     [UIView commitAnimations];
     
@@ -1445,26 +1461,36 @@ UIImageView *mainImage;
 - (IBAction)DragText:(UIPanGestureRecognizer *)sender
 {
     
+    [textBoxText resignFirstResponder];
+    
     CGPoint transition = [sender translationInView:self.view];
     
-    if (textBoxText.center.x + transition.x >= 187)
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    if(result.height == 480)
     {
         
-        int x = textBoxText.center.x + transition.x;
-        x = x - 5;
+        if (textBoxs.center.y + transition.y < 365 && textBoxs.center.y + transition.y > 80 && textBoxs.center.x + transition.x < 190 && textBoxs.center.x + transition.x > 130)
+        {
+            
+            textBoxText.center = CGPointMake(textBoxText.center.x + transition.x, textBoxText.center.y + transition.y);
+            textBoxs.center = CGPointMake(textBoxs.center.x + transition.x, textBoxs.center.y + transition.y);
+            
+        }
+        
+    }
+    else
+    {
+        
+        if (textBoxs.center.y + transition.y < 445 && textBoxs.center.y + transition.y > 80 && textBoxs.center.x + transition.x < 190 && textBoxs.center.x + transition.x > 130)
+        {
+            
+            textBoxText.center = CGPointMake(textBoxText.center.x + transition.x, textBoxText.center.y + transition.y);
+            textBoxs.center = CGPointMake(textBoxs.center.x + transition.x, textBoxs.center.y + transition.y);
+            
+        }
         
     }
     
-    if (textBoxText.center.x + transition.x <= 132)
-    {
-        
-        int x = textBoxText.center.x + transition.x;
-        x = x + 5;
-        
-    }
-    
-    textBoxText.center = CGPointMake(textBoxText.center.x + transition.x, textBoxText.center.y + transition.y);
-    textBoxs.center = CGPointMake(textBoxs.center.x + transition.x, textBoxs.center.y + transition.y);
     [sender setTranslation:CGPointMake(0, 0) inView:self.view];
     
 }

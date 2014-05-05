@@ -51,7 +51,7 @@ extern NSString *respondingTraceUsername;
     IBOutlet UIButton *trashB;
     IBOutlet UIButton *colorsB;
     IBOutlet UIButton *saveB;
-    IBOutlet UIButton *sendB, *speachB;
+    IBOutlet UIButton *sendB, *speachB, *respondB;
     IBOutlet UILabel *otherUser;
     IBOutlet UIActivityIndicatorView *loadingSent;
     IBOutlet UIActivityIndicatorView *loadingTrace;
