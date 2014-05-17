@@ -111,8 +111,6 @@ NSString *respondingTraceUsername;
     textMessage.font = [UIFont fontWithName:@"ComicRelief" size:14];
     textMessage.text = @"testing";
     
-    
-        
 }
 
 //----------------------------------------------------------------------------------
@@ -132,7 +130,7 @@ NSString *respondingTraceUsername;
     
     NSString *userWhoSentTrace = [traceObject objectForKey:@"toUser"];
     NSString *tmpStatus = [traceObject objectForKey:@"status"];
-    respondingTraceUsername = [traceObject objectForKey:@"toUser"];
+    respondingTraceUsername = [traceObject objectForKey:@"fromUser"];
     
     otherUser.text = userWhoSentTrace;
     
@@ -214,12 +212,25 @@ NSString *respondingTraceUsername;
                                 [[PFUser currentUser] incrementKey:@"tracesViewed"];
                                 [[PFUser currentUser] saveInBackground];
  
-                                
                             }
                             
                             [myImages setObject:@"O"forKey:@"status"];
                             [traceObject setObject:@"O"forKey:@"status"];
                             [myImages saveInBackground];
+                            
+                            if (([traceStatus isEqualToString:@"D"]) || ([traceStatus isEqualToString:@"O"]))
+                            {
+                                    
+                                NSLog(@"someone sent me this");
+                                    
+                            }
+                            else
+                            {
+                                
+                                NSLog(@"not!");
+                                
+                            }
+                            
                             
                         }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="YPq-FJ-w1u">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="YPq-FJ-w1u">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -211,7 +211,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Ktt-qL-5WB">
-                                <rect key="frame" x="0.0" y="-1" width="320" height="519"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -243,7 +243,7 @@
                                 </connections>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="25" minValue="5" maxValue="50" id="7UY-JU-YOG" customClass="BrushSizeSlider">
-                                <rect key="frame" x="245" y="223" width="118" height="31"/>
+                                <rect key="frame" x="244" y="223" width="118" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="minimumTrackTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="maximumTrackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -271,7 +271,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Tgc-Ha-kmI">
-                                <rect key="frame" x="-2" y="462" width="96" height="60"/>
+                                <rect key="frame" x="-2" y="466" width="89" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Stop.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -281,7 +281,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aIX-xn-cqq">
-                                <rect key="frame" x="5" y="471" width="87" height="41"/>
+                                <rect key="frame" x="2" y="472" width="87" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Reset.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -291,7 +291,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2Rt-fV-QTj">
-                                <rect key="frame" x="287" y="307" width="29" height="33"/>
+                                <rect key="frame" x="288" y="307" width="29" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="TrashButton.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -301,7 +301,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KoQ-aO-BsI">
-                                <rect key="frame" x="96" y="471" width="97" height="42"/>
+                                <rect key="frame" x="95" y="471" width="97" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Replay.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -495,10 +495,15 @@
                                             <color key="textColor" red="0.2844786352" green="0.2844786352" blue="0.2844786352" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkBoxUncheckedButton.png" id="Z4M-YL-FTN">
+                                            <rect key="frame" x="282" y="16" width="23" height="23"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="sendToTitle" destination="wWq-fO-ozE" id="Ju1-hQ-xtG"/>
+                                    <outlet property="unCheckNone" destination="Z4M-YL-FTN" id="1Fs-XP-DZv"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -792,7 +797,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vqT-TA-s0d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-805" y="472"/>
+            <point key="canvasLocation" x="-795" y="472"/>
         </scene>
         <!--First Page View Controller-->
         <scene sceneID="stG-dY-QWk">
@@ -802,13 +807,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="0TZ-sv-YIL">
+                                <rect key="frame" x="26" y="133" width="268" height="355"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="m0I-xC-QvI">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ea7-cd-dkE">
-                                <rect key="frame" x="83" y="291" width="166" height="92"/>
+                                <rect key="frame" x="77" y="290" width="166" height="92"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="28"/>
                                 <state key="normal" image="SignUpButton.png">
@@ -820,7 +829,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cyu-68-OAQ">
-                                <rect key="frame" x="92" y="188" width="136" height="78"/>
+                                <rect key="frame" x="92" y="179" width="136" height="78"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="28"/>
                                 <state key="normal" image="LoginButton.png">
@@ -832,7 +841,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ao4-fg-eE5">
-                                <rect key="frame" x="20" y="534" width="213" height="17"/>
+                                <rect key="frame" x="15" y="534" width="213" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="17"/>
                                 <state key="normal" title="Leave A Trace | 15and50">
@@ -843,30 +852,70 @@
                                     <action selector="fifteenAndFifty:" destination="GYI-5t-CG3" eventType="touchUpInside" id="Iug-c2-RcO"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ricky Brown" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SEm-Yc-hzE">
-                                <rect key="frame" x="20" y="20" width="121" height="23"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8uF-vF-veW">
+                                <rect key="frame" x="248" y="528" width="63" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="17"/>
-                                <color key="textColor" red="0.13809828760000001" green="0.4538568046" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dan Brown" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="akd-8F-chO">
-                                <rect key="frame" x="164" y="395" width="121" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Try it!">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="testIt:" destination="GYI-5t-CG3" eventType="touchUpInside" id="Sio-xU-sZC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Fd6-bT-igq">
+                                <rect key="frame" x="260" y="449" width="29" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="17"/>
-                                <color key="textColor" red="0.13809828760000001" green="0.4538568046" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" id="FTX-As-oOa">
-                                <rect key="frame" x="278" y="532" width="22" height="22"/>
+                                <state key="normal" image="TrashButton.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="trash:" destination="GYI-5t-CG3" eventType="touchUpInside" id="EHY-wn-kgA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rUG-7w-16u">
+                                <rect key="frame" x="111" y="297" width="100" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal">
+                                <state key="normal" image="DrawButton.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="hxz-mB-T0V" kind="modal" modalTransitionStyle="flipHorizontal" id="KOM-if-neE"/>
+                                    <action selector="start:" destination="GYI-5t-CG3" eventType="touchUpInside" id="Fig-4w-D5D"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="nyQ-pc-Sa6">
+                                <rect key="frame" x="24" y="442" width="78" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Stop.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="stop:" destination="GYI-5t-CG3" eventType="touchUpInside" id="qSC-G3-2wE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="E18-yh-cOL">
+                                <rect key="frame" x="108" y="448" width="88" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Replay.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="replay:" destination="GYI-5t-CG3" eventType="touchUpInside" id="Q20-Fg-Zcl"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mkA-Hc-Oyx">
+                                <rect key="frame" x="26" y="446" width="76" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Reset.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="redo:" destination="GYI-5t-CG3" eventType="touchUpInside" id="eAl-zx-VLr"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -874,47 +923,20 @@
                     </view>
                     <connections>
                         <outlet property="fifteenAndFifty" destination="ao4-fg-eE5" id="M2n-ZK-fi9"/>
-                        <outlet property="infoButton" destination="FTX-As-oOa" id="24a-Kn-Pgb"/>
                         <outlet property="logInButton" destination="cyu-68-OAQ" id="NH1-XS-grj"/>
                         <outlet property="mainImage" destination="m0I-xC-QvI" id="d5L-pH-DHB"/>
+                        <outlet property="redoBT" destination="mkA-Hc-Oyx" id="xvw-wi-WHy"/>
+                        <outlet property="replayBT" destination="E18-yh-cOL" id="mbi-SI-Ied"/>
                         <outlet property="signUpButton" destination="Ea7-cd-dkE" id="ykG-pd-JeO"/>
+                        <outlet property="startBT" destination="rUG-7w-16u" id="RY2-oP-3Ow"/>
+                        <outlet property="stopBT" destination="nyQ-pc-Sa6" id="Epp-tO-XsU"/>
+                        <outlet property="testImage" destination="0TZ-sv-YIL" id="MqQ-9J-awc"/>
+                        <outlet property="trashBT" destination="Fd6-bT-igq" id="ffw-vc-pt1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vGH-UT-fyZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-265" y="472"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="XD9-ob-voG">
-            <objects>
-                <viewController id="hxz-mB-T0V" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="4sO-S7-HcV">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WelcomeImage.png" id="GJe-ih-ilo">
-                                <rect key="frame" x="0.0" y="1" width="320" height="582"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="LYp-gy-0QR">
-                                <rect key="frame" x="11" y="526" width="67" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="24"/>
-                                <state key="normal" title="Back">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="GYI-5t-CG3" kind="modal" modalTransitionStyle="flipHorizontal" id="onn-AB-67w"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.035127737226277371" green="0.19519844890510948" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0MR-pz-Qk6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-265" y="1151"/>
         </scene>
         <!--Login View Controller - Log in-->
         <scene sceneID="Vgn-lD-zeP">
@@ -1372,10 +1394,6 @@
                                     <action selector="respond:" destination="n3a-QS-gwa" eventType="touchUpInside" id="wE9-9K-FjT"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SpeachBubble.png" id="XL7-km-csN">
-                                <rect key="frame" x="28" y="270" width="265" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" id="DAd-Ec-UcC">
                                 <rect key="frame" x="28" y="270" width="265" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1392,6 +1410,10 @@
                                     <action selector="speakText:" destination="n3a-QS-gwa" eventType="touchUpInside" id="9Sw-iG-vin"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SpeachBubble.png" id="XL7-km-csN">
+                                <rect key="frame" x="28" y="270" width="265" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -1513,7 +1535,7 @@
         <image name="Stop.png" width="158" height="88"/>
         <image name="TracesIcon.png" width="50" height="50"/>
         <image name="TrashButton.png" width="105" height="172"/>
-        <image name="WelcomeImage.png" width="320" height="662"/>
+        <image name="checkBoxUncheckedButton.png" width="33" height="30"/>
         <image name="iconsberlin.png" width="30" height="30"/>
         <image name="progressMax.png" width="350" height="19"/>
         <image name="progressMin.png" width="354" height="23"/>

@@ -51,6 +51,10 @@
     passWordTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     passWordTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     
+    userNameTextField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
+    passWordTextField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
+
+    
     [self performSelector:@selector(showKeyBoard) withObject:nil afterDelay:0.4];
     
     CGSize size = [[UIScreen mainScreen] bounds].size;

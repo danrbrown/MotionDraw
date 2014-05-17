@@ -49,8 +49,6 @@ UIImageView *mainImage;
 -(void) viewDidLoad
 {
     
-    NSLog(@"view did load");
-    
 #define SPEED 0.0007
     
     SLOW_SPEED = 0.03; //0.0100
@@ -214,7 +212,7 @@ UIImageView *mainImage;
     {
         total += class_getInstanceSize([obj class]);
     }
-
+    
 }
 
 //----------------------------------------------------------------------------------
@@ -635,8 +633,12 @@ UIImageView *mainImage;
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     
+    
+    
     if (canDraw)
     {
+        
+        
         
         mouseSwiped = YES;
         
@@ -655,8 +657,8 @@ UIImageView *mainImage;
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
         CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush);
         CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, 1.0);
-        CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
-    
+        CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeClear);
+        
         CGContextStrokePath(UIGraphicsGetCurrentContext());
         self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
         
@@ -910,7 +912,7 @@ UIImageView *mainImage;
    // [currentColorImage setHidden:YES];
    // [sliderImage setHidden:YES];
     
-    [UIImagePNGRepresentation(mainImage.image) writeToFile:@"/Users/Ricky/Documents/MyStuff/tutImage.png" atomically:YES];
+    //[UIImagePNGRepresentation(mainImage.image) writeToFile:@"/Users/Ricky/Documents/MyStuff/tutImage.png" atomically:YES];
     
     [colorValue setHidden:YES];
     [brushSize setHidden:YES];

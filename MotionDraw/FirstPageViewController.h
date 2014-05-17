@@ -18,6 +18,13 @@ extern BOOL LoggedIn;
     IBOutlet UIButton *fifteenAndFifty;
     IBOutlet UIButton *infoButton;
     
+    IBOutlet UIButton *trashBT;
+    IBOutlet UIButton *startBT;
+    IBOutlet UIButton *stopBT;
+    IBOutlet UIButton *redoBT;
+    IBOutlet UIButton *replayBT;
+    IBOutlet UIImageView *testImage;
+    
     //Variables for drawing
     CGPoint lastPoint;
     CGFloat red;
@@ -26,6 +33,7 @@ extern BOOL LoggedIn;
     CGFloat brush;
     CGFloat opacity;
     BOOL mouseSwiped;
+    BOOL isTesting;
     
 }
 

@@ -25,6 +25,8 @@
     
     FusernameTextFeild.delegate = self;
     
+    FusernameTextFeild.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
+    
 }
 
 -(void)getUsersEmail:(NSString *)userName

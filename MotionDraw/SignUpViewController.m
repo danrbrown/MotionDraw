@@ -38,12 +38,14 @@
 {
     
     emailTextField.layer.cornerRadius = 7;
-    
     userSignUpTextField.layer.cornerRadius = 7;
-    
     passwordSignUpTextField.layer.cornerRadius = 7;
-    
     varifyPasswordSignUpTextField.layer.cornerRadius = 7;
+    
+    emailTextField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
+    userSignUpTextField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
+    passwordSignUpTextField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
+    varifyPasswordSignUpTextField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
     
     self.varifyPasswordSignUpTextField.delegate = self;
     

@@ -226,13 +226,6 @@
     
     sendToCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    UIImage *image = [UIImage imageNamed:@"checkBoxUncheckedButton.png"];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.frame = CGRectMake(10, 10, 23, 23);
-    cell.accessoryView = imageView;
-    
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    
     PFObject *tempObject = [validContacts objectAtIndex:indexPath.row];
     
     cell.sendToTitle.text = [tempObject objectForKey:@"contact"];
@@ -372,7 +365,6 @@
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
         imageView.frame = CGRectMake(10, 10, 23, 23);
         cell.accessoryView = imageView;
-
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
         NSString *userToSentTo = [NSString stringWithFormat:@"%lu", (long)indexPath.row];
@@ -389,11 +381,10 @@
     else
     {
         
-        UIImage *image = [UIImage imageNamed:@"checkBoxUncheckedButton.png"];
+        UIImage *image = [UIImage imageNamed:@"Nothing.png"];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
         imageView.frame = CGRectMake(10, 10, 23, 23);
         cell.accessoryView = imageView;
-        
         cell.accessoryType = UITableViewCellAccessoryNone;
         
         NSString *NotuserToSentTo = [NSString stringWithFormat:@"%lu", (long)indexPath.row];

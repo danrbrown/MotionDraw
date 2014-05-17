@@ -27,6 +27,60 @@ BOOL LoggedIn;
 
 //---------------------------------------------------------
 //
+// Name: viewDidLoad
+//
+// Purpose: when the screen opens and you are logged in
+// it will skip this screen and go to the drawing screen
+// in the app.
+//
+//---------------------------------------------------------
+
+- (void)viewDidLoad
+{
+    
+    red = 0;
+    blue = 255;
+    green = 0;
+    brush = 11;
+    opacity = 1.0;
+    
+    int smallScreen = 480;
+    
+    isTesting = NO;
+    
+    CGSize result = [[UIScreen mainScreen] bounds].size;
+    if(result.height == smallScreen)
+    {
+        
+        signUpButton.frame = CGRectMake(77, 245, signUpButton.frame.size.width, signUpButton.frame.size.height);
+        logInButton.frame = CGRectMake(86, 142, logInButton.frame.size.width, logInButton.frame.size.height);
+        fifteenAndFifty.frame = CGRectMake(20, 449, fifteenAndFifty.frame.size.width, fifteenAndFifty.frame.size.height);
+        infoButton.frame = CGRectMake(278, 444, infoButton.frame.size.width, infoButton.frame.size.height);
+        mainImage.frame = CGRectMake(mainImage.frame.origin.x, mainImage.frame.origin.y, mainImage.frame.size.width, smallScreen);
+        
+    }
+    
+    testImage.backgroundColor = [UIColor whiteColor];
+    testImage.frame = CGRectMake(26, 571, testImage.frame.size.width, testImage.frame.size.height);
+    
+    testImage.frame = CGRectMake(26, 571, testImage.frame.size.width, testImage.frame.size.height);
+    startBT.frame = CGRectMake(26, 571, startBT.frame.size.width, startBT.frame.size.height);
+    stopBT.frame = CGRectMake(26, 571, stopBT.frame.size.width, stopBT.frame.size.height);
+    trashBT.frame = CGRectMake(26, 571, trashBT.frame.size.width, trashBT.frame.size.height);
+    replayBT.frame = CGRectMake(26, 571, replayBT.frame.size.width, replayBT.frame.size.height);
+    redoBT.frame = CGRectMake(26, 571, redoBT.frame.size.width, redoBT.frame.size.height);
+    
+#pragma mark beforeDrawing
+    
+    [redoBT setHidden:YES];
+    [replayBT setHidden:YES];
+    [trashBT setHidden:YES];
+    [stopBT setHidden:YES];
+    
+}
+
+//---------------------------------------------------------
+//
 // Name: logInUsingDefaults
 //
 // Purpose: Log into Parse based on user defaults
@@ -94,45 +148,6 @@ BOOL LoggedIn;
     
 }
 
-//---------------------------------------------------------
-//
-// Name: viewDidLoad
-//
-// Purpose: when the screen opens and you are logged in
-// it will skip this screen and go to the drawing screen
-// in the app.
-//
-//---------------------------------------------------------
-
-- (void)viewDidLoad
-{
-    
-    red = (CGFloat)random()/(CGFloat)RAND_MAX;
-    green = (CGFloat)random()/(CGFloat)RAND_MAX;
-    blue = (CGFloat)random()/(CGFloat)RAND_MAX;
-    brush = 13;
-    opacity = 1.0;
-    
-    int smallScreen = 480;
-    
-    CGSize result = [[UIScreen mainScreen] bounds].size;
-    if(result.height == smallScreen)
-    {
-        
-        signUpButton.frame = CGRectMake(77, 245, signUpButton.frame.size.width, signUpButton.frame.size.height);
-        
-        logInButton.frame = CGRectMake(86, 142, logInButton.frame.size.width, logInButton.frame.size.height);
-        
-        fifteenAndFifty.frame = CGRectMake(20, 449, fifteenAndFifty.frame.size.width, fifteenAndFifty.frame.size.height);
-        
-        infoButton.frame = CGRectMake(278, 444, infoButton.frame.size.width, infoButton.frame.size.height);
-        
-        mainImage.frame = CGRectMake(mainImage.frame.origin.x, mainImage.frame.origin.y, mainImage.frame.size.width, smallScreen);
-        
-    }
-
-}
-
 //----------------------------------------------------------------------------------
 //
 // Name: convertToMask
@@ -175,6 +190,8 @@ BOOL LoggedIn;
     
 }
 
+#pragma mark Drawing
+
 //----------------------------------------------------------------------------------
 //
 // Name: touchesBegan
@@ -186,11 +203,15 @@ BOOL LoggedIn;
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     
-    mouseSwiped = NO;
-    
     UITouch *touch = [touches anyObject];
-    
     lastPoint = [touch locationInView:self.view];
+    
+    if (lastPoint.x > 32 && lastPoint.y < 472 && lastPoint.x < 286 && lastPoint.y > 131 && isTesting)
+    {
+        
+        mouseSwiped = NO;
+        
+    }
     
 }
 
@@ -206,26 +227,32 @@ BOOL LoggedIn;
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     
-    mouseSwiped = YES;
     
     UITouch *touch = [touches anyObject];
     CGPoint currentPoint = [touch locationInView:self.view];
     
-    UIGraphicsBeginImageContext(self.view.frame.size);
-    [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
-    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
-    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush );
-    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, 1.0);
-    CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
-    
-    CGContextStrokePath(UIGraphicsGetCurrentContext());
-    self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
-    [self.mainImage setAlpha:opacity];
-    UIGraphicsEndImageContext();
-    
-    lastPoint = currentPoint;
+    if (currentPoint.x > 32 && currentPoint.y < 472 && currentPoint.x < 286 && currentPoint.y > 131 && isTesting)
+    {
+        
+        mouseSwiped = YES;
+        
+        UIGraphicsBeginImageContext(self.view.frame.size);
+        [mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
+        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
+        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush );
+        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, 1.0);
+        CGContextSetBlendMode(UIGraphicsGetCurrentContext(),kCGBlendModeNormal);
+        
+        CGContextStrokePath(UIGraphicsGetCurrentContext());
+        mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
+        [mainImage setAlpha:opacity];
+        UIGraphicsEndImageContext();
+        
+        lastPoint = currentPoint;
+        
+    }
     
 }
 
@@ -240,7 +267,7 @@ BOOL LoggedIn;
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     
-    if(!mouseSwiped)
+    if(!mouseSwiped && isTesting)
     {
         
         UIGraphicsBeginImageContext(self.view.frame.size);
@@ -258,16 +285,9 @@ BOOL LoggedIn;
     }
     
     UIGraphicsBeginImageContext(self.mainImage.frame.size);
-    [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
     [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) blendMode:kCGBlendModeNormal alpha:opacity];
     self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
-    red = (CGFloat)random()/(CGFloat)RAND_MAX;
-    green = (CGFloat)random()/(CGFloat)RAND_MAX;
-    blue = (CGFloat)random()/(CGFloat)RAND_MAX;
-    
-    [self performSelector:@selector(fade) withObject:nil afterDelay:4.0];
     
 }
 
@@ -303,6 +323,75 @@ BOOL LoggedIn;
     [UIView commitAnimations];
     
     mainImage.image = nil;
+    
+}
+
+-(IBAction)testIt:(id)sender
+{
+    
+    isTesting = YES;
+    
+    [UIView beginAnimations:@"makeRoom" context:nil];
+    [UIView setAnimationDuration:1];
+    
+    signUpButton.frame = CGRectMake(155, 22, signUpButton.frame.size.width, signUpButton.frame.size.height);
+    logInButton.frame = CGRectMake(15, 14, logInButton.frame.size.width, logInButton.frame.size.height);
+    
+    testImage.frame = CGRectMake(26, 133, testImage.frame.size.width, testImage.frame.size.height);
+    trashBT.frame = CGRectMake(262, 452, trashBT.frame.size.width, trashBT.frame.size.height);
+    startBT.frame = CGRectMake(111, 297, startBT.frame.size.width, startBT.frame.size.height);
+    stopBT.frame = CGRectMake(24, 442, stopBT.frame.size.width, stopBT.frame.size.height);
+    replayBT.frame = CGRectMake(111, 448, replayBT.frame.size.width, replayBT.frame.size.height);
+    redoBT.frame = CGRectMake(26, 448, redoBT.frame.size.width, redoBT.frame.size.height);
+    
+    testImage.alpha = 1;
+    
+    [UIView commitAnimations];
+    
+}
+
+#pragma mark whenDrawing
+
+-(IBAction) start:(id)sender
+{
+    
+    [startBT setHidden:YES];
+    [stopBT setHidden:NO];
+    [trashBT setHidden:NO];
+    
+}
+
+-(IBAction) stop:(id)sender
+{
+    
+    [stopBT setHidden:YES];
+    [replayBT setHidden:NO];
+    [trashBT setHidden:YES];
+    [redoBT setHidden:NO];
+
+}
+
+-(IBAction) redo:(id)sender
+{
+    
+    mainImage.image = nil;
+    [startBT setHidden:NO];
+    [stopBT setHidden:YES];
+    [trashBT setHidden:YES];
+    [redoBT setHidden:YES];
+    [replayBT setHidden:YES];
+    
+}
+
+-(IBAction) replay:(id)sender
+{
+    
+}
+
+-(IBAction) trash:(id)sender
+{
+    
+    [self fade];
     
 }
 
