@@ -49,7 +49,7 @@
     UIFont *textfieldFont = [UIFont fontWithName:@"ComicRelief" size:23];
     textField.font = textfieldFont;
     
-    message = [NSString stringWithFormat:@"Join Leave A Trace, the best drawing social media app out there! https://itunes.apple.com/us/app/leave-a-trace/id823998456?mt=8.\n My username is %@", [PFUser currentUser].username];
+    message = [NSString stringWithFormat:@"Join Leave A Trace, the best drawing social media app out there!\n https://itunes.apple.com/us/app/leave-a-trace/id823998456?mt=8.\n My username is %@", [PFUser currentUser].username];
     
 }
 
@@ -219,6 +219,21 @@
         [self performSelector:@selector(sendTheText) withObject:nil afterDelay:1.5];
         
     }
+    
+    UIFont *titleFont = [UIFont fontWithName:@"ComicRelief" size:26];
+    
+    NSShadow* shadow = [NSShadow new];
+    shadow.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    shadow.shadowColor = [UIColor clearColor];
+    [[UINavigationBar appearance] setTitleTextAttributes: @{
+                                                            NSForegroundColorAttributeName: [UIColor yellowColor],
+                                                            NSFontAttributeName:titleFont,
+                                                            NSShadowAttributeName:shadow
+                                                            }];
+    
+    [contacts dismissViewControllerAnimated:NO completion:nil];
+    
+    NSLog(@"Phone number = %@\nEmail = %@", info[1], info[2]);
     
     return NO;
     
@@ -538,5 +553,18 @@
     return YES;
     
 }
+- (IBAction)dismissKeyBoard:(UITapGestureRecognizer *)sender
+{
+    
+    [textField resignFirstResponder];
+    
+}
 
 @end
+
+
+
+
+
+
+

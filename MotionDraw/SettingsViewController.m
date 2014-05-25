@@ -302,7 +302,6 @@ int screens;
         
         [[PFUser currentUser] setObject:@"N" forKey:@"LoggedIn"];
         
-        
         [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             
             if (succeeded)

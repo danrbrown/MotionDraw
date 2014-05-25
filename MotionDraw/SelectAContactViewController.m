@@ -460,7 +460,7 @@
         
     }
     
-    mainImage.image = nil;
+    //mainImage.image = nil;
     
     [undoImageArray removeAllObjects];
     

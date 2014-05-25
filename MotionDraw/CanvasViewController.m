@@ -28,7 +28,7 @@ NSString *tracesBadgeString;
 long iconBadge;
 BOOL sentImage;
 NSMutableArray *undoImageArray;
-UIImageView *mainImage;
+//UIImageView *mainImage;
 
 @interface CanvasViewController ()
 
@@ -77,6 +77,7 @@ UIImageView *mainImage;
     undoRecordImageArray = [[NSMutableArray alloc] init];
     onlyUndoImageArray = [[NSMutableArray alloc] init];
     drawingDictionary = [[NSMutableDictionary alloc] init];
+    captureDrawing = [[NSMutableArray alloc] init];
     
     respondToLabel.font = [UIFont fontWithName:@"ComicRelief" size:20];
     respondToLabel.text = @"";
@@ -198,12 +199,6 @@ UIImageView *mainImage;
     
     canDraw = NO;
     wantsType = YES;
-    
-    captureDrawing = [[NSMutableArray alloc] init];
-
-    [self getMyCords:1 cord2:1 cord3:1 cord4:1 brush:1 red:1 green:1 blue:1];
-    [self getMyCords:1 cord2:1 cord3:1 cord4:1 brush:1 red:1 green:1 blue:1];
-    [self getMyCords:1 cord2:1 cord3:1 cord4:1 brush:1 red:1 green:1 blue:1];
 
     size_t total;
     total = 0;
@@ -569,6 +564,8 @@ UIImageView *mainImage;
     
 }
 
+#pragma mark Drawing Methods
+
 //----------------------------------------------------------------------------------
 //
 // Name: touchesBegan
@@ -615,7 +612,7 @@ UIImageView *mainImage;
         [mainImage.image drawInRect:CGRectMake(0, 0, mainImage.frame.size.width, mainImage.frame.size.height)];
         undoImage = UIGraphicsGetImageFromCurrentImageContext();
         [undoImageArray addObject:undoImage];
-     
+        
         [self getMyCords:currentPoint.x cord2:currentPoint.y cord3:lastPoint.x cord4:lastPoint.y brush:brush red:red green:green blue:blue];
         
     }
@@ -633,17 +630,13 @@ UIImageView *mainImage;
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     
-    
-    
     if (canDraw)
     {
         
-        
-        
-        mouseSwiped = YES;
-        
         UITouch *touch = [touches anyObject];
         CGPoint currentPoint = [touch locationInView:self.view];
+        
+        mouseSwiped = NO;
         
         int x = currentPoint.x;
         int y = currentPoint.y;
@@ -657,7 +650,7 @@ UIImageView *mainImage;
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
         CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush);
         CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, 1.0);
-        CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeClear);
+        CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeNormal);
         
         CGContextStrokePath(UIGraphicsGetCurrentContext());
         self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
@@ -718,7 +711,7 @@ UIImageView *mainImage;
             [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
             CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
             CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brush);
-            CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, opacity);
+            CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), red, green, blue, 1.0);
             CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
             CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
             CGContextStrokePath(UIGraphicsGetCurrentContext());
@@ -730,7 +723,7 @@ UIImageView *mainImage;
 
         UIGraphicsBeginImageContext(self.mainImage.frame.size);
         [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
-        [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) blendMode:kCGBlendModeNormal alpha:opacity];
+        [self.mainImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
         self.mainImage.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
 
@@ -796,6 +789,8 @@ UIImageView *mainImage;
     {
         
         hue = changedSlider.value;
+        
+        NSLog(@"%f", hue);
         
         theColor = [UIColor colorWithHue:hue saturation:1.0 brightness:1.0 alpha:1.0];
         

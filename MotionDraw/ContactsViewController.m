@@ -57,6 +57,10 @@
     
     noContacts.font = noFont;
     
+    contactsFriends = [[NSMutableArray alloc] init];
+
+    [self getAllContacts];
+    
 }
 
 //----------------------------------------------------------------------------------
@@ -218,22 +222,6 @@
 
 //----------------------------------------------------------------------------------
 //
-// Name: tableView numberOfRowsInSection
-//
-// Purpose: Method is one of the many called for navigating around the tableview.
-// It runs the number of items in the array.
-//
-//----------------------------------------------------------------------------------
-
--(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    
-    return (APP).contactsArray.count;
-    
-}
-
-//----------------------------------------------------------------------------------
-//
 // Name: configureCheckmarkForCell
 //
 // Purpose: Determines if the user is a 'friend' or if the request is still
@@ -245,7 +233,6 @@
 {
     
     cell.textLabel.enabled = YES;
-    UIFont *friendsFont = [UIFont fontWithName:@"ComicRelief" size:24];
     
     if ([isAFriend isEqualToString:@"NO"])
     {
@@ -254,7 +241,6 @@
         cell.detailTextLabel.enabled = NO;
         cell.textLabel.enabled = NO;
         cell.userInteractionEnabled = NO;
-        cell.textLabel.font = friendsFont;
         
     }
     else
@@ -264,7 +250,6 @@
         cell.detailTextLabel.enabled = YES;
         cell.textLabel.enabled = YES;
         cell.userInteractionEnabled = YES;
-        cell.textLabel.font = friendsFont;
         
     }
     
@@ -297,16 +282,34 @@
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     // break here
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChecklistItem"];
     
-    PFObject *item = [(APP).contactsArray objectAtIndex:indexPath.row];
-    NSString *tmpUserContact = [item objectForKey:@"contact"];
-    NSString *tmpUserAccepted = [item objectForKey:@"userAccepted"];
+    NSString *text;
     
-    cell.textLabel.text = tmpUserContact;
+    if (indexPath.section == 0)
+    {
+        PFObject *item = [(APP).contactsArray objectAtIndex:indexPath.row];
+        NSString *tmpUserContact = [item objectForKey:@"contact"];
+        NSString *tmpUserAccepted = [item objectForKey:@"userAccepted"];
+        
+        text = tmpUserContact;
+        
+        [self configureCheckmarkForCell:cell withChecklistItem:tmpUserAccepted];
+        UIFont *friendsFont = [UIFont fontWithName:@"ComicRelief" size:22];
+        cell.textLabel.font = friendsFont;
+        
+    }
+    else
+    {
+        text = contactsFriends[indexPath.row];
+        cell.detailTextLabel.text = @"";
+        UIFont *friendsFont = [UIFont fontWithName:@"ComicRelief" size:22];
+        cell.textLabel.font = friendsFont;
+    }
     
-    [self configureCheckmarkForCell:cell withChecklistItem:tmpUserAccepted];
+    cell.textLabel.text = text;
     
     return cell;
     
@@ -414,35 +417,217 @@
     
 }
 
-/*
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+//----------------------------------------------------------------------------------
+//
+// Name: getThreadTrace
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     
-    
+    return 2;
     
 }
 
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+//----------------------------------------------------------------------------------
+//
+// Name: getThreadTrace
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
-    
+
+    if (section == 0)
+    {
+        
+        return (APP).contactsArray.count;
+        
+    }
+    else
+    {
+        
+        return contactsFriends.count;
+        
+    }
     
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//----------------------------------------------------------------------------------
+//
+// Name: getThreadTrace
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     
-    
+    if (section == 0)
+    {
+        
+        return @"Friends";
+        
+    }
+    else
+    {
+        
+        return @"Contacts who have Leave A Trace";
+        
+    }
     
 }
 
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+
+    
+-(void) tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
-
-
-
+    
+    // Background color
+    view.tintColor = [UIColor colorWithHue:0.589815 saturation:1 brightness:1 alpha:1];
+    
+    // Text Color
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    [header.textLabel setTextColor:[UIColor whiteColor]];
+    
+    // Another way to set the background color
+    // Note: does not preserve gradient effect of original header
+    // header.contentView.backgroundColor = [UIColor blackColor];
 }
-*/
+    
+-(void) getAllContacts
+{
+    
+    CFErrorRef *error = nil;
+    
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error);
+    
+    __block BOOL accessGranted = NO;
+    
+    if (ABAddressBookRequestAccessWithCompletion != NULL)
+    {
+        
+        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
+            accessGranted = granted;
+            dispatch_semaphore_signal(sema);
+        });
+        
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+        
+    }
+    else
+    {
+        accessGranted = YES;
+    }
+    
+    if (accessGranted) {
+        
+        ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, error);
+        ABRecordRef source = ABAddressBookCopyDefaultSource(addressBook);
+        CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(addressBook, source, kABPersonSortByFirstName);
+        CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
+        //NSMutableArray* items = [NSMutableArray arrayWithCapacity:nPeople];
+        
+        
+        
+        for (int i = 0; i < nPeople; i++)
+        {
+            
+            ABRecordRef person = CFArrayGetValueAtIndex(allPeople, i);
+            
+            // Get the first and the last name. Actually, copy their values using the person object and the appropriate
+            // properties into two string variables equivalently.
+            // Watch out the ABRecordCopyValue method below. Also, notice that we cast to NSString *.
+            
+            NSString *firstName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+            NSString *lastName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty);
+            
+            // Compose the full name.
+            
+            NSString *fullName = @"";
+            
+            // Before adding the first and the last name in the fullName string make sure that these values are filled in.
+            
+            if (firstName != nil)
+            {
+                
+                fullName = [fullName stringByAppendingString:firstName];
+                
+            }
+            if (lastName != nil)
+            {
+                
+                fullName = [fullName stringByAppendingString:@" "];
+                
+                fullName = [fullName stringByAppendingString:lastName];
+                
+            }
+            
+            // The phone numbers and the e-mails are contact info that have multiple values.
+            // For that reason we need to get them as arrays and not as single values as we did with the names above.
+            // Watch out the ABMultiValueCopyArrayOfAllValues method that we use to copy the necessary data into our arrays.
+            
+            NSArray *phones = (__bridge NSArray *)ABMultiValueCopyArrayOfAllValues(ABRecordCopyValue(person, kABPersonPhoneProperty));
+            NSArray *emails = (__bridge NSArray *)ABMultiValueCopyArrayOfAllValues(ABRecordCopyValue(person, kABPersonEmailProperty));
+            
+            // Create a temp array in which we'll add all the desired values.
+            
+            [contactsFriends addObject:fullName];
+            
+            // Make sure that the selected contact has one phone at least filled in.
+            
+            if ([phones count] > 0)
+            {
+                
+                // We'll use the first phone number only here.
+                // In a real app, it's up to you to play around with the returned values and pick the necessary value.
+                [contactsFriends addObject:[phones objectAtIndex:0]];
+                
+            }
+            else
+            {
+                
+                [contactsFriends addObject:@"No phone number set"];
+                
+            }
+            
+            // Do the same for the e-mails.
+            // Make sure that the selected contact has one email at least filled in.
+            
+            if ([emails count] > 0)
+            {
+                
+                // We'll use the first email only here.
+                [contactsFriends addObject:[emails objectAtIndex:0]];
+                
+            }
+            else
+            {
+                
+                [contactsFriends addObject:@"No e-mail was set"];
+                
+            }
+            
+        }
+        
+    }
+    else
+    {
+        
+        NSLog(@"Cannot fetch Contacts :( ");
+        
+    }
+    
+    NSLog(@"%@", contactsFriends);
+    
+}
 
 @end
 

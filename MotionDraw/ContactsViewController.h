@@ -17,6 +17,8 @@
     NSString *userContact;
     PFQuery *query;
     NSArray *indices;
+    NSMutableArray *contactsFriends;
+    NSMutableArray *friends;
     
     //Outlets
     IBOutlet UILabel *noContacts;

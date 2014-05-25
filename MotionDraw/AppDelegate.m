@@ -79,7 +79,7 @@
                                                             NSFontAttributeName:titleFont,
                                                             NSShadowAttributeName:shadow
                                                             }];
-
+    
     return YES;
     
 }

@@ -30,6 +30,8 @@
     NSMutableArray *info;
     NSString *message;
     
+    IBOutlet UITableView *friendsContactsTable;
+    
 }
 
 //Propertys

@@ -27,22 +27,28 @@ extern BOOL LoggedIn;
     
     //Variables for drawing
     CGPoint lastPoint;
-    CGFloat red;
-    CGFloat green;
-    CGFloat blue;
-    CGFloat brush;
-    CGFloat opacity;
-    BOOL mouseSwiped;
+    CGFloat redT;
+    CGFloat greenT;
+    CGFloat blueT;
+    CGFloat brushT;
+    CGFloat opacityT;
+    BOOL mouseSwipedT;
     BOOL isTesting;
+    
+    //PLay back variables
+    NSMutableArray *captureDrawing;
+    NSMutableDictionary *drawingDictionary;
+    int timerInt;
+    NSTimer *timer;
     
 }
 
 //Propertys for drawing
-@property CGFloat red;
-@property CGFloat green;
-@property CGFloat blue;
-@property CGFloat brush;
-@property (weak, nonatomic) IBOutlet UIImageView *mainImage;
+@property CGFloat redT;
+@property CGFloat greenT;
+@property CGFloat blueT;
+@property CGFloat brushT;
+@property (weak, nonatomic) IBOutlet UIImageView *mainImageT;
 
 //Actions
 -(IBAction)fifteenAndFifty:(id)sender;
