@@ -466,7 +466,7 @@ NSInteger traceObjectIdx;
     
     cell.dateAndTimeLabel.text = combined;
     
-    UIFont *titleFont = [UIFont fontWithName:@"ComicRelief" size:20];
+    UIFont *titleFont = [UIFont fontWithName:@"ComicRelief" size:19];
     UIFont *detailFont = [UIFont fontWithName:@"ComicRelief" size:13];
     
     cell.usernameTitle.font = titleFont;

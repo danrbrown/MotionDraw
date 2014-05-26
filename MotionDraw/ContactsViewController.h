@@ -17,8 +17,12 @@
     NSString *userContact;
     PFQuery *query;
     NSArray *indices;
-    NSMutableArray *contactsFriends;
-    NSMutableArray *friends;
+    NSMutableArray *allContactInfo;
+    NSMutableArray *allPhoneInfo;
+    NSMutableArray *allEmailInfo;
+    NSMutableArray *parseContacts;
+    NSMutableArray *inviteContacts;
+    UIButton *sendRequestB;
     
     //Outlets
     IBOutlet UILabel *noContacts;

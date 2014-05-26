@@ -46,7 +46,7 @@
     
     textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     
-    UIFont *textfieldFont = [UIFont fontWithName:@"ComicRelief" size:23];
+    UIFont *textfieldFont = [UIFont fontWithName:@"ComicRelief" size:20];
     textField.font = textfieldFont;
     
     message = [NSString stringWithFormat:@"Join Leave A Trace, the best drawing social media app out there!\n https://itunes.apple.com/us/app/leave-a-trace/id823998456?mt=8.\n My username is %@", [PFUser currentUser].username];
@@ -70,6 +70,14 @@
     
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 -(IBAction) askFriend
 {
     
@@ -92,6 +100,14 @@
     
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 -(void) peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
 {
     
@@ -109,6 +125,14 @@
     [contacts dismissViewControllerAnimated:NO completion:nil];
     
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 -(BOOL) peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
 {
@@ -239,6 +263,14 @@
     
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 -(void) sendTheText
 {
     
@@ -258,6 +290,14 @@
     }
     
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 -(void) sendTheEmail
 {
@@ -281,6 +321,14 @@
     
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     
@@ -288,12 +336,28 @@
     
 }
 
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
 {
     
     return NO;
     
 }
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
 
 -(void) messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {

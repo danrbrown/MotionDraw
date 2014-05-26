@@ -57,8 +57,12 @@
     
     noContacts.font = noFont;
     
-    contactsFriends = [[NSMutableArray alloc] init];
-
+    allContactInfo = [[NSMutableArray alloc] init];
+    allPhoneInfo = [[NSMutableArray alloc] init];
+    allEmailInfo = [[NSMutableArray alloc] init];
+    parseContacts = [[NSMutableArray alloc] init];
+    inviteContacts = [[NSMutableArray alloc] init];
+    
     [self getAllContacts];
     
 }
@@ -297,21 +301,183 @@
         text = tmpUserContact;
         
         [self configureCheckmarkForCell:cell withChecklistItem:tmpUserAccepted];
-        UIFont *friendsFont = [UIFont fontWithName:@"ComicRelief" size:22];
+        UIFont *friendsFont = [UIFont fontWithName:@"ComicRelief" size:20];
         cell.textLabel.font = friendsFont;
+        
+    }
+    else if (indexPath.section == 1)
+    {
+        
+        text = parseContacts[indexPath.row];
+        cell.detailTextLabel.text = @"";
+        UIFont *friendsFont = [UIFont fontWithName:@"ComicRelief" size:20];
+        cell.textLabel.font = friendsFont;
+        
+        UIButton *firstSendB = [[UIButton alloc] initWithFrame:CGRectMake(0,0, 46, 30)];
+        [firstSendB setImage:[UIImage imageNamed:@"SentButton.png"] forState:UIControlStateNormal];
+        [firstSendB addTarget:self action:@selector(sendRequest:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.accessoryView = firstSendB;
+        
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
     }
     else
     {
-        text = contactsFriends[indexPath.row];
+        
+        text = allContactInfo[indexPath.row];
         cell.detailTextLabel.text = @"";
-        UIFont *friendsFont = [UIFont fontWithName:@"ComicRelief" size:22];
+        UIFont *friendsFont = [UIFont fontWithName:@"ComicRelief" size:20];
         cell.textLabel.font = friendsFont;
+        
     }
     
     cell.textLabel.text = text;
     
     return cell;
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(IBAction) sendRequest:(id)sender
+{
+    
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    
+    UITableViewCell *cell = [contactsView cellForRowAtIndexPath:indexPath];
+    
+    if (cell.accessoryType == UITableViewCellAccessoryCheckmark)
+    {
+        
+        UIButton *firstSendB = [[UIButton alloc] initWithFrame:CGRectMake(0,0, 46, 30)];
+        [firstSendB setImage:[UIImage imageNamed:@"SendButton.png"] forState:UIControlStateNormal];
+        //[firstSendB addTarget:self action:@selector(sendRequest:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.accessoryView = firstSendB;
+        
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        
+    }
+    else
+    {
+        
+        UIButton *firstSendB = [[UIButton alloc] initWithFrame:CGRectMake(0,0, 46, 30)];
+        [firstSendB setImage:[UIImage imageNamed:@"SentButton.png"] forState:UIControlStateNormal];
+        //[firstSendB addTarget:self action:@selector(sendRequest:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.accessoryView = firstSendB;
+        
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        
+    }
+ 
+    [self addExistingLATUserAsFriend:cell.textLabel.text];
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(void) addExistingLATUserAsFriend:(NSString *)newFriend
+{
+    
+    NSLog(@"newfriend %@",newFriend);
+    
+    PFObject *newFriendObj = [PFObject objectWithClassName:@"UserContact"];
+    [newFriendObj setObject:[PFUser currentUser].username forKey:@"username"];
+    [newFriendObj setObject:newFriend forKey:@"contact"];
+    [newFriendObj setObject:@"NO" forKey:@"userAccepted"];
+    [newFriendObj setObject:@"" forKey:@"nickname"];
+    
+    [(APP).contactsArray insertObject:newFriendObj atIndex:0];
+    NSSortDescriptor *sort1 = [NSSortDescriptor sortDescriptorWithKey:@"contact" ascending:YES selector:@selector(caseInsensitiveCompare:)];
+    [(APP).contactsArray sortUsingDescriptors:[NSArray arrayWithObject:sort1]];
+    
+    [newFriendObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+        if (succeeded)
+        {
+            
+            [self performSelectorInBackground:@selector(sendPushForFriendRequest:)
+                                   withObject:newFriend];
+            
+        }
+        else
+        {
+            
+            UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"There there was an error sending your request, please try again!" message:nil delegate:nil cancelButtonTitle:@"Ok"    otherButtonTitles:nil, nil];
+            
+            [errorAlertView show];
+            
+        }
+        
+    }];
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name: sendPushToContact
+//
+// Purpose: Will send a push to a specifc user. It gets the Installation record
+// for this user and then sends the push.
+//
+// To debug this incase it isn't working. There should be a row in the
+// Installation object and the deviceToken should have a value (some long string).
+// The 'user' field for that Installation record should be the 'objectId' in
+// the User object for that user.
+//
+//----------------------------------------------------------------------------------
+
+-(void) sendPushForFriendRequest:(NSString *)friendToBeAdded
+{
+    
+    LoadTraces *friendRequests = [[LoadTraces alloc] init];
+    
+    NSString *pushMessage = [NSString stringWithFormat:@"%@ sent you a Friend Request!", [PFUser currentUser].username];
+    
+    PFQuery *userQuery = [PFUser query];
+    [userQuery whereKey:@"username" equalTo:friendToBeAdded];
+    PFUser *user = (PFUser *)[userQuery getFirstObject];
+    
+    NSString *friendLoggedIn = [user objectForKey:@"LoggedIn"];
+    
+    NSInteger friendTracesCount = [friendRequests countTracesForFriend:friendToBeAdded];
+    NSInteger friendRequestsCount = [friendRequests countFriendRequestsForFriend:friendToBeAdded];
+    NSInteger friendBadgeCount = friendTracesCount + friendRequestsCount;
+    
+    NSString *countTracesString = [NSString stringWithFormat:@"%li", (long)friendBadgeCount];
+    
+    if ([friendLoggedIn isEqualToString:@"Y"])
+    {
+        
+        NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:pushMessage, @"alert",
+                              countTracesString,@"badge",
+                              @"Request",@"msgType",
+                              friendToBeAdded, @"friend",nil];
+        
+        PFQuery *pushQuery = [PFInstallation query];
+        [pushQuery whereKey:@"user" equalTo:user];
+        
+        PFPush *push = [[PFPush alloc] init];
+        [push setQuery:pushQuery];
+        [push setData:data];
+        [push sendPushInBackground];
+        
+    }
     
 }
 
@@ -428,7 +594,7 @@
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     
-    return 2;
+    return 3;
     
 }
 
@@ -449,10 +615,16 @@
         return (APP).contactsArray.count;
         
     }
+    else if (section == 1)
+    {
+        
+        return parseContacts.count;
+        
+    }
     else
     {
         
-        return contactsFriends.count;
+        return allContactInfo.count;
         
     }
     
@@ -475,16 +647,28 @@
         return @"Friends";
         
     }
+    else if (section == 1)
+    {
+        
+        return @"Contacts who use Leave A Trace";
+        
+    }
     else
     {
         
-        return @"Contacts who have Leave A Trace";
+        return @"Invite contacts";
         
     }
     
 }
 
-
+//----------------------------------------------------------------------------------
+//
+// Name: getThreadTrace
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
     
 -(void) tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
@@ -500,7 +684,15 @@
     // Note: does not preserve gradient effect of original header
     // header.contentView.backgroundColor = [UIColor blackColor];
 }
-    
+
+//----------------------------------------------------------------------------------
+//
+// Name: getThreadTrace
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
 -(void) getAllContacts
 {
     
@@ -534,8 +726,6 @@
         CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(addressBook, source, kABPersonSortByFirstName);
         CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
         //NSMutableArray* items = [NSMutableArray arrayWithCapacity:nPeople];
-        
-        
         
         for (int i = 0; i < nPeople; i++)
         {
@@ -579,7 +769,7 @@
             
             // Create a temp array in which we'll add all the desired values.
             
-            [contactsFriends addObject:fullName];
+            [allContactInfo addObject:fullName];
             
             // Make sure that the selected contact has one phone at least filled in.
             
@@ -588,13 +778,13 @@
                 
                 // We'll use the first phone number only here.
                 // In a real app, it's up to you to play around with the returned values and pick the necessary value.
-                [contactsFriends addObject:[phones objectAtIndex:0]];
+                [allPhoneInfo addObject:[phones objectAtIndex:0]];
                 
             }
             else
             {
                 
-                [contactsFriends addObject:@"No phone number set"];
+                [allPhoneInfo addObject:@"No phone number set"];
                 
             }
             
@@ -605,13 +795,13 @@
             {
                 
                 // We'll use the first email only here.
-                [contactsFriends addObject:[emails objectAtIndex:0]];
+                [allEmailInfo addObject:[emails objectAtIndex:0]];
                 
             }
             else
             {
                 
-                [contactsFriends addObject:@"No e-mail was set"];
+                [allEmailInfo addObject:@"No e-mail was set"];
                 
             }
             
@@ -625,7 +815,72 @@
         
     }
     
-    NSLog(@"%@", contactsFriends);
+    NSLog(@"Emails = %@", allEmailInfo);
+    NSLog(@"Phones = %@", allPhoneInfo);
+    NSLog(@"All Info = %@", allContactInfo);
+    
+    [self lookUpParseUsersBasedOnContacts];
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name: lookUpParseUsersBasedOnContacts
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+- (void) lookUpParseUsersBasedOnContacts
+{
+ 
+    PFQuery *emailQuery = [PFUser query];
+    [emailQuery whereKey:@"email" containedIn: allEmailInfo];
+    [emailQuery orderByAscending:@"username"];
+
+    
+    [emailQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        if (!error)
+        {
+            for (PFObject *obj in objects)
+            {
+                
+                NSString *tmpUsername = [obj objectForKey:@"username"];
+                
+                BOOL alreadyAFriend = NO;
+                
+                for (PFObject *friend in (APP).contactsArray)
+                {
+                    NSString *tmpExistingFriend = [friend objectForKey:@"contact"];
+                    if ([tmpExistingFriend isEqualToString:tmpUsername])
+                    {
+                        
+                        alreadyAFriend = YES;
+                        
+                    }
+                }
+
+                if (!alreadyAFriend)
+                {
+                    [parseContacts addObject:tmpUsername];
+                }
+                
+                NSLog(@"parse = %@", parseContacts);
+                
+            }
+            
+            [contactsView reloadData];
+            
+        }
+        else
+        {
+            
+            NSLog(@"There was an error loading the contacts");
+            
+        }
+        
+    }];
     
 }
 

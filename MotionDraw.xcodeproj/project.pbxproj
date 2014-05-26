@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C1B771A19324A3900977B60 /* SentButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C1B771919324A3900977B60 /* SentButton.png */; };
 		9C3350D3190D608600F377B7 /* checkBoxCheckedButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C3350D1190D608600F377B7 /* checkBoxCheckedButton.png */; };
 		9C3350D4190D608600F377B7 /* checkBoxUncheckedButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C3350D2190D608600F377B7 /* checkBoxUncheckedButton.png */; };
 		9C3350D6190DD00300F377B7 /* Respond.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C3350D5190DD00300F377B7 /* Respond.png */; };
@@ -128,6 +129,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C1B771919324A3900977B60 /* SentButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SentButton.png; sourceTree = "<group>"; };
 		9C3350D1190D608600F377B7 /* checkBoxCheckedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBoxCheckedButton.png; sourceTree = "<group>"; };
 		9C3350D2190D608600F377B7 /* checkBoxUncheckedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBoxUncheckedButton.png; sourceTree = "<group>"; };
 		9C3350D5190DD00300F377B7 /* Respond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Respond.png; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 			isa = PBXGroup;
 			children = (
 				9C3350D719118EF200F377B7 /* SendButton.png */,
+				9C1B771919324A3900977B60 /* SentButton.png */,
 				9CCBAC5819157BD800F39AE1 /* SpeachButton.png */,
 				9C3350D1190D608600F377B7 /* checkBoxCheckedButton.png */,
 				9C3350D2190D608600F377B7 /* checkBoxUncheckedButton.png */,
@@ -686,6 +689,7 @@
 				9C9E3197190342D2007CEDCD /* Slow.png in Resources */,
 				9C59DBE118F4E2A10031829F /* TrashButton.png in Resources */,
 				9C3350DE1911D92100F377B7 /* SpeachBubble.png in Resources */,
+				9C1B771A19324A3900977B60 /* SentButton.png in Resources */,
 				9C59DBE718F4E2A10031829F /* BrushSizeSliderMin.png in Resources */,
 				9C59DBDD18F4E2A10031829F /* CloseButton.png in Resources */,
 				9C3350D4190D608600F377B7 /* checkBoxUncheckedButton.png in Resources */,
