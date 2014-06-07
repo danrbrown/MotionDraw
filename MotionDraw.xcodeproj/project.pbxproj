@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		9C1B771A19324A3900977B60 /* SentButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C1B771919324A3900977B60 /* SentButton.png */; };
+		9C1B771D1936A71300977B60 /* inviteButtonD.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C1B771B1936A71300977B60 /* inviteButtonD.png */; };
+		9C1B771E1936A71300977B60 /* inviteButtonS.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C1B771C1936A71300977B60 /* inviteButtonS.png */; };
+		9C1B77211936A80400977B60 /* Decline.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C1B771F1936A80400977B60 /* Decline.png */; };
+		9C1B77221936A80400977B60 /* Accept.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C1B77201936A80400977B60 /* Accept.png */; };
+		9C1B777019437A9800977B60 /* FriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C1B776F19437A9800977B60 /* FriendCell.m */; };
 		9C3350D3190D608600F377B7 /* checkBoxCheckedButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C3350D1190D608600F377B7 /* checkBoxCheckedButton.png */; };
 		9C3350D4190D608600F377B7 /* checkBoxUncheckedButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C3350D2190D608600F377B7 /* checkBoxUncheckedButton.png */; };
 		9C3350D6190DD00300F377B7 /* Respond.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C3350D5190DD00300F377B7 /* Respond.png */; };
@@ -130,6 +135,12 @@
 
 /* Begin PBXFileReference section */
 		9C1B771919324A3900977B60 /* SentButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SentButton.png; sourceTree = "<group>"; };
+		9C1B771B1936A71300977B60 /* inviteButtonD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inviteButtonD.png; sourceTree = "<group>"; };
+		9C1B771C1936A71300977B60 /* inviteButtonS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inviteButtonS.png; sourceTree = "<group>"; };
+		9C1B771F1936A80400977B60 /* Decline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Decline.png; sourceTree = "<group>"; };
+		9C1B77201936A80400977B60 /* Accept.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Accept.png; sourceTree = "<group>"; };
+		9C1B776E19437A9800977B60 /* FriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendCell.h; path = MotionDraw/FriendCell.h; sourceTree = "<group>"; };
+		9C1B776F19437A9800977B60 /* FriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendCell.m; path = MotionDraw/FriendCell.m; sourceTree = "<group>"; };
 		9C3350D1190D608600F377B7 /* checkBoxCheckedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBoxCheckedButton.png; sourceTree = "<group>"; };
 		9C3350D2190D608600F377B7 /* checkBoxUncheckedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBoxUncheckedButton.png; sourceTree = "<group>"; };
 		9C3350D5190DD00300F377B7 /* Respond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Respond.png; sourceTree = "<group>"; };
@@ -440,6 +451,8 @@
 		9C59DBB518F4E2A10031829F /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				9C1B771B1936A71300977B60 /* inviteButtonD.png */,
+				9C1B771C1936A71300977B60 /* inviteButtonS.png */,
 				9C3350D719118EF200F377B7 /* SendButton.png */,
 				9C1B771919324A3900977B60 /* SentButton.png */,
 				9CCBAC5819157BD800F39AE1 /* SpeachButton.png */,
@@ -469,6 +482,8 @@
 		9C59DBC018F4E2A10031829F /* other */ = {
 			isa = PBXGroup;
 			children = (
+				9C1B771F1936A80400977B60 /* Decline.png */,
+				9C1B77201936A80400977B60 /* Accept.png */,
 				9C3350DD1911D92100F377B7 /* SpeachBubble.png */,
 				9C3350D5190DD00300F377B7 /* Respond.png */,
 				9C9E3194190342D2007CEDCD /* Slow.png */,
@@ -560,6 +575,8 @@
 				9C59DC5418F4EC8F0031829F /* AddItemViewController.m */,
 				9C59DC5518F4EC8F0031829F /* ContactsViewController.h */,
 				9C59DC5618F4EC8F0031829F /* ContactsViewController.m */,
+				9C1B776E19437A9800977B60 /* FriendCell.h */,
+				9C1B776F19437A9800977B60 /* FriendCell.m */,
 				9C59DC5718F4EC8F0031829F /* LeaveATraceItem.h */,
 				9C59DC5818F4EC8F0031829F /* LeaveATraceItem.m */,
 				9C59DC5918F4EC8F0031829F /* SelectAContactViewController.h */,
@@ -694,6 +711,7 @@
 				9C59DBDD18F4E2A10031829F /* CloseButton.png in Resources */,
 				9C3350D4190D608600F377B7 /* checkBoxUncheckedButton.png in Resources */,
 				9CCBAC571915635600F39AE1 /* NoSpeachBubbleButton.png in Resources */,
+				9C1B771E1936A71300977B60 /* inviteButtonS.png in Resources */,
 				9C9E3199190342D2007CEDCD /* Fast.png in Resources */,
 				9C3E49A61900BC71005CC841 /* Show.png in Resources */,
 				9C59DBF418F4E2A10031829F /* RequestsIcon@2x.png in Resources */,
@@ -716,7 +734,9 @@
 				9C59DC7518F4EDFB0031829F /* Stop.png in Resources */,
 				9C59DBF718F4E2A10031829F /* SentTrace.png in Resources */,
 				9C59DBE818F4E2A10031829F /* BrushSizeSliderThumb.png in Resources */,
+				9C1B771D1936A71300977B60 /* inviteButtonD.png in Resources */,
 				9C3350D819118EF200F377B7 /* SendButton.png in Resources */,
+				9C1B77211936A80400977B60 /* Decline.png in Resources */,
 				9C59DBFF18F4E2A10031829F /* Leave A Trace - Terms of Use.pdf in Resources */,
 				9C3350D3190D608600F377B7 /* checkBoxCheckedButton.png in Resources */,
 				9C59DBFD18F4E2A10031829F /* Leave A Trace - Privacy Policy.pdf in Resources */,
@@ -730,6 +750,7 @@
 				9C59DBFC18F4E2A10031829F /* Leave A Trace - Privacy Policy.docx in Resources */,
 				9C59DBED18F4E2A10031829F /* FriendsIconBig@2x.png in Resources */,
 				9C59DB5218F4DBB00031829F /* Main.storyboard in Resources */,
+				9C1B77221936A80400977B60 /* Accept.png in Resources */,
 				9C59DBF618F4E2A10031829F /* SentNotOpened.png in Resources */,
 				9C59DBE518F4E2A10031829F /* WelcomeImage.png in Resources */,
 				9C8EA4E218FB26D10052A64D /* progressMin.png in Resources */,
@@ -774,6 +795,7 @@
 				9C59DC5118F4EC500031829F /* RequestCell.m in Sources */,
 				9C59DC5E18F4EC8F0031829F /* ContactsViewController.m in Sources */,
 				9C59DC5F18F4EC8F0031829F /* LeaveATraceItem.m in Sources */,
+				9C1B777019437A9800977B60 /* FriendCell.m in Sources */,
 				9C59DC4818F4EC340031829F /* traceCell.m in Sources */,
 				9C59DB8418F4DC700031829F /* ColorValueSlider.m in Sources */,
 				9C59DB8518F4DC700031829F /* PopoverView.m in Sources */,

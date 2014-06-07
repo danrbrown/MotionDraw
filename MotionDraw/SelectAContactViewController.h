@@ -24,6 +24,7 @@
     IBOutlet UILabel *noSendTo;
     IBOutlet UIActivityIndicatorView *loadingValid;
     IBOutlet UIBarButtonItem *send;
+    
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *checkBox;

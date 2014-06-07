@@ -10,7 +10,7 @@
 #import "AddItemViewController.h"
 #import <Parse/Parse.h>
 
-@interface ContactsViewController : UITableViewController <AddItemViewControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate> {
+@interface ContactsViewController : UITableViewController <AddItemViewControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>  {
     
     //Variables
     NSString *userAccepted;
@@ -22,7 +22,10 @@
     NSMutableArray *allEmailInfo;
     NSMutableArray *parseContacts;
     NSMutableArray *inviteContacts;
-    UIButton *sendRequestB;
+//    UIButton *sendRequestB;
+//    UIButton *firstSendB;
+//    UIButton *inviteB;
+    NSString *message;
     
     //Outlets
     IBOutlet UILabel *noContacts;

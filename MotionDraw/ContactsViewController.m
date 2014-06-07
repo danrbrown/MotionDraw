@@ -14,6 +14,7 @@
 #import "ContactsViewController.h"
 //#import "CanvasViewController.h"
 //#import "AddItemViewController.h"
+#import "FriendCell.h"
 #import "AppDelegate.h"
 #import "LeaveATraceItem.h"
 #import "LoadTraces.h"
@@ -62,6 +63,8 @@
     allEmailInfo = [[NSMutableArray alloc] init];
     parseContacts = [[NSMutableArray alloc] init];
     inviteContacts = [[NSMutableArray alloc] init];
+    
+    message = [NSString stringWithFormat:@"Join Leave A Trace, the best drawing social media app out there!\n https://itunes.apple.com/us/app/leave-a-trace/id823998456?mt=8.\n My username is %@", [PFUser currentUser].username];
     
     [self getAllContacts];
     
@@ -217,6 +220,8 @@
     LoadTraces *loadTraces = [[LoadTraces alloc] init];
     
     [loadTraces loadContactsArray];
+    
+    [self lookUpParseUsersBasedOnContacts];
 
     [self displayContacts];
     
@@ -233,26 +238,28 @@
 //
 //----------------------------------------------------------------------------------
 
--(void) configureCheckmarkForCell:(UITableViewCell *)cell withChecklistItem:(NSString *)isAFriend
+-(void) configureCheckmarkForCell:(FriendCell *)cell withChecklistItem:(NSString *)isAFriend
 {
     
-    cell.textLabel.enabled = YES;
+    //NSLog(@"is a friend %@",isAFriend);
+    
+    cell.friendLabel.enabled = YES;
     
     if ([isAFriend isEqualToString:@"NO"])
     {
         
-        cell.detailTextLabel.text = @"Pending";
-        cell.detailTextLabel.enabled = NO;
-        cell.textLabel.enabled = NO;
+        cell.detailLabel.text = @"Pending";
+        cell.detailLabel.enabled = NO;
+        cell.friendLabel.enabled = NO;
         cell.userInteractionEnabled = NO;
         
     }
     else
     {
         
-        cell.detailTextLabel.text = @"";
-        cell.detailTextLabel.enabled = YES;
-        cell.textLabel.enabled = YES;
+        cell.detailLabel.text = @"";
+        cell.detailLabel.enabled = YES;
+        cell.friendLabel.enabled = YES;
         cell.userInteractionEnabled = YES;
         
     }
@@ -268,10 +275,10 @@
 //
 //----------------------------------------------------------------------------------
 
--(void) configureTextForCell:(UITableViewCell *)cell withChecklistItem:(LeaveATraceItem *)item
+-(void) configureTextForCell:(FriendCell *)cell withChecklistItem:(LeaveATraceItem *)item
 {
     
-    cell.textLabel.text = item.text;
+    cell.friendLabel.text = item.text;
     
 }
 
@@ -288,8 +295,7 @@
 {
     
     // break here
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChecklistItem"];
-    
+    FriendCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChecklistItem"];
     NSString *text;
     
     if (indexPath.section == 0)
@@ -301,38 +307,54 @@
         text = tmpUserContact;
         
         [self configureCheckmarkForCell:cell withChecklistItem:tmpUserAccepted];
-        UIFont *friendsFont = [UIFont fontWithName:@"ComicRelief" size:20];
-        cell.textLabel.font = friendsFont;
+
+        cell.friendLabel.textColor = [UIColor blackColor];
+        [cell.inviteFriendB setHidden:YES];
+        [cell.sendRequestB setHidden:YES];
         
     }
-    else if (indexPath.section == 1)
+    else if (indexPath.section == 1)// && parseContacts.count > 0)
     {
         
-        text = parseContacts[indexPath.row];
-        cell.detailTextLabel.text = @"";
-        UIFont *friendsFont = [UIFont fontWithName:@"ComicRelief" size:20];
-        cell.textLabel.font = friendsFont;
-        
-        UIButton *firstSendB = [[UIButton alloc] initWithFrame:CGRectMake(0,0, 46, 30)];
-        [firstSendB setImage:[UIImage imageNamed:@"SentButton.png"] forState:UIControlStateNormal];
-        [firstSendB addTarget:self action:@selector(sendRequest:) forControlEvents:UIControlEventTouchUpInside];
-        
-        cell.accessoryView = firstSendB;
-        
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        if ([parseContacts[indexPath.row] isEqual: @"No contacts found"])
+        {
+            
+            text = @"No contacts found";
+            cell.detailLabel.text = @"";
+            cell.friendLabel.textColor = [UIColor lightGrayColor];
+            [cell.inviteFriendB setHidden:YES];
+            [cell.sendRequestB setHidden:YES];
+            
+        }
+        else
+        {
+            
+            text = parseContacts[indexPath.row];
+            cell.detailLabel.text = @"";
+            cell.friendLabel.textColor = [UIColor blackColor];
+            [cell.inviteFriendB setHidden:YES];
+            [cell.sendRequestB setHidden:NO];
+            
+        }
         
     }
-    else
+    else if (indexPath.section == 2)
     {
-        
+
         text = allContactInfo[indexPath.row];
-        cell.detailTextLabel.text = @"";
-        UIFont *friendsFont = [UIFont fontWithName:@"ComicRelief" size:20];
-        cell.textLabel.font = friendsFont;
+        cell.detailLabel.text = @"";
+        [cell.inviteFriendB setHidden:NO];
+        [cell.sendRequestB setHidden:YES];
+        cell.friendLabel.textColor = [UIColor blackColor];
+        cell.friendLabel.enabled = YES;
         
     }
     
-    cell.textLabel.text = text;
+    cell.friendLabel.text = text;
+    UIFont *friendsFont = [UIFont fontWithName:@"ComicRelief" size:21];
+    UIFont *detailFont = [UIFont fontWithName:@"ComicRelief" size:15];
+    cell.friendLabel.font = friendsFont;
+    cell.detailLabel.font = detailFont;
     
     return cell;
     
@@ -349,38 +371,179 @@
 -(IBAction) sendRequest:(id)sender
 {
     
+    FriendCell *theCell = [[FriendCell alloc] init];
+    
+   // CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+   // NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+   // UITableViewCell *cell = [contactsView cellForRowAtIndexPath:indexPath];
+    
+    theCell.detailLabel.enabled = NO;
+    theCell.friendLabel.enabled = NO;
+    theCell.userInteractionEnabled = NO;
+ 
+    [self addExistingLATUserAsFriend:theCell.friendLabel.text];
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(IBAction) invite:(id)sender
+{
+    
     CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
     
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
     
-    UITableViewCell *cell = [contactsView cellForRowAtIndexPath:indexPath];
-    
-    if (cell.accessoryType == UITableViewCellAccessoryCheckmark)
+    if ([allPhoneInfo[indexPath.row] isEqual:@"No phone number set"])
     {
         
-        UIButton *firstSendB = [[UIButton alloc] initWithFrame:CGRectMake(0,0, 46, 30)];
-        [firstSendB setImage:[UIImage imageNamed:@"SendButton.png"] forState:UIControlStateNormal];
-        //[firstSendB addTarget:self action:@selector(sendRequest:) forControlEvents:UIControlEventTouchUpInside];
-        
-        cell.accessoryView = firstSendB;
-        
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        [self sendTheEmail:allEmailInfo[indexPath.row]];
         
     }
     else
     {
         
-        UIButton *firstSendB = [[UIButton alloc] initWithFrame:CGRectMake(0,0, 46, 30)];
-        [firstSendB setImage:[UIImage imageNamed:@"SentButton.png"] forState:UIControlStateNormal];
-        //[firstSendB addTarget:self action:@selector(sendRequest:) forControlEvents:UIControlEventTouchUpInside];
-        
-        cell.accessoryView = firstSendB;
-        
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [self sendTheText:allPhoneInfo[indexPath.row]];
         
     }
- 
-    [self addExistingLATUserAsFriend:cell.textLabel.text];
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(void) sendTheText:(id) number
+{
+    
+    UIFont *titleFont = [UIFont fontWithName:@"Helvetica Neue" size:20];
+    
+    NSShadow* shadow = [NSShadow new];
+    shadow.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    shadow.shadowColor = [UIColor clearColor];
+    [[UINavigationBar appearance] setTitleTextAttributes: @{
+                                                            NSForegroundColorAttributeName: [UIColor blackColor],
+                                                            NSFontAttributeName:titleFont,
+                                                            NSShadowAttributeName:shadow
+                                                            }];
+    
+    MFMessageComposeViewController *textMessage = [[MFMessageComposeViewController alloc] init];
+    
+    [textMessage setMessageComposeDelegate:self];
+    
+    if ([MFMessageComposeViewController canSendText])
+    {
+        
+        [textMessage setRecipients:[NSArray arrayWithObjects:number, nil]];
+        
+        [textMessage setBody:message];
+        
+        [self presentViewController:textMessage animated:YES completion:nil];
+        
+    }
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(void) sendTheEmail:(id) email
+{
+    
+    UIFont *titleFont = [UIFont fontWithName:@"Helvetica Neue" size:20];
+    
+    NSShadow* shadow = [NSShadow new];
+    shadow.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    shadow.shadowColor = [UIColor clearColor];
+    [[UINavigationBar appearance] setTitleTextAttributes: @{
+                                                            NSForegroundColorAttributeName: [UIColor blackColor],
+                                                            NSFontAttributeName:titleFont,
+                                                            NSShadowAttributeName:shadow
+                                                            }];
+    
+    MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
+    
+    [mailComposer setMailComposeDelegate:self];
+    
+    if ([MFMailComposeViewController canSendMail])
+    {
+        
+        [mailComposer setToRecipients:[NSArray arrayWithObjects:email, nil]];
+        
+        [mailComposer setSubject:@"Leave A Trace"];
+        
+        [mailComposer setMessageBody:message isHTML:NO];
+        
+        [self presentViewController:mailComposer animated:YES completion:nil];
+        
+    }
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    UIFont *titleFont = [UIFont fontWithName:@"ComicRelief" size:26];
+    
+    NSShadow* shadow = [NSShadow new];
+    shadow.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    shadow.shadowColor = [UIColor clearColor];
+    [[UINavigationBar appearance] setTitleTextAttributes: @{
+                                                            NSForegroundColorAttributeName: [UIColor yellowColor],
+                                                            NSFontAttributeName:titleFont,
+                                                            NSShadowAttributeName:shadow
+                                                            }];
+    
+}
+
+//----------------------------------------------------------------------------------
+//
+// Name:
+//
+// Purpose:
+//
+//----------------------------------------------------------------------------------
+
+-(void) messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    UIFont *titleFont = [UIFont fontWithName:@"ComicRelief" size:26];
+    
+    NSShadow* shadow = [NSShadow new];
+    shadow.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    shadow.shadowColor = [UIColor clearColor];
+    [[UINavigationBar appearance] setTitleTextAttributes: @{
+                                                            NSForegroundColorAttributeName: [UIColor yellowColor],
+                                                            NSFontAttributeName:titleFont,
+                                                            NSShadowAttributeName:shadow
+                                                            }];
+    
 }
 
 //----------------------------------------------------------------------------------
@@ -739,73 +902,82 @@
             NSString *firstName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonFirstNameProperty);
             NSString *lastName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty);
             
-            // Compose the full name.
-            
-            NSString *fullName = @"";
-            
-            // Before adding the first and the last name in the fullName string make sure that these values are filled in.
-            
-            if (firstName != nil)
+            if (firstName.length > 0 && lastName.length > 0)
             {
+//                NSLog(@"firstname %@",firstName);
+//                NSLog(@"lastname %@",lastName);
                 
-                fullName = [fullName stringByAppendingString:firstName];
+                // Compose the full name.
+                
+                NSString *fullName = @"";
+                
+                // Before adding the first and the last name in the fullName string make sure that these values are filled in.
+                
+                if (firstName != nil)
+                {
+                    
+                    fullName = [fullName stringByAppendingString:firstName];
+                    
+                }
+                if (lastName != nil)
+                {
+                    
+                    fullName = [fullName stringByAppendingString:@" "];
+                    
+                    fullName = [fullName stringByAppendingString:lastName];
+                    
+                }
+                
+                // The phone numbers and the e-mails are contact info that have multiple values.
+                // For that reason we need to get them as arrays and not as single values as we did with the names above.
+                // Watch out the ABMultiValueCopyArrayOfAllValues method that we use to copy the necessary data into our arrays.
+                
+                NSArray *phones = (__bridge NSArray *)ABMultiValueCopyArrayOfAllValues(ABRecordCopyValue(person, kABPersonPhoneProperty));
+                NSArray *emails = (__bridge NSArray *)ABMultiValueCopyArrayOfAllValues(ABRecordCopyValue(person, kABPersonEmailProperty));
+                
+                // Create a temp array in which we'll add all the desired values.
+                
+                [allContactInfo addObject:fullName];
+                
+                // Make sure that the selected contact has one phone at least filled in.
+                
+                if ([phones count] > 0)
+                {
+                    
+                    // We'll use the first phone number only here.
+                    // In a real app, it's up to you to play around with the returned values and pick the necessary value.
+                    [allPhoneInfo addObject:[phones objectAtIndex:0]];
+                    
+                }
+                else
+                {
+                    
+                    [allPhoneInfo addObject:@"No phone number set"];
+                    
+                }
+                
+                // Do the same for the e-mails.
+                // Make sure that the selected contact has one email at least filled in.
+                
+                if ([emails count] > 0)
+                {
+                    
+                    // We'll use the first email only here.
+                    [allEmailInfo addObject:[emails objectAtIndex:0]];
+                    
+                }
+                else
+                {
+                    
+                    [allEmailInfo addObject:@"No e-mail was set"];
+                    
+                }
                 
             }
-            if (lastName != nil)
-            {
+
                 
-                fullName = [fullName stringByAppendingString:@" "];
-                
-                fullName = [fullName stringByAppendingString:lastName];
-                
-            }
-            
-            // The phone numbers and the e-mails are contact info that have multiple values.
-            // For that reason we need to get them as arrays and not as single values as we did with the names above.
-            // Watch out the ABMultiValueCopyArrayOfAllValues method that we use to copy the necessary data into our arrays.
-            
-            NSArray *phones = (__bridge NSArray *)ABMultiValueCopyArrayOfAllValues(ABRecordCopyValue(person, kABPersonPhoneProperty));
-            NSArray *emails = (__bridge NSArray *)ABMultiValueCopyArrayOfAllValues(ABRecordCopyValue(person, kABPersonEmailProperty));
-            
-            // Create a temp array in which we'll add all the desired values.
-            
-            [allContactInfo addObject:fullName];
-            
-            // Make sure that the selected contact has one phone at least filled in.
-            
-            if ([phones count] > 0)
-            {
-                
-                // We'll use the first phone number only here.
-                // In a real app, it's up to you to play around with the returned values and pick the necessary value.
-                [allPhoneInfo addObject:[phones objectAtIndex:0]];
-                
-            }
-            else
-            {
-                
-                [allPhoneInfo addObject:@"No phone number set"];
-                
-            }
-            
-            // Do the same for the e-mails.
-            // Make sure that the selected contact has one email at least filled in.
-            
-            if ([emails count] > 0)
-            {
-                
-                // We'll use the first email only here.
-                [allEmailInfo addObject:[emails objectAtIndex:0]];
-                
-            }
-            else
-            {
-                
-                [allEmailInfo addObject:@"No e-mail was set"];
-                
-            }
-            
         }
+            
         
     }
     else
@@ -814,10 +986,6 @@
         NSLog(@"Cannot fetch Contacts :( ");
         
     }
-    
-    NSLog(@"Emails = %@", allEmailInfo);
-    NSLog(@"Phones = %@", allPhoneInfo);
-    NSLog(@"All Info = %@", allContactInfo);
     
     [self lookUpParseUsersBasedOnContacts];
     
@@ -834,10 +1002,11 @@
 - (void) lookUpParseUsersBasedOnContacts
 {
  
+    [parseContacts removeAllObjects];
+
     PFQuery *emailQuery = [PFUser query];
     [emailQuery whereKey:@"email" containedIn: allEmailInfo];
     [emailQuery orderByAscending:@"username"];
-
     
     [emailQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
@@ -866,8 +1035,13 @@
                     [parseContacts addObject:tmpUsername];
                 }
                 
-                NSLog(@"parse = %@", parseContacts);
+                //NSLog(@"parse = %@", parseContacts);
                 
+            }
+            
+            if (parseContacts.count < 1)
+            {
+                [parseContacts addObject:@"No contacts found"];
             }
             
             [contactsView reloadData];
