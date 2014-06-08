@@ -334,6 +334,7 @@
             cell.friendLabel.textColor = [UIColor blackColor];
             [cell.inviteFriendB setHidden:YES];
             [cell.sendRequestB setHidden:NO];
+            cell.userInteractionEnabled = YES;
             
         }
         
@@ -371,17 +372,17 @@
 -(IBAction) sendRequest:(id)sender
 {
     
-    FriendCell *theCell = [[FriendCell alloc] init];
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
     
-   // CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
-   // NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
-   // UITableViewCell *cell = [contactsView cellForRowAtIndexPath:indexPath];
+    [self addExistingLATUserAsFriend:parseContacts[indexPath.row]];
     
-    theCell.detailLabel.enabled = NO;
-    theCell.friendLabel.enabled = NO;
-    theCell.userInteractionEnabled = NO;
- 
-    [self addExistingLATUserAsFriend:theCell.friendLabel.text];
+    [parseContacts removeObjectAtIndex:indexPath.row];
+    
+    [contactsView reloadData];
+
+    
+    
 }
 
 //----------------------------------------------------------------------------------
@@ -568,6 +569,8 @@
     [(APP).contactsArray insertObject:newFriendObj atIndex:0];
     NSSortDescriptor *sort1 = [NSSortDescriptor sortDescriptorWithKey:@"contact" ascending:YES selector:@selector(caseInsensitiveCompare:)];
     [(APP).contactsArray sortUsingDescriptors:[NSArray arrayWithObject:sort1]];
+    
+    [contactsView reloadData];
     
     [newFriendObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         
