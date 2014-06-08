@@ -378,10 +378,14 @@
     [self addExistingLATUserAsFriend:parseContacts[indexPath.row]];
     
     [parseContacts removeObjectAtIndex:indexPath.row];
+
+    if (parseContacts.count < 1)
+    {
+        [parseContacts addObject:@"No contacts found"];
+    }
     
     [contactsView reloadData];
 
-    
     
 }
 
