@@ -21,6 +21,7 @@
     NSMutableArray *allPhoneInfo;
     NSMutableArray *allEmailInfo;
     NSMutableArray *parseContacts;
+    NSMutableArray *parseContactsEmails;
     NSMutableArray *inviteContacts;
 //    UIButton *sendRequestB;
 //    UIButton *firstSendB;

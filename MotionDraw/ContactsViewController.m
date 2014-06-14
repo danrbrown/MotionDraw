@@ -62,6 +62,7 @@
     allPhoneInfo = [[NSMutableArray alloc] init];
     allEmailInfo = [[NSMutableArray alloc] init];
     parseContacts = [[NSMutableArray alloc] init];
+    parseContactsEmails = [[NSMutableArray alloc] init];
     inviteContacts = [[NSMutableArray alloc] init];
     
     message = [NSString stringWithFormat:@"Join Leave A Trace, the best drawing social media app out there!\n https://itunes.apple.com/us/app/leave-a-trace/id823998456?mt=8.\n My username is %@", [PFUser currentUser].username];
@@ -329,7 +330,12 @@
         else
         {
             
-            text = parseContacts[indexPath.row];
+            NSString *tmpEmail = parseContactsEmails[indexPath.row];
+            NSInteger emailIndex = [allEmailInfo indexOfObject:tmpEmail];
+            NSLog(@"tmpEmail %@ emailIndex %lu",tmpEmail,emailIndex);
+            
+// this is the parse username           text = parseContacts[indexPath.row];
+            text = allContactInfo[emailIndex];
             cell.detailLabel.text = @"";
             cell.friendLabel.textColor = [UIColor blackColor];
             [cell.inviteFriendB setHidden:YES];
@@ -337,17 +343,6 @@
             cell.userInteractionEnabled = YES;
             
         }
-        
-    }
-    else if (indexPath.section == 2)
-    {
-
-        text = allContactInfo[indexPath.row];
-        cell.detailLabel.text = @"";
-        [cell.inviteFriendB setHidden:NO];
-        [cell.sendRequestB setHidden:YES];
-        cell.friendLabel.textColor = [UIColor blackColor];
-        cell.friendLabel.enabled = YES;
         
     }
     
@@ -378,6 +373,7 @@
     [self addExistingLATUserAsFriend:parseContacts[indexPath.row]];
     
     [parseContacts removeObjectAtIndex:indexPath.row];
+    [parseContactsEmails removeObjectAtIndex:indexPath.row];
 
     if (parseContacts.count < 1)
     {
@@ -764,7 +760,7 @@
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     
-    return 3;
+    return 2;
     
 }
 
@@ -785,16 +781,10 @@
         return (APP).contactsArray.count;
         
     }
-    else if (section == 1)
-    {
-        
-        return parseContacts.count;
-        
-    }
     else
     {
         
-        return allContactInfo.count;
+        return parseContacts.count;
         
     }
     
@@ -817,16 +807,10 @@
         return @"Friends";
         
     }
-    else if (section == 1)
-    {
-        
-        return @"Contacts who use Leave A Trace";
-        
-    }
     else
     {
         
-        return @"Invite contacts";
+        return @"Contacts who use Leave A Trace";
         
     }
     
@@ -1010,6 +994,7 @@
 {
  
     [parseContacts removeAllObjects];
+    [parseContactsEmails removeAllObjects];
 
     PFQuery *emailQuery = [PFUser query];
     [emailQuery whereKey:@"email" containedIn: allEmailInfo];
@@ -1023,7 +1008,8 @@
             {
                 
                 NSString *tmpUsername = [obj objectForKey:@"username"];
-                
+                NSString *tmpEmail = [obj objectForKey:@"email"];
+               
                 BOOL alreadyAFriend = NO;
                 
                 for (PFObject *friend in (APP).contactsArray)
@@ -1040,9 +1026,11 @@
                 if (!alreadyAFriend)
                 {
                     [parseContacts addObject:tmpUsername];
-                }
+                    [parseContactsEmails addObject:tmpEmail];
+               }
                 
-                //NSLog(@"parse = %@", parseContacts);
+                NSLog(@"parse = %@", parseContacts);
+                NSLog(@"email = %@", parseContactsEmails);
                 
             }
             
