@@ -44,7 +44,7 @@
                                             <color key="backgroundColor" red="0.96002072699999996" green="0.96002072699999996" blue="0.96002072699999996" alpha="1" colorSpace="calibratedRGB"/>
                                         </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gHJ-Wq-RHA">
-                                            <rect key="frame" x="20" y="0.0" width="219" height="54"/>
+                                            <rect key="frame" x="20" y="-9" width="219" height="54"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -56,18 +56,8 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="b0x-VT-Lsz">
-                                            <rect key="frame" x="241" y="13" width="59" height="27"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" image="inviteButtonS.png">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="invite:" destination="6n3-Rw-LbR" eventType="touchUpInside" id="ni8-vO-vxy"/>
-                                            </connections>
-                                        </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ipf-WZ-K8G">
-                                            <rect key="frame" x="247" y="10" width="51" height="34"/>
+                                            <rect key="frame" x="250" y="10" width="51" height="34"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="SentButton.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -76,13 +66,20 @@
                                                 <action selector="sendRequest:" destination="6n3-Rw-LbR" eventType="touchUpInside" id="dkO-hA-6nf"/>
                                             </connections>
                                         </button>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xFu-8a-6gq">
+                                            <rect key="frame" x="20" y="29" width="219" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="detailLabel" destination="frL-WU-MWo" id="309-1e-A6V"/>
                                     <outlet property="friendLabel" destination="gHJ-Wq-RHA" id="6wf-dC-Gnb"/>
-                                    <outlet property="inviteFriendB" destination="b0x-VT-Lsz" id="tol-QU-rhc"/>
                                     <outlet property="sendRequestB" destination="ipf-WZ-K8G" id="JGk-Cc-fWS"/>
+                                    <outlet property="usernameContact" destination="xFu-8a-6gq" id="bRg-eE-iv0"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -530,7 +527,7 @@
                                             <color key="backgroundColor" red="0.96002072699999996" green="0.96002072699999996" blue="0.96002072699999996" alpha="1" colorSpace="calibratedRGB"/>
                                         </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid Contacts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wWq-fO-ozE">
-                                            <rect key="frame" x="15" y="12" width="264" height="30"/>
+                                            <rect key="frame" x="15" y="7" width="264" height="42"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="22"/>
                                             <color key="textColor" red="0.2844786352" green="0.2844786352" blue="0.2844786352" alpha="1" colorSpace="calibratedRGB"/>
@@ -1580,7 +1577,6 @@
         <image name="TrashButton.png" width="105" height="172"/>
         <image name="checkBoxUncheckedButton.png" width="33" height="30"/>
         <image name="iconsberlin.png" width="30" height="30"/>
-        <image name="inviteButtonS.png" width="248" height="99"/>
         <image name="progressMax.png" width="350" height="19"/>
         <image name="progressMin.png" width="354" height="23"/>
     </resources>

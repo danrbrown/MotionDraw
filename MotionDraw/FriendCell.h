@@ -12,7 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *friendLabel;
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;
-@property (weak, nonatomic) IBOutlet UIButton *inviteFriendB;
+@property (weak, nonatomic) IBOutlet UILabel *usernameContact;
 @property (weak, nonatomic) IBOutlet UIButton *sendRequestB;
 
 @end

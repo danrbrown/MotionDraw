@@ -298,6 +298,7 @@
     // break here
     FriendCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChecklistItem"];
     NSString *text;
+    NSString *contactText;
     
     if (indexPath.section == 0)
     {
@@ -310,8 +311,9 @@
         [self configureCheckmarkForCell:cell withChecklistItem:tmpUserAccepted];
 
         cell.friendLabel.textColor = [UIColor blackColor];
-        [cell.inviteFriendB setHidden:YES];
+        cell.friendLabel.frame = CGRectMake(20, 0, 219, 54);
         [cell.sendRequestB setHidden:YES];
+        [cell.usernameContact setHidden:YES];
         
     }
     else if (indexPath.section == 1)// && parseContacts.count > 0)
@@ -323,7 +325,6 @@
             text = @"No contacts found";
             cell.detailLabel.text = @"";
             cell.friendLabel.textColor = [UIColor lightGrayColor];
-            [cell.inviteFriendB setHidden:YES];
             [cell.sendRequestB setHidden:YES];
             
         }
@@ -334,12 +335,17 @@
             NSInteger emailIndex = [allEmailInfo indexOfObject:tmpEmail];
             NSLog(@"tmpEmail %@ emailIndex %lu",tmpEmail,emailIndex);
             
-// this is the parse username           text = parseContacts[indexPath.row];
+            contactText = parseContacts[indexPath.row];
+            
+            NSLog(@"Contact full name  %@   parse username  %@", allContactInfo[emailIndex],parseContacts[indexPath.row]);
+            
             text = allContactInfo[emailIndex];
             cell.detailLabel.text = @"";
             cell.friendLabel.textColor = [UIColor blackColor];
-            [cell.inviteFriendB setHidden:YES];
+            cell.usernameContact.textColor = [UIColor grayColor];
+            cell.friendLabel.frame = CGRectMake(20, -10, 219, 54);
             [cell.sendRequestB setHidden:NO];
+            [cell.usernameContact setHidden:NO];
             cell.userInteractionEnabled = YES;
             
         }
@@ -347,10 +353,12 @@
     }
     
     cell.friendLabel.text = text;
+    cell.usernameContact.text = contactText;
     UIFont *friendsFont = [UIFont fontWithName:@"ComicRelief" size:21];
     UIFont *detailFont = [UIFont fontWithName:@"ComicRelief" size:15];
     cell.friendLabel.font = friendsFont;
     cell.detailLabel.font = detailFont;
+    cell.usernameContact.font = detailFont;
     
     return cell;
     
