@@ -386,7 +386,7 @@ int screens;
 -(IBAction) done:(id)sender
 {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
     
 }
 

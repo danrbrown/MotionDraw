@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="YPq-FJ-w1u">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="YPq-FJ-w1u">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -742,7 +742,7 @@
                     <connections>
                         <outlet property="endLabel" destination="xxu-lD-qoc" id="6jj-Wf-Zqh"/>
                         <outlet property="settingsTable" destination="w5B-fW-V1p" id="Bk1-uR-sDy"/>
-                        <segue destination="GYI-5t-CG3" kind="modal" identifier="LogOutSuccesful" modalTransitionStyle="flipHorizontal" id="WpX-bP-YOc"/>
+                        <segue destination="GYI-5t-CG3" kind="modal" identifier="LogOutSuccesful" modalTransitionStyle="flipHorizontal" animates="NO" id="WpX-bP-YOc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NaD-dw-RFA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1361,7 +1361,7 @@
                         <barButtonItem key="rightBarButtonItem" image="SettingsIcon.png" id="BsI-yR-Dxg">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <segue destination="O5z-df-If3" kind="modal" id="sfC-DJ-quV"/>
+                                <segue destination="O5z-df-If3" kind="modal" animates="NO" id="sfC-DJ-quV"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
