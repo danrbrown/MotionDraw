@@ -323,6 +323,7 @@
         {
             
             text = @"No contacts found";
+            cell.friendLabel.frame = CGRectMake(20, 0, 219, 54);
             cell.detailLabel.text = @"";
             cell.friendLabel.textColor = [UIColor lightGrayColor];
             [cell.sendRequestB setHidden:YES];
